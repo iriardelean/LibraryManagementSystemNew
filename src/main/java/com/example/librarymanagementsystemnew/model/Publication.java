@@ -1,4 +1,4 @@
-package com.example.librarymanagementsystem.model;
+package com.example.librarymanagementsystemnew.model;
 
 import java.util.ArrayList;
 import java.util.List;
