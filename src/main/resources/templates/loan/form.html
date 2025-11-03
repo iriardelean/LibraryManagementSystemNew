@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Loan</title>
+</head>
+<body>
+<h1>Create New Loan</h1>
+<form th:action="@{/loan}" method="post">
+    <div>
+        <label>Member ID:</label>
+        <input type="text" name="memberId" />
+    </div>
+    <div>
+        <label>Date:</label>
+        <input type="date" name="date" />
+    </div>
+    <div>
+        <label>Item IDs (comma-separated):</label>
+        <input type="text" name="itemIds" />
+    </div>
+    <div>
+        <button type="submit">Create</button>
+    </div>
+</form>
+</body>
+</html>

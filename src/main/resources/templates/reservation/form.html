@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Reservation</title>
+</head>
+<body>
+<h1>Create New Reservation</h1>
+<form th:action="@{/reservation}" method="post">
+    <div>
+        <label>Member ID:</label>
+        <input type="text" name="memberId" />
+    </div>
+    <div>
+        <label>Readable Item ID:</label>
+        <input type="text" name="readableItemId" />
+    </div>
+    <div>
+        <label>Date:</label>
+        <input type="date" name="date" />
+    </div>
+    <div>
+        <button type="submit">Create</button>
+    </div>
+</form>
+</body>
+</html>
