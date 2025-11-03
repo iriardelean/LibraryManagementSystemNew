@@ -1,6 +1,6 @@
 package com.example.librarymanagementsystemnew.service;
 
-import com.example.librarymanagementsystemnnew.model.Publication;
+import com.example.librarymanagementsystemnew.model.Publication;
 import com.example.librarymanagementsystemnew.repository.PublicationRepository;
 import org.springframework.stereotype.Service;
 
