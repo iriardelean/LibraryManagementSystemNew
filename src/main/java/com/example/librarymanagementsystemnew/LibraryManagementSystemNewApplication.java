@@ -14,12 +14,12 @@ public class LibraryManagementSystemNewApplication {
     }
 
     // Demo: call the controller directly on startup and print its response
-    @Bean
-    public CommandLineRunner demo(BookDetailsController bookDetailsController) {
-        return args -> {
-            String result = bookDetailsController.sayBookDetails();
-            System.out.println("[Startup demo] BookDetailsController response: " + result);
-        };
-    }
+//    @Bean
+//    public CommandLineRunner demo(BookDetailsController bookDetailsController) {
+//        return args -> {
+//            String result = bookDetailsController.sayBookDetails();
+//            System.out.println("[Startup demo] BookDetailsController response: " + result);
+//        };
+//    }
 
 }
