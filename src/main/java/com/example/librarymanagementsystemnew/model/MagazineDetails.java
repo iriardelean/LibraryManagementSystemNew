@@ -8,6 +8,10 @@ public class MagazineDetails extends Publication {
         this.Publisher = Publisher;
     }
 
+    public MagazineDetails() {
+        super(null, null);
+    }
+
     public String getPublisher() {
         return Publisher;
     }
