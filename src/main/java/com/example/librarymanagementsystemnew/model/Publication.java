@@ -8,7 +8,7 @@ public abstract class Publication {
     private String Title;
     private List<ReadableItem> copies;
 
-    public Publication(String Title, String Id) {
+    public Publication(String Id, String Title) {
         this.Title = Title;
         this.copies = new ArrayList<>();
         this.Id = Id;

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Magazine</title>
+</head>
+<body>
+<h1>Create New Magazine</h1>
+<!--
+  This form posts to /magazinedetails
+  It's bound to the 'magazineDetails' object from the model
+-->
+<form action="#" th:action="@{/magazinedetails}" th:object="${magazineDetails}" method="post">
+    <div>
+        <!-- Binds to the 'Title' property -->
+        <label>Title:</label>
+        <input type="text" th:field="*{Title}" />
+    </div>
+    <div>
+        <!-- Binds to the 'Publisher' property -->
+        <label>Publisher:</label>
+        <input type="text" th:field="*{Publisher}" />
+    </div>
+    <div>
+        <button type="submit">Create</button>
+    </div>
+</form>
+</body>
+</html>
+

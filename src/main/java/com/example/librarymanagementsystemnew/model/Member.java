@@ -1,18 +1,24 @@
 package com.example.librarymanagementsystemnew.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Member {
     private String Id;
     private String Name;
     private String LibraryId;
-    private List<Reservation> reservetions;
+    private List<Reservation> reservations;
     private List<Loan> loans;
 
     // new properties
     private String email;
     private LocalDate membershipDate;
+
+    public Member() {
+        this.reservations = new ArrayList<>();
+        this.loans = new ArrayList<>();
+    }
 
     public String getId() {
         return Id;
@@ -39,11 +45,11 @@ public class Member {
     }
 
     public List<Reservation> getReservetions() {
-        return reservetions;
+        return reservations;
     }
 
     public void setReservetions(List<Reservation> reservetions) {
-        this.reservetions = reservetions;
+        this.reservations = reservetions;
     }
 
     public List<Loan> getLoans() {
@@ -58,7 +64,7 @@ public class Member {
         Id = id;
         Name = name;
         LibraryId = libraryId;
-        this.reservetions = reservetions;
+        this.reservations = reservetions;
         this.loans = loans;
     }
 
@@ -66,7 +72,7 @@ public class Member {
         Id = id;
         Name = name;
         LibraryId = libraryId;
-        this.reservetions = reservetions;
+        this.reservations = reservetions;
         this.loans = loans;
         this.email = email;
         this.membershipDate = membershipDate;
