@@ -25,6 +25,10 @@ public class Author {
         this.birthYear = birthYear;
     }
 
+    public Author() {
+        this.books = new java.util.ArrayList<>();
+    }
+
     public String getId() {
         return Id;
     }
