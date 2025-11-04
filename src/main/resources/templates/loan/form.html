@@ -2,25 +2,47 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Create Loan</title>
+    <style>
+        body { font-family: Arial, Helvetica, sans-serif; margin:20px; color:#333 }
+        .container { max-width:700px; margin:0 auto }
+        header { display:flex; justify-content:space-between; align-items:center }
+        h1 { margin:0 }
+        form { margin-top:12px; background:#fafafa; padding:16px; border:1px solid #eee; border-radius:6px }
+        .form-row { margin-bottom:10px }
+        label { display:block; font-weight:600; margin-bottom:4px }
+        input[type="text"], input[type="date"] { width:100%; padding:8px; border:1px solid #ccc; border-radius:4px }
+        .actions { margin-top:12px }
+        button.primary { background:#1976d2; color:#fff; border:none; padding:8px 12px; border-radius:4px; cursor:pointer }
+        a.back { margin-left:8px; color:#1976d2; text-decoration:none }
+    </style>
 </head>
 <body>
-<h1>Create New Loan</h1>
-<form th:action="@{/loan}" method="post">
-    <div>
-        <label>Member ID:</label>
-        <input type="text" name="memberId" />
-    </div>
-    <div>
-        <label>Date:</label>
-        <input type="date" name="date" />
-    </div>
-    <div>
-        <label>Item IDs (comma-separated):</label>
-        <input type="text" name="itemIds" />
-    </div>
-    <div>
-        <button type="submit">Create</button>
-    </div>
-</form>
+<div class="container">
+    <header>
+        <h1>Create New Loan</h1>
+        <nav>
+            <a class="back" href="/loan">Back to Loans</a>
+        </nav>
+    </header>
+
+    <form th:action="@{/loan}" method="post">
+        <div class="form-row">
+            <label for="memberId">Member ID:</label>
+            <input id="memberId" type="text" name="memberId" />
+        </div>
+        <div class="form-row">
+            <label for="date">Date:</label>
+            <input id="date" type="date" name="date" />
+        </div>
+        <div class="form-row">
+            <label for="itemIds">Item IDs (comma-separated):</label>
+            <input id="itemIds" type="text" name="itemIds" />
+        </div>
+        <div class="actions">
+            <button type="submit" class="primary">Create</button>
+            <a class="back" href="/loan">Cancel</a>
+        </div>
+    </form>
+</div>
 </body>
 </html>
