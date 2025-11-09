@@ -22,9 +22,10 @@
         <td th:text="${reservation.Id}">1</td>
         <td th:text="${reservation.memberId}">member1</td>
         <td th:text="${reservation.ReadableitemId}">item1</td>
-        <td th:text="${#dates.format(reservation.date,'yyyy-MM-dd')}">2025-01-01</td>
+        <td th:text="${reservation.date}">2025-01-01</td>
         <td th:text="${reservation.status}">ACTIVE</td>
         <td>
+            <a th:href="@{/reservation/{id}/edit(id=${reservation.Id})}">Edit</a>
             <form th:action="@{/reservation/{id}/delete(id=${reservation.Id})}" method="post">
                 <button type="submit">Delete</button>
             </form>

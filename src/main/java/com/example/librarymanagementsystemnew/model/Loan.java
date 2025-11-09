@@ -1,16 +1,16 @@
 package com.example.librarymanagementsystemnew.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public class Loan {
     private String Id;
     private String memberId;
-    private Date date;
+    private LocalDate date;
     private List<Reservation> reservations;
     private List<ReadableItem> items;
 
-    public Loan(String id, String memberId, Date date, List<Reservation> reservations, List<ReadableItem> items) {
+    public Loan(String id, String memberId, LocalDate date, List<Reservation> reservations, List<ReadableItem> items) {
         Id = id;
         this.memberId = memberId;
         this.date = date;
@@ -34,11 +34,11 @@ public class Loan {
         this.memberId = memberId;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

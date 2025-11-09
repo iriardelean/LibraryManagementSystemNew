@@ -6,8 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.UUID;
-import java.util.Date;
 
 @Controller
 @RequestMapping("/reservation")
@@ -27,24 +28,38 @@ public class ReservationController {
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
-        model.addAttribute("reservation", new Reservation(null, null, null, new Date()));
+        model.addAttribute("reservation", new Reservation(null, null, null, LocalDate.now()));
         return "reservation/form";
     }
 
-    @PostMapping
-    public String createReservation(@RequestParam String memberId,
-                                    @RequestParam String readableItemId,
-                                    @RequestParam(required = false) String date) {
-        Date parsedDate = null;
-        if (date != null && !date.isEmpty()) {
-            try {
-                parsedDate = new java.text.SimpleDateFormat("yyyy-MM-dd").parse(date);
-            } catch (Exception ignored) {
-            }
-        }
+    @GetMapping("/{id}/edit")
+    public String showEditForm(@PathVariable String id, Model model) {
+        Reservation reservation = reservationService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid reservation Id:" + id));
+        model.addAttribute("reservation", reservation);
+        model.addAttribute("pageTitle", "Edit Reservation");
+        return "reservation/form";
+    }
 
-        Reservation reservation = new Reservation(UUID.randomUUID().toString(), memberId, readableItemId, parsedDate);
-        reservationService.create(reservation);
+    @PostMapping("/save")
+    public String saveReservation(@ModelAttribute Reservation reservation,
+                                  @RequestParam(value = "dateString", required = false) String dateString) { // Nimmt Datum als String
+
+        if (dateString != null && !dateString.isEmpty())
+            try {
+                reservation.setDate(LocalDate.parse(dateString));
+            } catch (DateTimeParseException e) {
+                System.err.println("Ungültiges Datumsformat: " + dateString);
+                reservation.setDate(LocalDate.now());
+            }
+        else
+            reservation.setDate(LocalDate.now());
+
+
+        if (reservation.getId() == null || reservation.getId().isEmpty())
+            reservationService.create(reservation);
+        else
+            reservationService.update(reservation);
         return "redirect:/reservation";
     }
 
