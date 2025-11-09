@@ -3,6 +3,7 @@ import com.example.librarymanagementsystemnew.model.Reservation;
 import com.example.librarymanagementsystemnew.model.ReservationStatus;
 
 import java.util.*;
+import java.time.LocalDate;
 
 public class ReservationRepository extends InMemoryRepository<Reservation, String> {
 
@@ -19,21 +20,21 @@ public class ReservationRepository extends InMemoryRepository<Reservation, Strin
                 UUID.randomUUID().toString(),
                 member1Id,
                 item1Id,
-                new Date()
+                new LocalDate()
         );
 
         Reservation res2 = new Reservation(
                 UUID.randomUUID().toString(),
                 member2Id,
                 item2Id,
-                new Date()
+                new LocalDate()
         );
 
         Reservation res3 = new Reservation(
                 UUID.randomUUID().toString(),
                 member1Id,
                 item3Id,
-                new Date()
+                new LocalDate()
         );
         res3.setStatus(ReservationStatus.COMPLETED);
 
@@ -41,7 +42,7 @@ public class ReservationRepository extends InMemoryRepository<Reservation, Strin
                 UUID.randomUUID().toString(),
                 member2Id,
                 item1Id,
-                new Date()
+                new LocalDate()
         );
         res4.setStatus(ReservationStatus.CANCELLED);
 

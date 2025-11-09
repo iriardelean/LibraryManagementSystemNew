@@ -1,45 +1,66 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Create Reservation</title>
+    <title th:text="${pageTitle}">Create/Edit Reservation</title>
     <style>
         body { font-family: Arial, Helvetica, sans-serif; margin:20px; color:#333 }
         .container { max-width:700px; margin:0 auto }
-        header { display:flex; justify-content:space-between; align-items:center }
+        header { display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px; }
         h1 { margin:0 }
-        form { margin-top:12px; background:#fafafa; padding:16px; border:1px solid #eee; border-radius:6px }
-        .form-row { margin-bottom:10px }
-        label { display:block; font-weight:600; margin-bottom:4px }
-        input[type="text"], input[type="date"] { width:100%; padding:8px; border:1px solid #ccc; border-radius:4px }
-        .actions { margin-top:12px }
-        button.primary { background:#1976d2; color:#fff; border:none; padding:8px 12px; border-radius:4px; cursor:pointer }
-        a.back { margin-left:8px; color:#1976d2; text-decoration:none }
+        form { margin-top:12px; background:#fafafa; padding:20px; border:1px solid #eee; border-radius:8px }
+        .form-row { margin-bottom:15px }
+        label { display:block; font-weight:600; margin-bottom:5px }
+        input[type="text"], input[type="date"], select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .actions { margin-top:20px }
+        button.primary { background:#1976d2; color:#fff; border:none; padding:10px 15px; border-radius:4px; cursor:pointer; font-size: 16px; }
+        a.back { margin-left:8px; color:#1976d2; text-decoration:none; vertical-align: middle; }
     </style>
 </head>
 <body>
 <div class="container">
     <header>
-        <h1>Create New Reservation</h1>
+        <h1 th:text="${pageTitle}">Create/Edit Reservation</h1>
         <nav>
             <a class="back" href="/reservation">Back to Reservations</a>
         </nav>
     </header>
 
-    <form th:action="@{/reservation}" method="post">
+    <form th:action="@{/reservation/save}" th:object="${reservation}" method="post">
+
+        <input type="hidden" th:field="*{Id}" />
+
         <div class="form-row">
             <label for="memberId">Member ID:</label>
-            <input id="memberId" type="text" name="memberId" />
+            <input id="memberId" type="text" th:field="*{memberId}" />
         </div>
         <div class="form-row">
             <label for="readableItemId">Readable Item ID:</label>
-            <input id="readableItemId" type="text" name="readableItemId" />
+            <input id="readableItemId" type="text" th:field="*{ReadableitemId}" />
         </div>
         <div class="form-row">
             <label for="date">Date:</label>
-            <input id="date" type="date" name="date" />
+            <input id="date" type="date" name="dateString" th:value="${reservation.date}" />
         </div>
+
+        <div class="form-row" th:if="${reservation.Id != null}">
+            <label for="status">Status:</label>
+            <select id="status" th:field="*{status}">
+                <option th:each="stat : ${T(com.example.librarymanagementsystemnew.model.ReservationStatus).values()}"
+                        th:value="${stat}"
+                        th:text="${stat}">
+                </option>
+            </select>
+        </div>
+
+
         <div class="actions">
-            <button type="submit" class="primary">Create</button>
+            <button type="submit" class="primary">Save</button>
             <a class="back" href="/reservation">Cancel</a>
         </div>
     </form>

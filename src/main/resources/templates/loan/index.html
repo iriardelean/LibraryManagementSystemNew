@@ -18,42 +18,35 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <header>
-        <h1>Loan List</h1>
-        <nav>
-            <a class="button" href="/loan/new">Add New Loan</a>
-        </nav>
-    </header>
-
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Member ID</th>
-            <th>Date</th>
-            <th>#Reservations</th>
-            <th>#Items</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="loan : ${loans}">
-            <td th:text="${loan.Id}">1</td>
-            <td th:text="${loan.memberId}">member1</td>
-            <td th:text="${#dates.format(loan.date,'yyyy-MM-dd')}">2025-01-01</td>
-            <td th:text="${loan.reservations != null ? loan.reservations.size() : 0}">0</td>
-            <td th:text="${loan.items != null ? loan.items.size() : 0}">0</td>
-            <td>
-                <form th:action="@{/loan/{id}/delete(id=${loan.Id})}" method="post" class="inline">
-                    <button type="submit" class="delete">Delete</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
-    <p class="muted">Tip: Click "Add New Loan" to create a loan. Use the delete button to remove an entry.</p>
-</div>
+<h1>Loan List</h1>
+<a href="/loan/new">Add New Loan</a>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Member ID</th>
+        <th>Date</th>
+        <th>#Reservations</th>
+        <th>#Items</th>
+        <th>Action</th>
+        <th style="width: 150px;">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="loan : ${loans}">
+        <td th:text="${loan.Id}">1</td>
+        <td th:text="${loan.memberId}">member1</td>
+        <td th:text="${loan.date}">2025-01-01</td>
+        <td th:text="${loan.reservations != null ? loan.reservations.size() : 0}">0</td>
+        <td th:text="${loan.items != null ? loan.items.size() : 0}">0</td>
+        <td>
+            <a th:href="@{/loan/{id}/edit(id=${loan.Id})}">Edit</a>
+            <form th:action="@{/loan/{id}/delete(id=${loan.Id})}" method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
