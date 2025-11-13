@@ -1,0 +1,33 @@
+[ {
+  "id" : "memb-1",
+  "name" : "test1",
+  "libraryId" : "lib-1",
+  "reservations" : [ ],
+  "loans" : [ ],
+  "email" : "test1@test.com",
+  "membershipDate" : [ 2025, 11, 28 ]
+}, {
+  "id" : "mem-2",
+  "name" : "Bob Jones",
+  "libraryId" : "lib-1",
+  "reservations" : [ ],
+  "loans" : [ ],
+  "email" : "bob@example.com",
+  "membershipDate" : [ 2024, 6, 1 ]
+}, {
+  "id" : "mem-1",
+  "name" : "Alice Smith",
+  "libraryId" : "lib-1",
+  "reservations" : [ ],
+  "loans" : [ ],
+  "email" : "alice@example.com",
+  "membershipDate" : [ 2023, 1, 15 ]
+}, {
+  "id" : "50ea48e6-caa0-4cfb-a1d1-84b85ff70d92",
+  "name" : "testtest",
+  "libraryId" : "lib-1",
+  "reservations" : [ ],
+  "loans" : [ ],
+  "email" : "test@test.com",
+  "membershipDate" : null
+} ]

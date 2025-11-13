@@ -19,8 +19,17 @@ public class LibraryService {
     public Library create(Library lib) {
         if (lib == null)
             throw new IllegalArgumentException("Library cannot be null");
+
+        if (lib.getId() != null && repository.findById(lib.getId()).isPresent()) {
+            String nextId = SequentialIdGenerator.getNextId(
+                    repository.findAll(),
+                    Library::getId,
+                    "lib-");
+            lib.setId(nextId);
+        }
         return repository.save(lib);
     }
+
 
     public Optional<Library> findById(String id) {
         return repository.findById(id);
@@ -33,6 +42,8 @@ public class LibraryService {
     public Library update(Library lib) {
         if (lib == null || lib.getId() == null)
             throw new IllegalArgumentException("Library and Id cannot be null");
+        repository.findById(lib.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Library with Id " + lib.getId() + " does not exist"));
         return repository.save(lib);
     }
 

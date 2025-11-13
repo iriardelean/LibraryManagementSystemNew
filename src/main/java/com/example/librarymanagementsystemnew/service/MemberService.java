@@ -1,5 +1,6 @@
 package com.example.librarymanagementsystemnew.service;
 
+import com.example.librarymanagementsystemnew.model.Author;
 import com.example.librarymanagementsystemnew.model.Member;
 import com.example.librarymanagementsystemnew.repository.MemberRepository;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,14 @@ public class MemberService {
     public Member create(Member entity) {
         if (entity == null)
             throw new IllegalArgumentException("Member cannot be null");
+
+        if (entity.getId() == null || entity.getId().isEmpty()) {
+            String nextId = SequentialIdGenerator.getNextId(
+                    repository.findAll(),
+                    Member::getId,
+                    "memb-");
+            entity.setId(nextId);
+        }
         return repository.save(entity);
     }
 
@@ -33,6 +42,8 @@ public class MemberService {
     public Member update(Member entity) {
         if (entity == null || entity.getId() == null)
             throw new IllegalArgumentException("Member and Id cannot be null");
+        repository.findById(entity.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Member with Id " + entity.getId() + " does not exist"));
         return repository.save(entity);
     }
 

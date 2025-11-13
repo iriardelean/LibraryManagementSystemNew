@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
 @Controller
 @RequestMapping("/readableitem")
 public class ReadableItemController {
@@ -44,12 +42,10 @@ public class ReadableItemController {
     @PostMapping("/save")
     public String saveReadableItem(@ModelAttribute ReadableItem readableItem,
                                    @RequestParam(value = "status", required = false) String status) {
-        // Ensure status is set (form returns a string)
         if (status != null && !status.isEmpty()) {
             try {
                 readableItem.setStatus(ReadableItemStatus.valueOf(status));
             } catch (IllegalArgumentException e) {
-                // Unknown status string -> fallback
                 readableItem.setStatus(ReadableItemStatus.AVAILABLE);
             }
         } else if (readableItem.getStatus() == null) {
@@ -57,7 +53,6 @@ public class ReadableItemController {
         }
 
         if (readableItem.getId() == null || readableItem.getId().isEmpty()) {
-            readableItem.setId(UUID.randomUUID().toString());
             readableItemService.create(readableItem);
         } else {
             readableItemService.update(readableItem);

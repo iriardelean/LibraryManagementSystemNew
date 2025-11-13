@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
 import java.util.ArrayList;
 
 @Controller
@@ -44,7 +43,6 @@ public class LibraryController {
     @PostMapping
     public String saveLibrary(@ModelAttribute Library library) {
         if (library.getId() == null || library.getId().isEmpty()) {
-            library.setId(UUID.randomUUID().toString());
             libraryService.create(library);
         } else {
             libraryService.update(library);

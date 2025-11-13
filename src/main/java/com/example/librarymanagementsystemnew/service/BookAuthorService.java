@@ -19,6 +19,14 @@ public class BookAuthorService {
     public BookAuthor create(BookAuthor entity) {
         if (entity == null)
             throw new IllegalArgumentException("BookAuthor cannot be null");
+
+        if (entity.getId() == null || entity.getId().isEmpty()) {
+            String nextId = SequentialIdGenerator.getNextId(
+                    repository.findAll(),
+                    BookAuthor::getId,
+                    "b/auth-");
+            entity.setId(nextId);
+        }
         return repository.save(entity);
     }
 
@@ -33,6 +41,8 @@ public class BookAuthorService {
     public BookAuthor update(BookAuthor entity) {
         if (entity == null || entity.getId() == null)
             throw new IllegalArgumentException("BookAuthor and Id cannot be null");
+        repository.findById(entity.getId())
+                .orElseThrow(() -> new IllegalArgumentException("BookAuthor with Id " + entity.getId() + " does not exist"));
         return repository.save(entity);
     }
 

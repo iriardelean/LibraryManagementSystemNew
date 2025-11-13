@@ -19,6 +19,14 @@ public class ReadableItemService {
     public ReadableItem create(ReadableItem entity) {
         if (entity == null)
             throw new IllegalArgumentException("ReadableItem cannot be null");
+
+        if (entity.getId() == null || entity.getId().isEmpty()) {
+            String nextId = SequentialIdGenerator.getNextId(
+                    repository.findAll(),
+                    ReadableItem::getId,
+                    "read/item-");
+            entity.setId(nextId);
+        }
         return repository.save(entity);
     }
 
@@ -33,6 +41,8 @@ public class ReadableItemService {
     public ReadableItem update(ReadableItem entity) {
         if (entity == null || entity.getId() == null)
             throw new IllegalArgumentException("ReadableItem and Id cannot be null");
+        repository.findById(entity.getId())
+                .orElseThrow(() -> new IllegalArgumentException("ReadableItem with Id " + entity.getId() + " does not exist"));
         return repository.save(entity);
     }
 
