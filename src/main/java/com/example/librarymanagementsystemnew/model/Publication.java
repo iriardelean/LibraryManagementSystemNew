@@ -4,22 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Publication {
-    private String Id;
-    private String Title;
+    private String id;
+    private String title;
     private List<ReadableItem> copies;
 
-    public Publication(String Id, String Title) {
-        this.Title = Title;
+    public Publication(String id, String Title) {
+        this.title = Title;
         this.copies = new ArrayList<>();
-        this.Id = Id;
+        this.id = id;
     }
 
     public String getId() {
-        return Id;
+        return this.id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public List<ReadableItem> getCopies() {
@@ -31,11 +31,11 @@ public abstract class Publication {
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String title) {
-        this.Title = title;
+        this.title = title;
     }
 
 }

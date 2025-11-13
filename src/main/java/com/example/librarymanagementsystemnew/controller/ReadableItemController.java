@@ -1,7 +1,7 @@
 package com.example.librarymanagementsystemnew.controller;
 
 import com.example.librarymanagementsystemnew.model.ReadableItem;
-import com.example.librarymanagementsystemnew.model.ReadableItemsStatus;
+import com.example.librarymanagementsystemnew.model.ReadableItemStatus;
 import com.example.librarymanagementsystemnew.service.ReadableItemService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,13 +47,13 @@ public class ReadableItemController {
         // Ensure status is set (form returns a string)
         if (status != null && !status.isEmpty()) {
             try {
-                readableItem.setStatus(ReadableItemsStatus.valueOf(status));
+                readableItem.setStatus(ReadableItemStatus.valueOf(status));
             } catch (IllegalArgumentException e) {
                 // Unknown status string -> fallback
-                readableItem.setStatus(ReadableItemsStatus.AVAILABLE);
+                readableItem.setStatus(ReadableItemStatus.AVAILABLE);
             }
         } else if (readableItem.getStatus() == null) {
-            readableItem.setStatus(ReadableItemsStatus.AVAILABLE);
+            readableItem.setStatus(ReadableItemStatus.AVAILABLE);
         }
 
         if (readableItem.getId() == null || readableItem.getId().isEmpty()) {

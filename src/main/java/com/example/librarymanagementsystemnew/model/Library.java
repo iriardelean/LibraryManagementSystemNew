@@ -3,48 +3,48 @@ package com.example.librarymanagementsystemnew.model;
 import java.util.List;
 
 public class Library {
-    private String Id;
-    private String Name;
-    private List<Member> Members;
-    private List<ReadableItem> ReadableItems;
+    private String id;
+    private String name;
+    private List<Member> members;
+    private List<ReadableItem> readableItems;
 
     public Library(String id, String name, List<Member> members, List<ReadableItem> readableItems) {
-        Id = id;
-        Name = name;
-        Members = members;
-        ReadableItems = readableItems;
+        this.id = id;
+        this.name = name;
+        this.members = members;
+        this.readableItems = readableItems;
     }
 
     public String getId() {
-        return Id;
+        return this.id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return this.name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public List<Member> getMembers() {
-        return Members;
+        return this.members;
     }
 
     public void setMembers(List<Member> members) {
-        Members = members;
+        this.members = members;
     }
 
     public List<ReadableItem> getReadableItems() {
-        return ReadableItems;
+        return readableItems;
     }
 
     public void setReadableItems(List<ReadableItem> readableItems) {
-        ReadableItems = readableItems;
+        this.readableItems = readableItems;
     }
 
 }

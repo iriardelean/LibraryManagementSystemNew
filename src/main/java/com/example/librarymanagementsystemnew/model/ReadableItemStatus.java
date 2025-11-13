@@ -1,6 +1,6 @@
 package com.example.librarymanagementsystemnew.model;
 
-public enum ReadableItemsStatus {
+public enum ReadableItemStatus {
     AVAILABLE,
     BORROWED,
     RESERVED,

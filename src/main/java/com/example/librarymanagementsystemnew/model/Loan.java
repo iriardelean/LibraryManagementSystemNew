@@ -4,14 +4,14 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Loan {
-    private String Id;
+    private String id;
     private String memberId;
     private LocalDate date;
     private List<Reservation> reservations;
     private List<ReadableItem> items;
 
     public Loan(String id, String memberId, LocalDate date, List<Reservation> reservations, List<ReadableItem> items) {
-        Id = id;
+        this.id = id;
         this.memberId = memberId;
         this.date = date;
         this.reservations = reservations;
@@ -19,11 +19,11 @@ public class Loan {
     }
 
     public String getId() {
-        return Id;
+        return this.id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getMemberId() {

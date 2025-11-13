@@ -3,8 +3,8 @@ package com.example.librarymanagementsystemnew.model;
 import java.util.List;
 
 public class Author {
-    private String Id;
-    private String Name;
+    private String id;
+    private String name;
     private List<BookAuthor> books;
 
     // new properties
@@ -12,14 +12,14 @@ public class Author {
     private Integer birthYear;
 
     public Author(String id, String name, List<BookAuthor> books) {
-        Id = id;
-        Name = name;
+        this.id = id;
+        this.name = name;
         this.books = books;
     }
 
     public Author(String id, String name, List<BookAuthor> books, String biography, Integer birthYear) {
-        Id = id;
-        Name = name;
+        this.id = id;
+        this.name = name;
         this.books = books;
         this.biography = biography;
         this.birthYear = birthYear;
@@ -30,19 +30,19 @@ public class Author {
     }
 
     public String getId() {
-        return Id;
+        return this.id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return this.name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public List<BookAuthor> getBooks() {

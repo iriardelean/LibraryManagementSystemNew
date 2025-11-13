@@ -2,22 +2,22 @@ package com.example.librarymanagementsystemnew.model;
 
 
 public class BookAuthor {
-    private String Id;
+    private String id;
     private String bookId;
     private String authorId;
 
     public BookAuthor(String id, String bookId, String authorId) {
-        Id = id;
+        this.id = id;
         this.bookId = bookId;
         this.authorId = authorId;
     }
 
     public String getId() {
-        return Id;
+        return this.id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getBookId() {

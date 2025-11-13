@@ -1,24 +1,24 @@
 package com.example.librarymanagementsystemnew.model;
 
 public class ReadableItem {
-    private String Id;
+    private String id;
     private String publicationId;
     private String barcode;
-    private ReadableItemsStatus readableItemsStatus;
+    private ReadableItemStatus readableItemStatus;
 
     public ReadableItem(String id, String publicationId, String barcode) {
-        Id = id;
+        this.id = id;
         this.publicationId = publicationId;
         this.barcode = barcode;
-        this.readableItemsStatus = ReadableItemsStatus.AVAILABLE;
+        this.readableItemStatus = ReadableItemStatus.AVAILABLE;
     }
 
     public String getId() {
-        return Id;
+        return this.id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getPublicationId() {
@@ -37,12 +37,12 @@ public class ReadableItem {
         this.barcode = barcode;
     }
 
-    public ReadableItemsStatus getStatus() {
-        return readableItemsStatus;
+    public ReadableItemStatus getStatus() {
+        return readableItemStatus;
     }
 
-    public void setStatus(ReadableItemsStatus readableItemsStatus) {
-        this.readableItemsStatus = readableItemsStatus;
+    public void setStatus(ReadableItemStatus readableItemsStatus) {
+        this.readableItemStatus = readableItemsStatus;
     }
 
 

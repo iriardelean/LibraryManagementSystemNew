@@ -3,46 +3,46 @@ package com.example.librarymanagementsystemnew.model;
 import java.time.LocalDate;
 
 public class Reservation {
-    private String Id;
+    private String id;
     private String memberId;
-    private String ReadableItemId;
+    private String readableItemId;
     private LocalDate date;
     private ReservationStatus reservationStatus;
 
     public Reservation(String id, String memberId, String readableItemId, LocalDate date) {
-        Id = id;
+        this.id = id;
         this.memberId = memberId;
-        ReadableItemId = readableItemId;
+        this.readableItemId = readableItemId;
         this.date = date;
         this.reservationStatus = ReservationStatus.ACTIVE;
     }
 
     public String getId() {
-        return Id;
+        return this.id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getMemberId() {
-        return memberId;
+        return this.memberId;
     }
 
     public void setMemberId(String memberId) {
         this.memberId = memberId;
     }
 
-    public String getReadableitemId() {
-        return ReadableItemId;
+    public String getReadableItemId() {
+        return this.readableItemId;
     }
 
-    public void setReadableitemId(String readableitemId) {
-        ReadableItemId = readableitemId;
+    public void setReadableItemId(String readableItemId) {
+        this.readableItemId = readableItemId;
     }
 
     public LocalDate getDate() {
-        return date;
+        return this.date;
     }
 
     public void setDate(LocalDate date) {
@@ -50,7 +50,7 @@ public class Reservation {
     }
 
     public ReservationStatus getStatus() {
-        return reservationStatus;
+        return this.reservationStatus;
     }
 
     public void setStatus(ReservationStatus reservationStatus) {
