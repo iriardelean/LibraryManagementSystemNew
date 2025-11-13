@@ -1,35 +1,54 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Magazine Details</title>
+    <style>
+        body { font-family: Arial, Helvetica, sans-serif; margin: 20px; color:#333 }
+        .container { max-width:1100px; margin:0 auto }
+        header { display:flex; justify-content:space-between; align-items:center }
+        h1 { margin: 0 }
+        table { width:100%; border-collapse:collapse; margin-top:12px }
+        table, th, td { border:1px solid #ddd }
+        th, td { padding:8px; text-align:left }
+        th { background:#f7f7f7 }
+        a.button { background:#1976d2; color:#fff; padding:8px 12px; text-decoration:none; border-radius:4px }
+        form.inline { display:inline }
+        button.delete { background:#d32f2f; color:#fff; border:none; padding:6px 10px; border-radius:4px; cursor:pointer }
+        .muted { color:#666; font-size:0.95em }
+    </style>
 </head>
 <body>
-<h1>Magazine List</h1>
-<a href="/magazinedetails/new">Add New Magazine</a>
-<table border="1">
+<div class="container">
+<header>
+    <h1>Magazine List</h1>
+    <nav>
+        <a class="button" th:href="@{/}">Home</a>
+    </nav>
+</header>
+<a class="button" th:href="@{/magazinedetails/new}">Add New Magazine</a>
+<table>
     <thead>
     <tr>
         <th>ID</th>
         <th>Title</th>
         <th>Publisher</th>
-        <th>Action</th>
+        <th style="width: 150px;">Action</th>
     </tr>
     </thead>
     <tbody>
-    <!-- Loop over each magazine from the 'magazineDetailsList' model attribute -->
     <tr th:each="magazine : ${magazineDetailsList}">
-        <td th:text="${magazine.Id}"></td>
-        <td th:text="${magazine.Title}"></td>
-        <td th:text="${magazine.Publisher}"></td>
+        <td th:text="${magazine.id}"></td>
+        <td th:text="${magazine.title}"></td>
+        <td th:text="${magazine.publisher}"></td>
         <td>
-            <!-- Delete form for each magazine -->
-            <form th:action="@{/magazinedetails/{id}/delete(id=${magazine.Id})}" method="post">
-                <button type="submit">Delete</button>
+            <a th:href="@{/magazinedetails/{id}/edit(id=${magazine.id})}">Edit</a>
+            <form th:action="@{/magazinedetails/{id}/delete(id=${magazine.id})}" method="post" class="inline">
+                <button type="submit" class="delete">Delete</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
+</div>
 </body>
 </html>
-

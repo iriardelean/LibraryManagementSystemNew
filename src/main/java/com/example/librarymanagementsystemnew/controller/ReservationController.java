@@ -56,9 +56,10 @@ public class ReservationController {
             reservation.setDate(LocalDate.now());
 
 
-        if (reservation.getId() == null || reservation.getId().isEmpty())
+        if (reservation.getId() == null || reservation.getId().isEmpty()) {
+            reservation.setId(UUID.randomUUID().toString());
             reservationService.create(reservation);
-        else
+        } else
             reservationService.update(reservation);
         return "redirect:/reservation";
     }

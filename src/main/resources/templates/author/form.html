@@ -1,26 +1,57 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Create Author</title>
+    <title th:text="${pageTitle}">Create/Edit Author</title>
+    <style>
+        body { font-family: Arial, Helvetica, sans-serif; margin:20px; color:#333 }
+        .container { max-width:700px; margin:0 auto }
+        header { display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px; }
+        h1 { margin:0 }
+        form { margin-top:12px; background:#fafafa; padding:20px; border:1px solid #eee; border-radius:8px }
+        .form-row { margin-bottom:15px }
+        label { display:block; font-weight:600; margin-bottom:5px }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .actions { margin-top:20px }
+        button.primary { background:#1976d2; color:#fff; border:none; padding:10px 15px; border-radius:4px; cursor:pointer; font-size: 16px; }
+        a.back { margin-left:8px; color:#1976d2; text-decoration:none; vertical-align: middle; }
+    </style>
 </head>
 <body>
-<h1>Create New Author</h1>
-<form action="#" th:action="@{/author}" th:object="${author}" method="post">
-    <div>
-        <label>Name:</label>
-        <input type="text" th:field="*{Name}" />
-    </div>
-    <div>
-        <label>Biography:</label>
-        <input type="text" th:field="*{biography}" />
-    </div>
-    <div>
-        <label>Birth Year:</label>
-        <input type="number" th:field="*{birthYear}" />
-    </div>
-    <div>
-        <button type="submit">Create</button>
-    </div>
-</form>
+<div class="container">
+    <header>
+        <h1 th:text="${pageTitle}">Create/Edit Author</h1>
+        <nav>
+            <a class="button" th:href="@{/}">Home</a>
+        </nav>
+    </header>
+
+    <form th:action="@{/author}" th:object="${author}" method="post">
+        <input type="hidden" th:field="*{id}" />
+
+        <div class="form-row">
+            <label for="name">Name:</label>
+            <input id="name" type="text" th:field="*{name}" />
+        </div>
+        <div class="form-row">
+            <label for="biography">Biography:</label>
+            <input id="biography" type="text" th:field="*{biography}" />
+        </div>
+        <div class="form-row">
+            <label for="birthYear">Birth Year:</label>
+            <input id="birthYear" type="number" th:field="*{birthYear}" />
+        </div>
+
+        <div class="actions">
+            <button type="submit" class="primary">Save</button>
+            <a class="back" href="/author">Cancel</a>
+        </div>
+    </form>
+</div>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Reservations</title>
     <style>
@@ -18,9 +18,15 @@
     </style>
 </head>
 <body>
-<h1>Reservation List</h1>
-<a href="/reservation/new">Add New Reservation</a>
-<table border="1">
+<div class="container">
+<header>
+    <h1>Reservation List</h1>
+    <nav>
+        <a class="button" th:href="@{/}">Home</a>
+    </nav>
+</header>
+<a class="button" th:href="@{/reservation/new}">Add New Reservation</a>
+<table>
     <thead>
     <tr>
         <th>ID</th>
@@ -33,19 +39,20 @@
     </thead>
     <tbody>
     <tr th:each="reservation : ${reservations}">
-        <td th:text="${reservation.Id}">1</td>
+        <td th:text="${reservation.id}">1</td>
         <td th:text="${reservation.memberId}">member1</td>
-        <td th:text="${reservation.ReadableitemId}">item1</td>
+        <td th:text="${reservation.readableitemId}">item1</td>
         <td th:text="${reservation.date}">2025-01-01</td>
         <td th:text="${reservation.status}">ACTIVE</td>
         <td>
-            <a th:href="@{/reservation/{id}/edit(id=${reservation.Id})}">Edit</a>
-            <form th:action="@{/reservation/{id}/delete(id=${reservation.Id})}" method="post">
-                <button type="submit">Delete</button>
+            <a th:href="@{/reservation/{id}/edit(id=${reservation.id})}">Edit</a>
+            <form th:action="@{/reservation/{id}/delete(id=${reservation.id})}" method="post" class="inline">
+                <button type="submit" class="delete">Delete</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
+</div>
 </body>
 </html>

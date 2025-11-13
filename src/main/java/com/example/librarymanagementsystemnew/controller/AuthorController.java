@@ -27,14 +27,27 @@ public class AuthorController {
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("author", new Author());
+        model.addAttribute("pageTitle", "Create New Author");
+        return "author/form";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String showEditForm(@PathVariable String id, Model model) {
+        Author author = authorService.getAuthorById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid author Id:" + id));
+        model.addAttribute("author", author);
+        model.addAttribute("pageTitle", "Edit Author");
         return "author/form";
     }
 
     @PostMapping
-    public String createAuthor(@ModelAttribute Author author) {
-        author.setId(UUID.randomUUID().toString());
-
-        authorService.createAuthor(author);
+    public String saveAuthor(@ModelAttribute Author author) {
+        if (author.getId() == null || author.getId().isEmpty()) {
+            author.setId(UUID.randomUUID().toString());
+            authorService.createAuthor(author);
+        } else {
+            authorService.updateAuthor(author);
+        }
         return "redirect:/author";
     }
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="${pageTitle}">Create/Edit Loan</title>
     <style>
@@ -20,6 +20,7 @@
         .actions { margin-top:20px }
         button.primary { background:#1976d2; color:#fff; border:none; padding:10px 15px; border-radius:4px; cursor:pointer; font-size: 16px; }
         a.back { margin-left:8px; color:#1976d2; text-decoration:none; vertical-align: middle; }
+        a.home { margin-right:8px; color:#1976d2; text-decoration:none; vertical-align: middle; }
     </style>
 </head>
 <body>
@@ -27,12 +28,13 @@
     <header>
         <h1 th:text="${pageTitle}">Create/Edit Loan</h1>
         <nav>
+            <a class="home" th:href="@{/}">Home</a>
             <a class="back" href="/loan">Back to Loans</a>
         </nav>
     </header>
 
     <form th:action="@{/loan/save}" th:object="${loan}" method="post">
-        <input type="hidden" th:field="*{Id}" />
+        <input type="hidden" th:field="*{id}" />
 
         <div class="form-row">
             <label for="memberId">Member ID:</label>
@@ -44,8 +46,7 @@
         </div>
         <div class="form-row">
             <label for="itemIds">Item IDs (comma-separated):</label>
-            <input id="itemIds" type="text" name="itemIds"
-                   th:value="${loan.items != null ? #strings.listJoin(loan.items.![id], ', ') : ''}" />
+            <input id="itemIds" type="text" name="itemIds" />
         </div>
 
         <div class="actions">

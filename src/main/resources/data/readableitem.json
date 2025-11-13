@@ -1,0 +1,6 @@
+[
+  { "Id": "ri-1", "publicationId": "book-1", "barcode": "BC1001", "readableItemsStatus": "AVAILABLE" },
+  { "Id": "ri-2", "publicationId": "book-2", "barcode": "BC1002", "readableItemsStatus": "AVAILABLE" },
+  { "Id": "ri-3", "publicationId": "mag-1", "barcode": "BC2001", "readableItemsStatus": "AVAILABLE" }
+]
+
