@@ -16,10 +16,6 @@ public class LibraryService {
         this.repository = repository;
     }
 
-    public LibraryService() {
-        this(new LibraryRepository());
-    }
-
     public Library create(Library lib) {
         if (lib == null)
             throw new IllegalArgumentException("Library cannot be null");

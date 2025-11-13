@@ -16,10 +16,6 @@ public class MagazineDetailsService {
         this.repository = repository;
     }
 
-    public MagazineDetailsService() {
-        this(new MagazineDetailsRepository());
-    }
-
     public MagazineDetails create(MagazineDetails entity) {
         if (entity == null)
             throw new IllegalArgumentException("MagazineDetails cannot be null");

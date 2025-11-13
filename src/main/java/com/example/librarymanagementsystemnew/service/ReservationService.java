@@ -16,10 +16,6 @@ public class ReservationService {
         this.repository = repository;
     }
 
-    public ReservationService() {
-        this(new ReservationRepository());
-    }
-
     public Reservation create(Reservation entity) {
         if (entity == null)
             throw new IllegalArgumentException("Reservation cannot be null");

@@ -9,7 +9,7 @@ public class MagazineDetails extends Publication {
     }
 
     public MagazineDetails() {
-        super(null, null);
+        super();
     }
 
     public String getPublisher() {

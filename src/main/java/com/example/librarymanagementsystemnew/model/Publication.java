@@ -14,6 +14,10 @@ public abstract class Publication {
         this.id = id;
     }
 
+    public Publication() {
+        this.copies = new ArrayList<>();
+    }
+
     public String getId() {
         return this.id;
     }
