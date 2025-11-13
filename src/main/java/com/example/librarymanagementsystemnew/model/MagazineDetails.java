@@ -1,11 +1,11 @@
 package com.example.librarymanagementsystemnew.model;
 
 public class MagazineDetails extends Publication {
-    private String Publisher;
+    private String publisher;
 
-    public MagazineDetails(String id, String title, String Publisher) {
+    public MagazineDetails(String id, String title, String publisher) {
         super(id, title);
-        this.Publisher = Publisher;
+        this.publisher = publisher;
     }
 
     public MagazineDetails() {
@@ -13,10 +13,10 @@ public class MagazineDetails extends Publication {
     }
 
     public String getPublisher() {
-        return Publisher;
+        return this.publisher;
     }
 
     public void setPublisher(String publisher) {
-        Publisher = publisher;
+        this.publisher = publisher;
     }
 }

@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Member {
-    private String Id;
-    private String Name;
-    private String LibraryId;
+    private String id;
+    private String name;
+    private String libraryId;
     private List<Reservation> reservations;
     private List<Loan> loans;
 
@@ -21,35 +21,35 @@ public class Member {
     }
 
     public String getId() {
-        return Id;
+        return this.id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return this.name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getLibraryId() {
-        return LibraryId;
+        return this.libraryId;
     }
 
     public void setLibraryId(String libraryId) {
-        LibraryId = libraryId;
+        this.libraryId = libraryId;
     }
 
-    public List<Reservation> getReservetions() {
+    public List<Reservation> getReservations() {
         return reservations;
     }
 
-    public void setReservetions(List<Reservation> reservetions) {
-        this.reservations = reservetions;
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 
     public List<Loan> getLoans() {
@@ -60,25 +60,25 @@ public class Member {
         this.loans = loans;
     }
 
-    public Member(String id, String name, String libraryId, List<Reservation> reservetions, List<Loan> loans) {
-        Id = id;
-        Name = name;
-        LibraryId = libraryId;
-        this.reservations = reservetions;
+    public Member(String id, String name, String libraryId, List<Reservation> reservations, List<Loan> loans) {
+        this.id = id;
+        this.name = name;
+        this.libraryId = libraryId;
+        this.reservations = reservations;
         this.loans = loans;
     }
 
-    public Member(String id, String name, String libraryId, List<Reservation> reservetions, List<Loan> loans, String email, LocalDate membershipDate) {
-        Id = id;
-        Name = name;
-        LibraryId = libraryId;
-        this.reservations = reservetions;
+    public Member(String id, String name, String libraryId, List<Reservation> reservations, List<Loan> loans, String email, LocalDate membershipDate) {
+        this.id = id;
+        this.name = name;
+        this.libraryId = libraryId;
+        this.reservations = reservations;
         this.loans = loans;
         this.email = email;
         this.membershipDate = membershipDate;
     }
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public void setEmail(String email) {
@@ -86,7 +86,7 @@ public class Member {
     }
 
     public LocalDate getMembershipDate() {
-        return membershipDate;
+        return this.membershipDate;
     }
 
     public void setMembershipDate(LocalDate membershipDate) {
