@@ -27,13 +27,27 @@ public class MagazineDetailsController {
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("magazineDetails", new MagazineDetails());
+        model.addAttribute("pageTitle", "Create New Magazine");
+        return "magazinedetails/form";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String showEditForm(@PathVariable String id, Model model) {
+        MagazineDetails md = magazineDetailsService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid magazine Id:" + id));
+        model.addAttribute("magazineDetails", md);
+        model.addAttribute("pageTitle", "Edit Magazine");
         return "magazinedetails/form";
     }
 
     @PostMapping
-    public String createMagazineDetails(@ModelAttribute MagazineDetails magazineDetails) {
-        magazineDetails.setId(UUID.randomUUID().toString());
-        magazineDetailsService.create(magazineDetails);
+    public String saveMagazineDetails(@ModelAttribute MagazineDetails magazineDetails) {
+        if (magazineDetails.getId() == null || magazineDetails.getId().isEmpty()) {
+            magazineDetails.setId(UUID.randomUUID().toString());
+            magazineDetailsService.create(magazineDetails);
+        } else {
+            magazineDetailsService.update(magazineDetails);
+        }
         return "redirect:/magazinedetails";
     }
 
@@ -43,4 +57,3 @@ public class MagazineDetailsController {
         return "redirect:/magazinedetails";
     }
 }
-

@@ -8,7 +8,6 @@ public class AuthorRepository extends InMemoryRepository<Author, String> {
 
     public AuthorRepository() {
         super(Author::getId);
-
         String author1Id = UUID.randomUUID().toString();
         String book1Id = UUID.randomUUID().toString();
         String book2Id = UUID.randomUUID().toString();
@@ -42,4 +41,3 @@ public class AuthorRepository extends InMemoryRepository<Author, String> {
         save(author3);
     }
 }
-

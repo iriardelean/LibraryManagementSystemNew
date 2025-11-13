@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Readable Items</title>
+    <style>
+        body { font-family: Arial, Helvetica, sans-serif; margin: 20px; color:#333 }
+        .container { max-width:1100px; margin:0 auto }
+        header { display:flex; justify-content:space-between; align-items:center }
+        h1 { margin: 0 }
+        table { width:100%; border-collapse:collapse; margin-top:12px }
+        table, th, td { border:1px solid #ddd }
+        th, td { padding:8px; text-align:left }
+        th { background:#f7f7f7 }
+        a.button { background:#1976d2; color:#fff; padding:8px 12px; text-decoration:none; border-radius:4px }
+        form.inline { display:inline }
+        button.delete { background:#d32f2f; color:#fff; border:none; padding:6px 10px; border-radius:4px; cursor:pointer }
+        .muted { color:#666; font-size:0.95em }
+    </style>
+</head>
+<body>
+<div class="container">
+<header>
+    <h1>Readable Item List</h1>
+    <nav>
+        <a class="button" th:href="@{/}">Home</a>
+    </nav>
+</header>
+<a class="button" th:href="@{/readableitem/new}">Add New Readable Item</a>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Publication ID</th>
+        <th>Barcode</th>
+        <th>Status</th>
+        <th style="width: 150px;">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${readableItems}">
+        <td th:text="${item.id}">1</td>
+        <td th:text="${item.publicationId}">pub1</td>
+        <td th:text="${item.barcode}">123456</td>
+        <td th:text="${item.status}">AVAILABLE</td>
+        <td>
+            <a th:href="@{/readableitem/{id}/edit(id=${item.id})}">Edit</a>
+            <form th:action="@{/readableitem/{id}/delete(id=${item.id})}" method="post" class="inline">
+                <button type="submit" class="delete">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+[
+  {
+    "Id": "loan-1",
+    "memberId": "mem-2",
+    "date": "2025-09-15",
+    "reservations": [],
+    "items": [ { "Id": "ri-1", "publicationId": "book-1", "barcode": "BC1001" } ]
+  }
+]
+

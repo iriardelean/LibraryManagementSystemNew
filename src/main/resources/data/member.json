@@ -1,0 +1,17 @@
+[
+  {
+    "Id": "mem-1",
+    "Name": "Alice Smith",
+    "LibraryId": "lib-1",
+    "email": "alice@example.com",
+    "membershipDate": "2023-01-15"
+  },
+  {
+    "Id": "mem-2",
+    "Name": "Bob Jones",
+    "LibraryId": "lib-1",
+    "email": "bob@example.com",
+    "membershipDate": "2024-06-01"
+  }
+]
+

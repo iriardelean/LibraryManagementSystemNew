@@ -1,0 +1,10 @@
+[
+  {
+    "Id": "res-1",
+    "memberId": "mem-1",
+    "ReadableItemId": "ri-2",
+    "date": "2025-10-01",
+    "reservationStatus": "ACTIVE"
+  }
+]
+

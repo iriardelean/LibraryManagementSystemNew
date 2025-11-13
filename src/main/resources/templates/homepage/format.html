@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Library Management - Formatted Home</title>
+    <style>
+        body { font-family: Georgia, 'Times New Roman', Times, serif; margin: 30px; color:#222; background:#f8f9fb }
+        .container { max-width:900px; margin:0 auto; background:#fff; padding:24px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.06) }
+        header { text-align:center }
+        h1 { margin:0; font-size:28px }
+        .sections { display:flex; flex-wrap:wrap; gap:12px; margin-top:20px }
+        .section { flex:1 1 45%; background:#fbfbff; padding:12px; border-radius:6px; border:1px solid #eef }
+        .section h3 { margin:0 0 8px 0 }
+        .section a { color:#0b63c5; text-decoration:none; font-weight:600 }
+        footer { margin-top:20px; text-align:center; color:#777 }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Library Management - Overview</h1>
+        <p class="muted">A formatted collection of links to the admin sections</p>
+    </header>
+
+    <div class="sections">
+        <div class="section"><h3>Authors</h3><a href="/author">Manage authors</a></div>
+        <div class="section"><h3>Book Details</h3><a href="/bookdetails">Manage book details</a></div>
+        <div class="section"><h3>Libraries</h3><a href="/library">Manage libraries</a></div>
+        <div class="section"><h3>Loans</h3><a href="/loan">Manage loans</a></div>
+        <div class="section"><h3>Magazine Details</h3><a href="/magazinedetails">Manage magazine details</a></div>
+        <div class="section"><h3>Members</h3><a href="/member">Manage members</a></div>
+        <div class="section"><h3>Readable Items</h3><a href="/readableitem">Manage readable items</a></div>
+        <div class="section"><h3>Reservations</h3><a href="/reservation">Manage reservations</a></div>
+    </div>
+
+</div>
+</body>
+</html>

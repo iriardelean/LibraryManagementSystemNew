@@ -27,13 +27,27 @@ public class BookDetailsController {
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("bookDetails", new BookDetails());
+        model.addAttribute("pageTitle", "Create New Book");
+        return "bookdetails/form";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String showEditForm(@PathVariable String id, Model model) {
+        BookDetails bd = bookDetailsService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + id));
+        model.addAttribute("bookDetails", bd);
+        model.addAttribute("pageTitle", "Edit Book");
         return "bookdetails/form";
     }
 
     @PostMapping
-    public String createBookDetails(@ModelAttribute BookDetails bookDetails) {
-        bookDetails.setId(UUID.randomUUID().toString());
-        bookDetailsService.create(bookDetails);
+    public String saveBookDetails(@ModelAttribute BookDetails bookDetails) {
+        if (bookDetails.getId() == null || bookDetails.getId().isEmpty()) {
+            bookDetails.setId(UUID.randomUUID().toString());
+            bookDetailsService.create(bookDetails);
+        } else {
+            bookDetailsService.update(bookDetails);
+        }
         return "redirect:/bookdetails";
     }
 

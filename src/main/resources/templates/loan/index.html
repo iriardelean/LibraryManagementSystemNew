@@ -18,8 +18,14 @@
     </style>
 </head>
 <body>
-<h1>Loan List</h1>
-<a href="/loan/new">Add New Loan</a>
+<div class="container">
+<header>
+    <h1>Loan List</h1>
+    <nav>
+        <a class="button" th:href="@{/}">Home</a>
+    </nav>
+</header>
+<a class="button" th:href="@{/loan/new}">Add New Loan</a>
 <table border="1">
     <thead>
     <tr>
@@ -34,19 +40,20 @@
     </thead>
     <tbody>
     <tr th:each="loan : ${loans}">
-        <td th:text="${loan.Id}">1</td>
+        <td th:text="${loan.id}">1</td>
         <td th:text="${loan.memberId}">member1</td>
         <td th:text="${loan.date}">2025-01-01</td>
         <td th:text="${loan.reservations != null ? loan.reservations.size() : 0}">0</td>
         <td th:text="${loan.items != null ? loan.items.size() : 0}">0</td>
         <td>
-            <a th:href="@{/loan/{id}/edit(id=${loan.Id})}">Edit</a>
-            <form th:action="@{/loan/{id}/delete(id=${loan.Id})}" method="post">
+            <a th:href="@{/loan/{id}/edit(id=${loan.id})}">Edit</a>
+            <form th:action="@{/loan/{id}/delete(id=${loan.id})}" method="post">
                 <button type="submit">Delete</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
+</div>
 </body>
 </html>

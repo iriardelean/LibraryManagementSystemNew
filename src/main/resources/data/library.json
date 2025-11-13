@@ -1,0 +1,13 @@
+[
+  {
+    "Id": "lib-1",
+    "Name": "Central Library",
+    "Members": [
+      { "Id": "mem-1", "Name": "Alice Smith", "LibraryId": "lib-1" }
+    ],
+    "ReadableItems": [
+      { "Id": "ri-1", "publicationId": "book-1", "barcode": "BC1001" }
+    ]
+  }
+]
+

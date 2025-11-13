@@ -28,13 +28,27 @@ public class LibraryController {
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("library", new Library(null, null, new ArrayList<>(), new ArrayList<>()));
+        model.addAttribute("pageTitle", "Create New Library");
+        return "library/form";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String showEditForm(@PathVariable String id, Model model) {
+        Library lib = libraryService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid library Id:" + id));
+        model.addAttribute("library", lib);
+        model.addAttribute("pageTitle", "Edit Library");
         return "library/form";
     }
 
     @PostMapping
-    public String createLibrary(@RequestParam String name) {
-        Library lib = new Library(UUID.randomUUID().toString(), name, new ArrayList<>(), new ArrayList<>());
-        libraryService.create(lib);
+    public String saveLibrary(@ModelAttribute Library library) {
+        if (library.getId() == null || library.getId().isEmpty()) {
+            library.setId(UUID.randomUUID().toString());
+            libraryService.create(library);
+        } else {
+            libraryService.update(library);
+        }
         return "redirect:/library";
     }
 

@@ -86,9 +86,10 @@ public class LoanController {
             loan.setReservations(new ArrayList<>());
 
 
-        if (loan.getId() == null || loan.getId().isEmpty())
+        if (loan.getId() == null || loan.getId().isEmpty()) {
+            loan.setId(UUID.randomUUID().toString());
             loanService.create(loan);
-        else
+        } else
             loanService.update(loan);
         return "redirect:/loan";
     }

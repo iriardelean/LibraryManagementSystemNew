@@ -27,13 +27,27 @@ public class MemberController {
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("member", new Member());
+        model.addAttribute("pageTitle", "Create New Member");
+        return "member/form";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String showEditForm(@PathVariable String id, Model model) {
+        Member m = memberService.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid member Id:" + id));
+        model.addAttribute("member", m);
+        model.addAttribute("pageTitle", "Edit Member");
         return "member/form";
     }
 
     @PostMapping
-    public String createMember(@ModelAttribute Member member) {
-        member.setId(UUID.randomUUID().toString());
-        memberService.create(member);
+    public String saveMember(@ModelAttribute Member member) {
+        if (member.getId() == null || member.getId().isEmpty()) {
+            member.setId(UUID.randomUUID().toString());
+            memberService.create(member);
+        } else {
+            memberService.update(member);
+        }
         return "redirect:/member";
     }
 
