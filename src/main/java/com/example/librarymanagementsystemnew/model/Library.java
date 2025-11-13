@@ -1,5 +1,6 @@
 package com.example.librarymanagementsystemnew.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Library {
@@ -13,6 +14,11 @@ public class Library {
         this.name = name;
         this.members = members;
         this.readableItems = readableItems;
+    }
+
+    public Library() {
+        this.members = new ArrayList<>();
+        this.readableItems = new ArrayList<>();
     }
 
     public String getId() {

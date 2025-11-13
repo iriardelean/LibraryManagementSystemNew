@@ -1,9 +1,15 @@
 package com.example.librarymanagementsystemnew.repository;
 import com.example.librarymanagementsystemnew.model.ReadableItem;
+import org.springframework.stereotype.Repository;
+import com.fasterxml.jackson.core.type.TypeReference;
 
-public class ReadableItemRepository extends InMemoryRepository<ReadableItem, String> {
+import java.util.List;
+
+@Repository
+public class ReadableItemRepository extends InFileRepository<ReadableItem, String> {
 
     public ReadableItemRepository() {
-        super(ReadableItem::getId);
+        super("readableitem.json", ReadableItem::getId, new TypeReference<List<ReadableItem>>() {
+        });
     }
 }

@@ -18,6 +18,9 @@ public class Loan {
         this.items = items;
     }
 
+    public Loan() {
+    }
+
     public String getId() {
         return this.id;
     }

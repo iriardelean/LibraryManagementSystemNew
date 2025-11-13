@@ -1,10 +1,13 @@
 package com.example.librarymanagementsystemnew.repository;
-
 import com.example.librarymanagementsystemnew.model.Loan;
+import org.springframework.stereotype.Repository;
+import com.fasterxml.jackson.core.type.TypeReference;
 
-public class LoanRepository extends InMemoryRepository<Loan, String> {
+
+@Repository
+public class LoanRepository extends InFileRepository<Loan, String> {
 
     public LoanRepository() {
-        super(Loan::getId);
+        super("loan.json", Loan::getId, new TypeReference<java.util.List<Loan>>() {});
     }
 }

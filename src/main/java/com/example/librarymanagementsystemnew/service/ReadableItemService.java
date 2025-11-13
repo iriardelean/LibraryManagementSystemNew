@@ -16,10 +16,6 @@ public class ReadableItemService {
         this.repository = repository;
     }
 
-    public ReadableItemService() {
-        this(new ReadableItemRepository());
-    }
-
     public ReadableItem create(ReadableItem entity) {
         if (entity == null)
             throw new IllegalArgumentException("ReadableItem cannot be null");

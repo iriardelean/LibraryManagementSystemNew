@@ -16,10 +16,6 @@ public class LoanService {
         this.repository = repository;
     }
 
-    public LoanService() {
-        this(new LoanRepository());
-    }
-
     public Loan create(Loan entity) {
         if (entity == null)
             throw new IllegalArgumentException("Loan cannot be null");

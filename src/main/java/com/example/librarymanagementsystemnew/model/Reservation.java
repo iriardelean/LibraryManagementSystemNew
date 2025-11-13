@@ -7,18 +7,22 @@ public class Reservation {
     private String memberId;
     private String readableItemId;
     private LocalDate date;
-    private ReservationStatus reservationStatus;
+    private ReservationStatus status;
 
     public Reservation(String id, String memberId, String readableItemId, LocalDate date) {
         this.id = id;
         this.memberId = memberId;
         this.readableItemId = readableItemId;
         this.date = date;
-        this.reservationStatus = ReservationStatus.ACTIVE;
+        this.status = ReservationStatus.ACTIVE;
+    }
+
+    public Reservation() {
+        this.status = ReservationStatus.ACTIVE;
     }
 
     public String getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(String id) {
@@ -26,7 +30,7 @@ public class Reservation {
     }
 
     public String getMemberId() {
-        return this.memberId;
+        return memberId;
     }
 
     public void setMemberId(String memberId) {
@@ -34,7 +38,7 @@ public class Reservation {
     }
 
     public String getReadableItemId() {
-        return this.readableItemId;
+        return readableItemId;
     }
 
     public void setReadableItemId(String readableItemId) {
@@ -42,7 +46,7 @@ public class Reservation {
     }
 
     public LocalDate getDate() {
-        return this.date;
+        return date;
     }
 
     public void setDate(LocalDate date) {
@@ -50,11 +54,11 @@ public class Reservation {
     }
 
     public ReservationStatus getStatus() {
-        return this.reservationStatus;
+        return status;
     }
 
     public void setStatus(ReservationStatus reservationStatus) {
-        this.reservationStatus = reservationStatus;
+        this.status = reservationStatus;
     }
 
 }

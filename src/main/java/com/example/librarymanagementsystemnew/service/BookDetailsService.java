@@ -16,10 +16,6 @@ public class BookDetailsService {
         this.repository = repository;
     }
 
-    public BookDetailsService() {
-        this(new BookDetailsRepository());
-    }
-
     public BookDetails create(BookDetails entity) {
         if (entity == null)
             throw new IllegalArgumentException("BookDetails cannot be null");

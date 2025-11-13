@@ -16,10 +16,6 @@ public class MemberService {
         this.repository = repository;
     }
 
-    public MemberService() {
-        this(new MemberRepository());
-    }
-
     public Member create(Member entity) {
         if (entity == null)
             throw new IllegalArgumentException("Member cannot be null");

@@ -4,17 +4,21 @@ public class ReadableItem {
     private String id;
     private String publicationId;
     private String barcode;
-    private ReadableItemStatus readableItemStatus;
+    private ReadableItemStatus status;
 
     public ReadableItem(String id, String publicationId, String barcode) {
         this.id = id;
         this.publicationId = publicationId;
         this.barcode = barcode;
-        this.readableItemStatus = ReadableItemStatus.AVAILABLE;
+        this.status = ReadableItemStatus.AVAILABLE;
+    }
+
+    public ReadableItem() {
+        this.status = ReadableItemStatus.AVAILABLE;
     }
 
     public String getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(String id) {
@@ -38,11 +42,11 @@ public class ReadableItem {
     }
 
     public ReadableItemStatus getStatus() {
-        return readableItemStatus;
+        return status;
     }
 
     public void setStatus(ReadableItemStatus readableItemsStatus) {
-        this.readableItemStatus = readableItemsStatus;
+        this.status = readableItemsStatus;
     }
 
 

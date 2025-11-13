@@ -1,9 +1,14 @@
 package com.example.librarymanagementsystemnew.repository;
 import com.example.librarymanagementsystemnew.model.BookAuthor;
+import com.fasterxml.jackson.core.type.TypeReference;
+import org.springframework.stereotype.Repository;
 
-public class BookAuthorRepository extends InMemoryRepository<BookAuthor, String> {
+import java.util.List;
+
+@Repository
+public class BookAuthorRepository extends InFileRepository<BookAuthor, String> {
 
     public BookAuthorRepository() {
-        super(BookAuthor::getId);
+        super("bookauthor.json", BookAuthor::getId, new TypeReference<List<BookAuthor>>() {});
     }
 }

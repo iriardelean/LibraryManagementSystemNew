@@ -1,10 +1,15 @@
 package com.example.librarymanagementsystemnew.repository;
-
 import com.example.librarymanagementsystemnew.model.MagazineDetails;
+import org.springframework.stereotype.Repository;
+import com.fasterxml.jackson.core.type.TypeReference;
 
-public class MagazineDetailsRepository extends InMemoryRepository<MagazineDetails, String>{
+import java.util.List;
+
+@Repository
+public class MagazineDetailsRepository extends InFileRepository<MagazineDetails, String>{
 
     public MagazineDetailsRepository() {
-        super(MagazineDetails::getId);
+        super("magazinedetails.json", MagazineDetails::getId, new TypeReference<List<MagazineDetails>>() {
+        });
     }
 }

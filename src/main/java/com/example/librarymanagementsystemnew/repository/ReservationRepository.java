@@ -1,10 +1,14 @@
 package com.example.librarymanagementsystemnew.repository;
 import com.example.librarymanagementsystemnew.model.Reservation;
+import org.springframework.stereotype.Repository;
+import com.fasterxml.jackson.core.type.TypeReference;
 
+import java.util.List;
 
-public class ReservationRepository extends InMemoryRepository<Reservation, String> {
+@Repository
+public class ReservationRepository extends InFileRepository<Reservation, String> {
 
     public ReservationRepository() {
-        super(Reservation::getId);
+        super("reservation.json", Reservation::getId, new TypeReference<List<Reservation>>() {});
     }
 }

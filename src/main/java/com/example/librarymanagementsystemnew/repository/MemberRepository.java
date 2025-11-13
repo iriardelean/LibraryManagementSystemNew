@@ -1,10 +1,14 @@
 package com.example.librarymanagementsystemnew.repository;
-
 import com.example.librarymanagementsystemnew.model.Member;
+import org.springframework.stereotype.Repository;
+import com.fasterxml.jackson.core.type.TypeReference;
 
-public class MemberRepository extends InMemoryRepository<Member, String> {
+import java.util.List;
+
+@Repository
+public class MemberRepository extends InFileRepository<Member, String> {
 
     public MemberRepository() {
-        super(Member::getId);
+        super("member.json", Member::getId, new TypeReference<List<Member>>() {});
     }
 }
