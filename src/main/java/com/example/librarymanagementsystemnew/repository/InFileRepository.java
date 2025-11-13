@@ -18,13 +18,6 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
-/**
- * Generisches Repository, das Daten in einer JSON-Datei im Verzeichnis 'src/main/resources/data' speichert.
- * Implementiert das CrudRepository-Interface und ersetzt das InMemoryRepository.
- *
- * @param <T>  Der Entitätstyp
- * @param <ID> Der Typ des Primärschlüssels (ID)
- */
 public class InFileRepository<T, ID> implements CrudRepository<T, ID> {
 
     protected final Map<ID, T> store = new ConcurrentHashMap<>();
@@ -38,13 +31,11 @@ public class InFileRepository<T, ID> implements CrudRepository<T, ID> {
         this.idExtractor = idExtractor;
         this.typeReference = typeReference;
 
-        // ObjectMapper für JSON-Verarbeitung konfigurieren
         this.objectMapper = new ObjectMapper();
         this.objectMapper.enable(SerializationFeature.INDENT_OUTPUT); // Schöne JSON-Formatierung
         this.objectMapper.registerModule(new JavaTimeModule()); // Unterstützung für LocalDate etc.
 
         try {
-            // Pfad zur JSON-Datei im 'resources/data'-Ordner
             File dataDir = ResourceUtils.getFile("classpath:data");
             this.filePath = Paths.get(dataDir.getAbsolutePath(), dataFileName);
         } catch (IOException e) {
@@ -55,14 +46,10 @@ public class InFileRepository<T, ID> implements CrudRepository<T, ID> {
         loadData();
     }
 
-    /**
-     * Lädt die Daten aus der JSON-Datei in den In-Memory-Speicher (die 'store'-Map).
-     * Wird beim Start aufgerufen.
-     */
     private synchronized void loadData() {
         if (!Files.exists(filePath)) {
             System.out.println("Datendatei nicht gefunden, wird erstellt: " + filePath);
-            saveData(); // Erstellt eine leere Datei, falls sie nicht existiert
+            saveData();
             return;
         }
 
@@ -86,15 +73,9 @@ public class InFileRepository<T, ID> implements CrudRepository<T, ID> {
         }
     }
 
-    /**
-     * Speichert den aktuellen In-Memory-Speicher ('store') in die JSON-Datei.
-     * Wird nach 'save' und 'delete' aufgerufen.
-     */
     private synchronized void saveData() {
         try {
-            // Sicherstellen, dass das Verzeichnis existiert
             Files.createDirectories(filePath.getParent());
-            // Alle Werte aus der Map in die JSON-Datei schreiben
             objectMapper.writeValue(filePath.toFile(), new ArrayList<>(store.values()));
         } catch (IOException e) {
             System.err.println("Fehler beim Speichern der Daten in: " + filePath);
@@ -111,7 +92,7 @@ public class InFileRepository<T, ID> implements CrudRepository<T, ID> {
 
         store.put(id, entity);
         System.out.println("Gespeichert: " + entity + " in " + filePath.getFileName());
-        saveData(); // Nach jeder Änderung speichern
+        saveData();
         return entity;
     }
 
@@ -130,7 +111,7 @@ public class InFileRepository<T, ID> implements CrudRepository<T, ID> {
         T removed = store.remove(id);
         if (removed != null) {
             System.out.println("Gelöscht: " + removed + " aus " + filePath.getFileName());
-            saveData(); // Nach jeder Änderung speichern
+            saveData();
         } else {
             System.out.println("Item mit ID " + id + " nicht gefunden in " + filePath.getFileName());
         }
