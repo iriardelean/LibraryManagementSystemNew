@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/author") // Group all author-related routes
@@ -43,7 +42,6 @@ public class AuthorController {
     @PostMapping
     public String saveAuthor(@ModelAttribute Author author) {
         if (author.getId() == null || author.getId().isEmpty()) {
-            author.setId(UUID.randomUUID().toString());
             authorService.createAuthor(author);
         } else {
             authorService.updateAuthor(author);

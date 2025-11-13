@@ -6,8 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
 @Controller
 @RequestMapping("/bookdetails")
 public class BookDetailsController {
@@ -43,7 +41,6 @@ public class BookDetailsController {
     @PostMapping
     public String saveBookDetails(@ModelAttribute BookDetails bookDetails) {
         if (bookDetails.getId() == null || bookDetails.getId().isEmpty()) {
-            bookDetails.setId(UUID.randomUUID().toString());
             bookDetailsService.create(bookDetails);
         } else {
             bookDetailsService.update(bookDetails);

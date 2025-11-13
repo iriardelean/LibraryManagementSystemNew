@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/reservation")
@@ -57,7 +56,6 @@ public class ReservationController {
 
 
         if (reservation.getId() == null || reservation.getId().isEmpty()) {
-            reservation.setId(UUID.randomUUID().toString());
             reservationService.create(reservation);
         } else
             reservationService.update(reservation);

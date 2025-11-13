@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ public class InFileRepository<T, ID> implements CrudRepository<T, ID> {
     protected final Map<ID, T> store = new ConcurrentHashMap<>();
     private final Function<T, ID> idExtractor;
     private final Path filePath;
+    private final Path resourcePath;
     private final ObjectMapper objectMapper;
     private final TypeReference<List<T>> typeReference;
 
@@ -32,15 +34,28 @@ public class InFileRepository<T, ID> implements CrudRepository<T, ID> {
         this.typeReference = typeReference;
 
         this.objectMapper = new ObjectMapper();
-        this.objectMapper.enable(SerializationFeature.INDENT_OUTPUT); // Schöne JSON-Formatierung
-        this.objectMapper.registerModule(new JavaTimeModule()); // Unterstützung für LocalDate etc.
+        this.objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        this.objectMapper.registerModule(new JavaTimeModule());
 
         try {
-            File dataDir = ResourceUtils.getFile("classpath:data");
-            this.filePath = Paths.get(dataDir.getAbsolutePath(), dataFileName);
+            Path projectRoot = Paths.get(new File(".").getAbsolutePath()).getParent();
+            Path dataDir = projectRoot.resolve("data");
+
+            if (!Files.exists(dataDir))
+                Files.createDirectories(dataDir);
+
+            this.filePath = dataDir.resolve(dataFileName);
+
+            File resourceFile = ResourceUtils.getFile("classpath:data/" + dataFileName);
+            this.resourcePath = resourceFile.toPath();
+
+            if (!Files.exists(filePath)) {
+                System.out.println("Kopiere initiale Daten von: " + resourcePath + " nach: " + filePath);
+                Files.copy(resourcePath, filePath, StandardCopyOption.REPLACE_EXISTING);
+            }
         } catch (IOException e) {
-            System.err.println("Fehler beim Auflösen des Datenverzeichnisses 'resources/data'");
-            throw new RuntimeException("Konnte Datenverzeichnis nicht finden", e);
+            System.err.println("Fehler beim Initialisieren des InFileRepository für: " + dataFileName);
+            throw new RuntimeException("Konnte Datenverzeichnis oder -datei nicht finden/erstellen", e);
         }
 
         loadData();
@@ -112,8 +127,7 @@ public class InFileRepository<T, ID> implements CrudRepository<T, ID> {
         if (removed != null) {
             System.out.println("Gelöscht: " + removed + " aus " + filePath.getFileName());
             saveData();
-        } else {
+        } else
             System.out.println("Item mit ID " + id + " nicht gefunden in " + filePath.getFileName());
-        }
     }
 }

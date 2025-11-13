@@ -19,6 +19,14 @@ public class LoanService {
     public Loan create(Loan entity) {
         if (entity == null)
             throw new IllegalArgumentException("Loan cannot be null");
+
+        if (entity.getId() == null || entity.getId().isEmpty()) {
+            String nextId = SequentialIdGenerator.getNextId(
+                    repository.findAll(),
+                    Loan::getId,
+                    "loan-");
+            entity.setId(nextId);
+        }
         return repository.save(entity);
     }
 
@@ -33,6 +41,8 @@ public class LoanService {
     public Loan update(Loan entity) {
         if (entity == null || entity.getId() == null)
             throw new IllegalArgumentException("Loan and Id cannot be null");
+        repository.findById(entity.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Loan with Id " + entity.getId() + " does not exist"));
         return repository.save(entity);
     }
 

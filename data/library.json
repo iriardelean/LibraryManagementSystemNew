@@ -1,0 +1,19 @@
+[ {
+  "id" : "lib-1",
+  "name" : "Central Library",
+  "members" : [ {
+    "id" : "mem-1",
+    "name" : "Alice Smith",
+    "libraryId" : "lib-1",
+    "reservations" : [ ],
+    "loans" : [ ],
+    "email" : null,
+    "membershipDate" : null
+  } ],
+  "readableItems" : [ {
+    "id" : "ri-1",
+    "publicationId" : "book-1",
+    "barcode" : "BC1001",
+    "status" : "AVAILABLE"
+  } ]
+} ]

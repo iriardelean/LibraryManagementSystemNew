@@ -6,8 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
 @Controller
 @RequestMapping("/member")
 public class MemberController {
@@ -43,7 +41,6 @@ public class MemberController {
     @PostMapping
     public String saveMember(@ModelAttribute Member member) {
         if (member.getId() == null || member.getId().isEmpty()) {
-            member.setId(UUID.randomUUID().toString());
             memberService.create(member);
         } else {
             memberService.update(member);

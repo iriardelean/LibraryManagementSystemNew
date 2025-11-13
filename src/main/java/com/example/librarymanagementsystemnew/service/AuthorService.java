@@ -7,28 +7,25 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID; // Import für UUID
 
 @Service
 public class AuthorService {
 
     private final AuthorRepository authorRepository;
 
-    // KORREKT: Nur dieser Konstruktor wird benötigt.
-    // Spring wird das @Repository-Bean automatisch injizieren.
     public AuthorService(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
     }
 
-    // ENTFERNT: Der parameterlose Konstruktor, der 'new AuthorRepository()' aufrief,
-    // wurde entfernt, um die Dependency Injection zu ermöglichen.
-
     public Author createAuthor(Author author) {
         if (author == null)
             throw new IllegalArgumentException("Author cannot be null");
-        // ID-Erstellung gehört in den Service-Layer
         if (author.getId() == null || author.getId().isEmpty()) {
-            author.setId(UUID.randomUUID().toString());
+            String nextId = SequentialIdGenerator.getNextId(
+                    authorRepository.findAll(),
+                    Author::getId,
+                    "auth-");
+            author.setId(nextId);
         }
         return authorRepository.save(author);
     }
@@ -45,7 +42,6 @@ public class AuthorService {
         if (author == null || author.getId() == null)
             throw new IllegalArgumentException("Author and Id cannot be null");
 
-        // Sicherstellen, dass der Autor existiert, bevor er aktualisiert wird
         authorRepository.findById(author.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Author not found with id: " + author.getId()));
 
