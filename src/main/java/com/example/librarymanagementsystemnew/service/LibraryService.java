@@ -20,7 +20,7 @@ public class LibraryService {
         if (lib == null)
             throw new IllegalArgumentException("Library cannot be null");
 
-        if (lib.getId() != null && repository.findById(lib.getId()).isPresent()) {
+        if (lib.getId() == null || lib.getId().isEmpty()) {
             String nextId = SequentialIdGenerator.getNextId(
                     repository.findAll(),
                     Library::getId,

@@ -2,24 +2,117 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="${pageTitle}">Create/Edit Author</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
     <style>
-        body { font-family: Arial, Helvetica, sans-serif; margin:20px; color:#333 }
-        .container { max-width:700px; margin:0 auto }
-        header { display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px; }
-        h1 { margin:0 }
-        form { margin-top:12px; background:#fafafa; padding:20px; border:1px solid #eee; border-radius:8px }
-        .form-row { margin-bottom:15px }
-        label { display:block; font-weight:600; margin-bottom:5px }
-        input[type="text"], input[type="number"] {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+        html {
             box-sizing: border-box;
         }
-        .actions { margin-top:20px }
-        button.primary { background:#1976d2; color:#fff; border:none; padding:10px 15px; border-radius:4px; cursor:pointer; font-size: 16px; }
-        a.back { margin-left:8px; color:#1976d2; text-decoration:none; vertical-align: middle; }
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+        body {
+            font-family: 'Inter', Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 40px;
+            background-color: #f4f5f7;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        h1 {
+            margin: 0;
+            color: #1a202c;
+            font-weight: 600;
+        }
+
+        .button {
+            background: #8855df;
+            color: #ffffff;
+            padding: 10px 16px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.2s ease-in-out;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+        }
+        .button:hover {
+            background: #783fdd;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(45, 55, 71, 0.1);
+        }
+
+        .back-link {
+            margin-left: 16px;
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            vertical-align: middle;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        form {
+            margin-top: 12px;
+        }
+        .form-row {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #2d3748;
+        }
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            border-color: #3182ce;
+            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.2);
+            outline: none;
+        }
+
+        .actions {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
     </style>
 </head>
 <body>
@@ -39,17 +132,18 @@
             <input id="name" type="text" th:field="*{name}" />
         </div>
         <div class="form-row">
-            <label for="biography">Biography:</label>
-            <input id="biography" type="text" th:field="*{biography}" />
+            <label for="genre">Genre:</label>
+            <input id="genre" type="text" th:field="*{genre}" />
         </div>
         <div class="form-row">
-            <label for="birthYear">Birth Year:</label>
-            <input id="birthYear" type="number" th:field="*{birthYear}" />
+            <label for="period">Period:</label>
+            <input id="period" type="text" th:field="*{period}" />
         </div>
 
         <div class="actions">
-            <button type="submit" class="primary">Save</button>
-            <a class="back" href="/author">Cancel</a>
+            <button type="submit" class="button">Save</button>
+
+            <a class="back-link" th:href="@{/author}">Cancel</a>
         </div>
     </form>
 </div>
