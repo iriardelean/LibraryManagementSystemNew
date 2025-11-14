@@ -8,8 +8,8 @@ public class Author {
     private List<BookAuthor> books;
 
     // new properties
-    private String biography;
-    private Integer birthYear;
+    private String genre;
+    private String period;
 
     public Author(String id, String name, List<BookAuthor> books) {
         this.id = id;
@@ -17,12 +17,12 @@ public class Author {
         this.books = books;
     }
 
-    public Author(String id, String name, List<BookAuthor> books, String biography, Integer birthYear) {
+    public Author(String id, String name, List<BookAuthor> books, String genre, String period) {
         this.id = id;
         this.name = name;
         this.books = books;
-        this.biography = biography;
-        this.birthYear = birthYear;
+        this.genre = genre;
+        this.period = period;
     }
 
     public Author() {
@@ -53,19 +53,19 @@ public class Author {
         this.books = books;
     }
 
-    public String getBiography() {
-        return biography;
+    public String getGenre() {
+        return genre;
     }
 
-    public void setBiography(String biography) {
-        this.biography = biography;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
-    public Integer getBirthYear() {
-        return birthYear;
+    public String getPeriod() {
+        return period;
     }
 
-    public void setBirthYear(Integer birthYear) {
-        this.birthYear = birthYear;
+    public void setPeriod(String period) {
+        this.period = period;
     }
 }

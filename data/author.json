@@ -1,9 +1,9 @@
 [ {
-  "id" : "f3707d7a-1430-4573-a882-771ed5bd8f15",
+  "id" : "auth-1",
   "name" : "testtest",
   "books" : [ ],
-  "biography" : "teeeest",
-  "birthYear" : 1921
+  "genre" : "sci-fi",
+  "period" : "21st"
 }, {
   "id" : "11111111-1111-1111-1111-111111111111",
   "name" : "J.R.R. Tolkien",
@@ -16,8 +16,8 @@
     "bookId" : "book-2",
     "authorId" : "11111111-1111-1111-1111-111111111111"
   } ],
-  "biography" : "English writer, poet, philologist, and academic, author of The Hobbit and The Lord of the Rings.",
-  "birthYear" : 1892
+  "genre" : "English writer, poet, philologist, and academic, author of The Hobbit and The Lord of the Rings.",
+  "period" : "1892"
 }, {
   "id" : "22222222-2222-2222-2222-222222222222",
   "name" : "George Orwell",
@@ -26,6 +26,6 @@
     "bookId" : "book-3",
     "authorId" : "22222222-2222-2222-2222-222222222222"
   } ],
-  "biography" : "English novelist, essayist, journalist and critic.",
-  "birthYear" : 1903
+  "genre" : "English novelist, essayist, journalist and critic.",
+  "period" : "1903"
 } ]

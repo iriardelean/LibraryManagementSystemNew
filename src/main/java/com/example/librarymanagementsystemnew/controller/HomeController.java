@@ -13,18 +13,9 @@ public class HomeController {
         return "homepage/index";
     }
 
-    @GetMapping("/format")
-    public String rootFormat() {
-        return "homepage/format";
-    }
-
     @GetMapping({"/homepage","/homepage/index"})
     public String homepageIndex() {
         return "homepage/index";
     }
 
-    @GetMapping("/homepage/format")
-    public String homepageFormat(Model model) {
-        return "homepage/format";
-    }
 }
