@@ -25,7 +25,7 @@ public class MagazineDetailsService {
             String nextId = SequentialIdGenerator.getNextId(
                     repository.findAll(),
                     MagazineDetails::getId,
-                    "mag/det-");
+                    "mag-");
             entity.setId(nextId);
         }
         return repository.save(entity);

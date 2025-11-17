@@ -1,6 +1,15 @@
 [
-  { "id": "ba-1", "bookId": "book-1", "authorId": "11111111-1111-1111-1111-111111111111" },
-  { "id": "ba-2", "bookId": "book-2", "authorId": "11111111-1111-1111-1111-111111111111" },
-  { "id": "ba-3", "bookId": "book-3", "authorId": "22222222-2222-2222-2222-222222222222" }
+  { "id": "b/auth-1", "bookId": "book-1", "authorId": "auth-1" },
+  { "id": "b/auth-2", "bookId": "book-2", "authorId": "auth-2" },
+  { "id": "b/auth-3", "bookId": "book-3", "authorId": "auth-1" },
+  { "id": "b/auth-4", "bookId": "book-4", "authorId": "auth-2" },
+  { "id": "b/auth-5", "bookId": "book-5", "authorId": "auth-3" },
+  { "id": "b/auth-6", "bookId": "book-6", "authorId": "auth-4" },
+  { "id": "b/auth-7", "bookId": "book-7", "authorId": "auth-5" },
+  { "id": "b/auth-8", "bookId": "book-8", "authorId": "auth-6" },
+  { "id": "b/auth-9", "bookId": "book-9", "authorId": "auth-7" },
+  { "id": "b/auth-10", "bookId": "book-10", "authorId": "auth-8" },
+  { "id": "b/auth-11", "bookId": "book-11", "authorId": "auth-9" },
+  { "id": "b/auth-12", "bookId": "book-12", "authorId": "auth-10" },
+  { "id": "b/auth-13", "bookId": "book-13", "authorId": "auth-11" }
 ]
-

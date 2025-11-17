@@ -24,7 +24,7 @@ public class BookDetailsService {
             String nextId = SequentialIdGenerator.getNextId(
                     repository.findAll(),
                     BookDetails::getId,
-                    "book/det-");
+                    "book-");
             entity.setId(nextId);
         }
         return repository.save(entity);

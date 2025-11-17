@@ -1,22 +1,88 @@
 [
   {
-    "id": "11111111-1111-1111-1111-111111111111",
-    "name": "J.R.R. Tolkien",
-    "books": [
-      { "id": "ba-1", "bookId": "book-1", "authorId": "11111111-1111-1111-1111-111111111111" },
-      { "id": "ba-2", "bookId": "book-2", "authorId": "11111111-1111-1111-1111-111111111111" }
-    ],
-    "genre": "fantasy",
+    "id": "auth-1",
+    "name": "J.K. Rowling",
+    "books": [],
+    "genre": "Fantasy",
+    "period": "Contemporary"
+  },
+
+  {
+    "id": "auth-2",
+    "name": "Isaac Asimov",
+    "books": [],
+    "genre": "Science Fiction",
     "period": "20th century"
   },
+
+  { "id": "auth-3",
+    "name": "Jane Austen",
+    "books": [],
+    "genre": "Romance",
+    "period": "19th century"
+  },
+
   {
-    "id": "22222222-2222-2222-2222-222222222222",
-    "name": "George Orwell",
-    "books": [
-      { "id": "ba-3", "bookId": "book-3", "authorId": "22222222-2222-2222-2222-222222222222" }
-    ],
-    "genre": "dystopian",
+    "id": "auth-4",
+    "name": "Frank Herbert",
+    "books": [],
+    "genre": "Science Fiction",
     "period": "20th century"
+  },
+
+  {
+    "id": "auth-5",
+    "name": "Agatha Christie",
+    "books": [],
+    "genre": "Mystery",
+    "period": "20th century"
+  },
+
+  {
+    "id": "auth-6",
+    "name": "Stephen King",
+    "books": [],
+    "genre": "Horror",
+    "period": "Contemporary"
+  },
+
+  {
+    "id": "auth-7",
+    "name": "Ursula K. Le Guin",
+    "books": [],
+    "genre": "Sci-Fi/Fantasy",
+    "period": "20th century"
+  },
+
+  {
+    "id": "auth-8",
+    "name": "Haruki Murakami",
+    "books": [],
+    "genre": "Magical Realism",
+    "period": "Contemporary"
+  },
+
+  {
+    "id": "auth-9",
+    "name": "Neil Gaiman",
+    "books": [],
+    "genre": "Fantasy",
+    "period": "Contemporary"
+  },
+
+  {
+    "id": "auth-10",
+    "name": "Octavia E. Butler",
+    "books": [],
+    "genre": "Science Fiction",
+    "period": "20th century"
+  },
+
+  {
+    "id": "auth-11",
+    "name": "Terry Pratchett",
+    "books": [],
+    "genre": "Fantasy/Satire",
+    "period": "Contemporary"
   }
 ]
-
