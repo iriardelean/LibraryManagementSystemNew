@@ -136,15 +136,15 @@
 
         <div class="form-row">
             <label for="title">Title:</label>
-            <input id="title" type="text" th:field="*{title}" />
+            <input id="title" type="text" th:field="*{title}" required />
         </div>
         <div class="form-row">
             <label for="isbn">ISBN:</label>
-            <input id="isbn" type="text" th:field="*{isbn}" />
+            <input id="isbn" type="text" th:field="*{isbn}" required />
         </div>
         <div class="form-row">
             <label for="pageCount">Page Count:</label>
-            <input id="pageCount" type="number" th:field="*{pageCount}" />
+            <input id="pageCount" type="number" th:field="*{pageCount}" required />
         </div>
 
         <div class="actions">
