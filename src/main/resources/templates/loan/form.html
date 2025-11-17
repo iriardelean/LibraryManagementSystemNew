@@ -144,11 +144,11 @@
 
         <div class="form-row">
             <label for="memberId">Member ID:</label>
-            <input id="memberId" type="text" th:field="*{memberId}" />
+            <input id="memberId" type="text" th:field="*{memberId}" required />
         </div>
         <div class="form-row">
             <label for="date">Date:</label>
-            <input id="date" type="date" name="dateString" th:value="${loan.date}" />
+            <input id="date" type="date" name="dateString" th:value="${loan.date}" required />
         </div>
         <div class="form-row">
             <label for="itemIds">Item IDs (comma-separated):</label>

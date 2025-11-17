@@ -146,15 +146,15 @@
 
         <div class="form-row">
             <label for="publicationId">Publication ID:</label>
-            <input id="publicationId" type="text" th:field="*{publicationId}" />
+            <input id="publicationId" type="text" th:field="*{publicationId}" required />
         </div>
         <div class="form-row">
             <label for="barcode">Barcode:</label>
-            <input id="barcode" type="text" th:field="*{barcode}" />
+            <input id="barcode" type="text" th:field="*{barcode}" required />
         </div>
         <div class="form-row">
             <label for="status">Status:</label>
-            <input id="status" type="text" th:value="${readableItem.status}" name="status" />
+            <input id="status" type="text" th:value="${readableItem.status}" name="status" required />
         </div>
 
         <div class="actions">

@@ -146,19 +146,19 @@
 
         <div class="form-row">
             <label for="name">Name:</label>
-            <input id="name" type="text" th:field="*{name}" />
+            <input id="name" type="text" th:field="*{name}" required />
         </div>
         <div class="form-row">
             <label for="email">Email:</label>
-            <input id="email" type="email" th:field="*{email}" />
+            <input id="email" type="email" th:field="*{email}" required />
         </div>
         <div class="form-row">
             <label for="membershipDate">Membership Date:</label>
-            <input id="membershipDate" type="date" th:field="*{membershipDate}" />
+            <input id="membershipDate" type="date" th:field="*{membershipDate}" required />
         </div>
         <div class="form-row">
             <label for="libraryId">Library ID:</label>
-            <input id="libraryId" type="text" th:field="*{libraryId}" />
+            <input id="libraryId" type="text" th:field="*{libraryId}" required/>
         </div>
 
         <div class="actions">
