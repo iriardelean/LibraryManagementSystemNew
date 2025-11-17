@@ -1,17 +1,13 @@
 [
-  {
-    "id": "mem-1",
-    "name": "Alice Smith",
-    "libraryId": "lib-1",
-    "email": "alice@example.com",
-    "membershipDate": "2023-01-15"
-  },
-  {
-    "id": "mem-2",
-    "name": "Bob Jones",
-    "libraryId": "lib-1",
-    "email": "bob@example.com",
-    "membershipDate": "2024-06-01"
-  }
+  { "id": "memb-1", "name": "test1", "libraryId": "lib-1", "reservations": [], "loans": [], "email": "test1@test.com", "membershipDate": [ 2025, 11, 28 ] },
+  { "id": "memb-2", "name": "Charlie Day", "libraryId": "lib-2", "reservations": [], "loans": [], "email": "charlie@example.com", "membershipDate": [ 2025, 1, 20 ] },
+  { "id": "memb-3", "name": "Dana Scully", "libraryId": "lib-1", "reservations": [], "loans": [], "email": "dana@example.com", "membershipDate": [ 2025, 2, 10 ] },
+  { "id": "memb-4", "name": "Evan Wright", "libraryId": "lib-3", "reservations": [], "loans": [], "email": "evan@example.com", "membershipDate": [ 2025, 3, 5 ] },
+  { "id": "memb-5", "name": "Fiona Glenanne", "libraryId": "lib-2", "reservations": [], "loans": [], "email": "fiona@example.com", "membershipDate": [ 2025, 4, 15 ] },
+  { "id": "memb-6", "name": "George Kirk", "libraryId": "lib-1", "reservations": [], "loans": [], "email": "george@example.com", "membershipDate": [ 2025, 5, 22 ] },
+  { "id": "memb-7", "name": "Helen Magnus", "libraryId": "lib-4", "reservations": [], "loans": [], "email": "helen@example.com", "membershipDate": [ 2025, 6, 30 ] },
+  { "id": "memb-8", "name": "Ian Malcolm", "libraryId": "lib-1", "reservations": [], "loans": [], "email": "ian@example.com", "membershipDate": [ 2025, 7, 7 ] },
+  { "id": "memb-9", "name": "Julia Child", "libraryId": "lib-5", "reservations": [], "loans": [], "email": "julia@example.com", "membershipDate": [ 2025, 8, 14 ] },
+  { "id": "memb-10", "name": "Kevin Flynn", "libraryId": "lib-9", "reservations": [], "loans": [], "email": "kevin@example.com", "membershipDate": [ 2025, 9, 19 ] },
+  { "id": "memb-11", "name": "Laura Roslin", "libraryId": "lib-1", "reservations": [], "loans": [], "email": "laura@example.com", "membershipDate": [ 2025, 10, 25 ] }
 ]
-
