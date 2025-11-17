@@ -2,12 +2,90 @@
   {
     "id": "lib-1",
     "name": "Central Library",
-    "members": [
-      { "id": "mem-1", "name": "Alice Smith", "libraryId": "lib-1" }
-    ],
-    "readableItems": [
-      { "id": "ri-1", "publicationId": "book-1", "barcode": "BC1001" }
-    ]
+    "members": [ {
+      "id": "mem-1",
+      "name": "Alice Smith",
+      "libraryId": "lib-1",
+      "reservations": [],
+      "loans": [],
+      "email": null,
+      "membershipDate": null
+    } ],
+    "readableItems": [ {
+      "id": "ri-1",
+      "publicationId": "book-1",
+      "barcode": "BC1001",
+      "status": "AVAILABLE"
+    } ]
+  },
+
+  {
+    "id": "lib-2",
+    "name": "Community Branch",
+    "members": [],
+    "readableItems": []
+  },
+
+  {
+    "id": "lib-3",
+    "name": "Eastside Branch",
+    "members": [],
+    "readableItems": []
+  },
+
+  {
+    "id": "lib-4",
+    "name": "Westside Branch",
+    "members": [],
+    "readableItems": []
+  },
+
+  {
+    "id": "lib-5",
+    "name": "North Branch",
+    "members": [],
+    "readableItems": []
+  },
+
+  {
+    "id": "lib-6",
+    "name": "South Branch",
+    "members": [],
+    "readableItems": []
+  },
+
+  {
+    "id": "lib-7",
+    "name": "Hilltop Library",
+    "members": [],
+    "readableItems": []
+  },
+
+  {
+    "id": "lib-8",
+    "name": "Riverbend Library",
+    "members": [],
+    "readableItems": []
+  },
+
+  {
+    "id": "lib-9",
+    "name": "Digital Archive",
+    "members": [],
+    "readableItems": []
+  },
+
+  {
+    "id": "lib-10",
+    "name": "Research Annex",
+    "members": [],
+    "readableItems": []
+  },
+
+  {
+    "id": "lib-11",
+    "name": "Historical Society",
+    "members": [],
+    "readableItems": []
   }
 ]
-

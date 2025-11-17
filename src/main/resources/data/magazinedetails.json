@@ -1,13 +1,14 @@
 [
-  {
-    "id": "mag-1",
-    "title": "National Geographic",
-    "publisher": "National Geographic Partners"
-  },
-  {
-    "id": "mag-2",
-    "title": "Time",
-    "publisher": "Time USA, LLC"
-  }
+  { "id": "mag-1", "title": "National Geographic", "publisher": "National Geographic Partners" },
+  { "id": "mag-2", "title": "Time", "publisher": "Time USA, LLC" },
+  { "id": "mag-3", "title": "Scientific American", "publisher": "Springer Nature" },
+  { "id": "mag-4", "title": "The New Yorker", "publisher": "Condé Nast" },
+  { "id": "mag-5", "title": "Wired", "publisher": "Condé Nast" },
+  { "id": "mag-6", "title": "Nature", "publisher": "Springer Nature" },
+  { "id": "mag-7", "title": "The Economist", "publisher": "The Economist Group" },
+  { "id": "mag-8", "title": "Popular Science", "publisher": "Bonnier Corporation" },
+  { "id": "mag-9", "title": "Rolling Stone", "publisher": "Penske Media Corporation" },
+  { "id": "mag-10", "title": "Vogue", "publisher": "Condé Nast" },
+  { "id": "mag-11", "title": "Forbes", "publisher": "Forbes Media" },
+  { "id": "mag-12", "title": "Smithsonian", "publisher": "Smithsonian Institution" }
 ]
-
