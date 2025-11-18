@@ -1,10 +1,10 @@
 [ {
-  "id" : "book-3",
+  "id" : "book-1",
   "title" : "To Kill a Mockingbird",
   "copies" : [ ],
   "bookAuthors" : [ {
     "id" : "b/auth-3",
-    "bookId" : "book-3",
+    "bookId" : "book-1",
     "authorId" : "auth-3"
   } ],
   "isbn" : "978-0061120084",
@@ -21,89 +21,89 @@
   "isbn" : "978-0451524935",
   "pageCount" : 328
 }, {
-  "id" : "book-1",
+  "id" : "book-3",
   "title" : "The Hobbit",
   "copies" : [ ],
   "bookAuthors" : [ {
     "id" : "b/auth-1",
-    "bookId" : "book-1",
+    "bookId" : "book-3",
     "authorId" : "auth-1"
   } ],
   "isbn" : "978-0547928227",
   "pageCount" : 300
 }, {
-  "id" : "book-7",
+  "id" : "book-4",
   "title" : "Murder on the Orient Express",
   "copies" : [ ],
   "bookAuthors" : [ {
     "id" : "b/auth-7",
-    "bookId" : "book-7",
+    "bookId" : "book-4",
     "authorId" : "auth-5"
   } ],
   "isbn" : "978-0062073495",
   "pageCount" : 272
 }, {
-  "id" : "book-6",
+  "id" : "book-5",
   "title" : "Dune",
   "copies" : [ ],
   "bookAuthors" : [ {
     "id" : "b/auth-6",
-    "bookId" : "book-6",
+    "bookId" : "book-5",
     "authorId" : "auth-4"
   } ],
   "isbn" : "978-0441172719",
   "pageCount" : 412
 }, {
-  "id" : "book-10",
+  "id" : "book-6",
   "title" : "Norwegian Wood",
   "copies" : [ ],
   "bookAuthors" : [ {
     "id" : "b/auth-10",
-    "bookId" : "book-10",
+    "bookId" : "book-6",
     "authorId" : "auth-8"
   } ],
   "isbn" : "978-0375704024",
   "pageCount" : 296
 }, {
-  "id" : "book-5",
+  "id" : "book-7",
   "title" : "Pride and Prejudice",
   "copies" : [ ],
   "bookAuthors" : [ {
     "id" : "b/auth-5",
-    "bookId" : "book-5",
+    "bookId" : "book-7",
     "authorId" : "auth-3"
   } ],
   "isbn" : "978-0141439518",
   "pageCount" : 432
 }, {
-  "id" : "book-4",
+  "id" : "book-8",
   "title" : "Foundation",
   "copies" : [ ],
   "bookAuthors" : [ {
     "id" : "b/auth-4",
-    "bookId" : "book-4",
+    "bookId" : "book-8",
     "authorId" : "auth-2"
   } ],
   "isbn" : "978-0553293357",
   "pageCount" : 256
 }, {
-  "id" : "book-13",
+  "id" : "book-9",
   "title" : "Good Omens",
   "copies" : [ ],
   "bookAuthors" : [ {
     "id" : "b/auth-13",
-    "bookId" : "book-13",
+    "bookId" : "book-9",
     "authorId" : "auth-11"
   } ],
   "isbn" : "978-0060853983",
   "pageCount" : 432
 }, {
-  "id" : "book-9",
+  "id" : "book-10",
   "title" : "A Wizard of Earthsea",
   "copies" : [ ],
   "bookAuthors" : [ {
     "id" : "b/auth-9",
-    "bookId" : "book-9",
+    "bookId" : "book-10",
     "authorId" : "auth-7"
   } ],
   "isbn" : "978-0547722023",
@@ -120,12 +120,12 @@
   "isbn" : "978-0380789030",
   "pageCount" : 544
 }, {
-  "id" : "book-8",
+  "id" : "book-12",
   "title" : "The Shining",
   "copies" : [ ],
   "bookAuthors" : [ {
     "id" : "b/auth-8",
-    "bookId" : "book-8",
+    "bookId" : "book-12",
     "authorId" : "auth-6"
   } ],
   "isbn" : "978-0385121675",
