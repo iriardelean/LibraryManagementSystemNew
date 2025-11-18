@@ -1,7 +1,7 @@
 [
   {
     "id": "loan-1",
-    "memberId": "mem-2",
+    "memberId": "memb-2",
     "date": "2025-09-15",
     "reservations": [],
     "items": [ {
@@ -12,7 +12,7 @@
   },
 
   { "id": "loan-2",
-    "memberId": "mem-1",
+    "memberId": "memb-1",
     "date": "2025-11-10",
     "reservations": [],
     "items": [ {
@@ -36,7 +36,7 @@
 
   {
     "id": "loan-4",
-    "memberId": "mem-1",
+    "memberId": "memb-1",
     "date": "2025-11-12",
     "reservations": [],
     "items": [ {
@@ -48,7 +48,7 @@
 
   {
     "id": "loan-5",
-    "memberId": "mem-2",
+    "memberId": "memb-2",
     "date": "2025-11-13",
     "reservations": [],
     "items": [ {
