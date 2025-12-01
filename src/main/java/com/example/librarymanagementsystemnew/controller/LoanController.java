@@ -27,20 +27,20 @@ public class LoanController {
 
     @GetMapping
     public String listLoans(Model model) {
-        model.addAttribute("loans", loanService.findAll());
+        model.addAttribute("loans", loanService.getAllLoans());
         return "loan/index";
     }
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
-        model.addAttribute("loan", new Loan(null, null, LocalDate.now(), new ArrayList<>(), new ArrayList<>())); // Geändert von new Date()
+        model.addAttribute("loan", new Loan());
         model.addAttribute("pageTitle", "Create New Loan");
         return "loan/form";
     }
 
     @GetMapping("/{id}/edit")
-    public String showEditForm(@PathVariable String id, Model model) {
-        Loan loan = loanService.findById(id)
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Loan loan = loanService.getLoanById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid loan Id:" + id));
         model.addAttribute("loan", loan);
         model.addAttribute("pageTitle", "Edit Loan");
@@ -68,7 +68,7 @@ public class LoanController {
             for (String p : parts) {
                 String trimmedId = p.trim();
                 if (!trimmedId.isEmpty())
-                    readableItemService.findById(trimmedId).ifPresent(items::add);
+                    readableItemService.(trimmedId).ifPresent(items::add);
             }
         }
         loan.setItems(items);
@@ -76,15 +76,15 @@ public class LoanController {
             loan.setReservations(new ArrayList<>());
 
 
-        if (loan.getId() == null || loan.getId().isEmpty()) {
-            loanService.create(loan);
+        if (loan.getId() == null) {
+            loanService.createLoan(loan);
         } else
-            loanService.update(loan);
+            loanService.updateLoan(loan);
         return "redirect:/loan";
     }
 
     @PostMapping("/{id}/delete")
-    public String deleteLoan(@PathVariable String id) {
+    public String deleteLoan(@PathVariable Long id) {
         loanService.delete(id);
         return "redirect:/loan";
     }

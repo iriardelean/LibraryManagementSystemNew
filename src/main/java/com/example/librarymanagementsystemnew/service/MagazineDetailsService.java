@@ -1,6 +1,5 @@
 package com.example.librarymanagementsystemnew.service;
 
-import com.example.librarymanagementsystemnew.model.Author;
 import com.example.librarymanagementsystemnew.model.MagazineDetails;
 import com.example.librarymanagementsystemnew.repository.MagazineDetailsRepository;
 import org.springframework.stereotype.Service;
@@ -17,29 +16,19 @@ public class MagazineDetailsService {
         this.repository = repository;
     }
 
-    public MagazineDetails create(MagazineDetails entity) {
-        if (entity == null)
-            throw new IllegalArgumentException("MagazineDetails cannot be null");
-
-        if (entity.getId() == null || entity.getId().isEmpty()) {
-            String nextId = SequentialIdGenerator.getNextId(
-                    repository.findAll(),
-                    MagazineDetails::getId,
-                    "mag-");
-            entity.setId(nextId);
-        }
+    public MagazineDetails createMagazine(MagazineDetails entity) {
         return repository.save(entity);
     }
 
-    public Optional<MagazineDetails> findById(String id) {
+    public Optional<MagazineDetails> getMagazineById(Long id) {
         return repository.findById(id);
     }
 
-    public List<MagazineDetails> findAll() {
+    public List<MagazineDetails> getAllMagazines() {
         return repository.findAll();
     }
 
-    public MagazineDetails update(MagazineDetails entity) {
+    public MagazineDetails updateMagazine(MagazineDetails entity) {
         if (entity == null || entity.getId() == null)
             throw new IllegalArgumentException("MagazineDetails and Id cannot be null");
         repository.findById(entity.getId())
@@ -47,8 +36,8 @@ public class MagazineDetailsService {
         return repository.save(entity);
     }
 
-    public void delete(String id) {
-        repository.delete(id);
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 }
 

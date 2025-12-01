@@ -16,29 +16,19 @@ public class ReservationService {
         this.repository = repository;
     }
 
-    public Reservation create(Reservation entity) {
-        if (entity == null)
-            throw new IllegalArgumentException("Reservation cannot be null");
-
-        if (entity.getId() == null || entity.getId().isEmpty()) {
-            String nextId = SequentialIdGenerator.getNextId(
-                    repository.findAll(),
-                    Reservation::getId,
-                    "res-");
-            entity.setId(nextId);
-        }
+    public Reservation createReservation(Reservation entity) {
         return repository.save(entity);
     }
 
-    public Optional<Reservation> findById(String id) {
+    public Optional<Reservation> getReservationById(Long id) {
         return repository.findById(id);
     }
 
-    public List<Reservation> findAll() {
+    public List<Reservation> getAllReservation() {
         return repository.findAll();
     }
 
-    public Reservation update(Reservation entity) {
+    public Reservation updateReservation(Reservation entity) {
         if (entity == null || entity.getId() == null)
             throw new IllegalArgumentException("Reservation and Id cannot be null");
         repository.findById(entity.getId())
@@ -46,8 +36,8 @@ public class ReservationService {
         return repository.save(entity);
     }
 
-    public void delete(String id) {
-        repository.delete(id);
+    public void deleteReservation(Long id) {
+        repository.deleteById(id);
     }
 }
 

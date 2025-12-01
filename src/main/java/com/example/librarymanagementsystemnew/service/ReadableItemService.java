@@ -15,23 +15,23 @@ public class ReadableItemService {
         this.repository = repository;
     }
 
-    public ReadableItem create(ReadableItem entity) {
+    public ReadableItem createReadableItem(ReadableItem entity) {
         return repository.save(entity);
     }
 
-    public Optional<ReadableItem> findById(Long id) {
+    public Optional<ReadableItem> getReadableItemById(Long id) {
         return repository.findById(id);
     }
 
-    public List<ReadableItem> findAll() {
+    public List<ReadableItem> getAllReadableItem() {
         return repository.findAll();
     }
 
-    public ReadableItem update(ReadableItem entity) {
+    public ReadableItem updateReadableItem(ReadableItem entity) {
         return repository.save(entity);
     }
 
-    public void delete(Long id) {
+    public void deleteReadableItem(Long id) {
         repository.deleteById(id);
     }
 }
