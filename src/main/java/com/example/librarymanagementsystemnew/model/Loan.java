@@ -1,16 +1,24 @@
 package com.example.librarymanagementsystemnew.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.time.LocalDate;
 import java.util.List;
 
+@Entity
 public class Loan {
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String memberId;
     private LocalDate date;
     private List<Reservation> reservations;
     private List<ReadableItem> items;
 
-    public Loan(String id, String memberId, LocalDate date, List<Reservation> reservations, List<ReadableItem> items) {
+    public Loan(Long id, String memberId, LocalDate date, List<Reservation> reservations, List<ReadableItem> items) {
         this.id = id;
         this.memberId = memberId;
         this.date = date;
@@ -21,11 +29,11 @@ public class Loan {
     public Loan() {
     }
 
-    public String getId() {
-        return this.id;
+    public Long getId() {
+        return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -1,22 +1,28 @@
 package com.example.librarymanagementsystemnew.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
 import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class BookDetails extends Publication {
+    @OneToMany(targetEntity = BookAuthor.class)
     private List<BookAuthor> bookAuthors;
 
     // new properties
     private String isbn;
     private Integer pageCount;
 
-    public BookDetails(String id, String title) {
+    public BookDetails(Long id, String title) {
         super(id, title);
         this.bookAuthors = new ArrayList<>();
     }
 
-    public BookDetails(String id, String title, String isbn, Integer pageCount) {
+    public BookDetails(Long id, String title, String isbn, Integer pageCount) {
         super(id, title);
         this.bookAuthors = new ArrayList<>();
         this.isbn = isbn;
@@ -27,6 +33,7 @@ public class BookDetails extends Publication {
         super(null, null);
         this.bookAuthors = new ArrayList<>();
     }
+
 
     public List<BookAuthor> getBookAuthors() {
         return bookAuthors;

@@ -1,12 +1,20 @@
 package com.example.librarymanagementsystemnew.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class ReadableItem {
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String publicationId;
     private String barcode;
     private ReadableItemStatus status;
 
-    public ReadableItem(String id, String publicationId, String barcode) {
+    public ReadableItem(Long id, String publicationId, String barcode) {
         this.id = id;
         this.publicationId = publicationId;
         this.barcode = barcode;
@@ -17,11 +25,11 @@ public class ReadableItem {
         this.status = ReadableItemStatus.AVAILABLE;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

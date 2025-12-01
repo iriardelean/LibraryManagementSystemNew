@@ -1,12 +1,19 @@
 package com.example.librarymanagementsystemnew.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
 public class BookAuthor {
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String bookId;
     private String authorId;
 
-    public BookAuthor(String id, String bookId, String authorId) {
+    public BookAuthor(Long id, String bookId, String authorId) {
         this.id = id;
         this.bookId = bookId;
         this.authorId = authorId;
@@ -15,11 +22,11 @@ public class BookAuthor {
     public BookAuthor() {
     }
 
-    public String getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

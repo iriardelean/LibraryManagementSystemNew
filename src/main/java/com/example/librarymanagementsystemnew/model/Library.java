@@ -1,15 +1,23 @@
 package com.example.librarymanagementsystemnew.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Library {
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private List<Member> members;
     private List<ReadableItem> readableItems;
 
-    public Library(String id, String name, List<Member> members, List<ReadableItem> readableItems) {
+    public Library(Long id, String name, List<Member> members, List<ReadableItem> readableItems) {
         this.id = id;
         this.name = name;
         this.members = members;
@@ -21,11 +29,11 @@ public class Library {
         this.readableItems = new ArrayList<>();
     }
 
-    public String getId() {
-        return this.id;
+    public Long getId() {
+        return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

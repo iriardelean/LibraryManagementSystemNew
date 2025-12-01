@@ -1,11 +1,19 @@
 package com.example.librarymanagementsystemnew.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Member {
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String libraryId;
     private List<Reservation> reservations;
@@ -20,11 +28,11 @@ public class Member {
         this.loans = new ArrayList<>();
     }
 
-    public String getId() {
-        return this.id;
+    public Long getId() {
+        return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -60,7 +68,7 @@ public class Member {
         this.loans = loans;
     }
 
-    public Member(String id, String name, String libraryId, List<Reservation> reservations, List<Loan> loans) {
+    public Member(Long id, String name, String libraryId, List<Reservation> reservations, List<Loan> loans) {
         this.id = id;
         this.name = name;
         this.libraryId = libraryId;
@@ -68,7 +76,7 @@ public class Member {
         this.loans = loans;
     }
 
-    public Member(String id, String name, String libraryId, List<Reservation> reservations, List<Loan> loans, String email, LocalDate membershipDate) {
+    public Member(Long id, String name, String libraryId, List<Reservation> reservations, List<Loan> loans, String email, LocalDate membershipDate) {
         this.id = id;
         this.name = name;
         this.libraryId = libraryId;

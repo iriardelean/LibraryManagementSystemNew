@@ -1,9 +1,12 @@
 package com.example.librarymanagementsystemnew.model;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class MagazineDetails extends Publication {
     private String publisher;
 
-    public MagazineDetails(String id, String title, String publisher) {
+    public MagazineDetails(Long id, String title, String publisher) {
         super(id, title);
         this.publisher = publisher;
     }
