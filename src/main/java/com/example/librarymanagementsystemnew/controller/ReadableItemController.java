@@ -22,7 +22,7 @@ public class ReadableItemController {
 
     @GetMapping
     public String listReadableItems(Model model) {
-        model.addAttribute("readableItems", readableItemService.findAll());
+        model.addAttribute("readableItems", readableItemService.getAllReadableItem());
         return "readableItem/index";
     }
 
@@ -35,7 +35,7 @@ public class ReadableItemController {
 
     @GetMapping("/{id}/edit")
     public String showEditForm(@PathVariable Long id, Model model) {
-        ReadableItem item = readableItemService.findById(id)
+        ReadableItem item = readableItemService.getReadableItemById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Id:" + id));
         model.addAttribute("readableItem", item);
         model.addAttribute("pageTitle", "Edit Readable Item");
@@ -51,16 +51,16 @@ public class ReadableItemController {
         readableItem.setPublication(pub);
 
         if (readableItem.getId() == null) {
-            readableItemService.create(readableItem);
+            readableItemService.createReadableItem(readableItem);
         } else {
-            readableItemService.update(readableItem);
+            readableItemService.updateReadableItem(readableItem);
         }
         return "redirect:/readableitem";
     }
 
     @PostMapping("/{id}/delete")
     public String deleteReadableItem(@PathVariable Long id) {
-        readableItemService.delete(id);
+        readableItemService.deleteReadableItem(id);
         return "redirect:/readableitem";
     }
 }

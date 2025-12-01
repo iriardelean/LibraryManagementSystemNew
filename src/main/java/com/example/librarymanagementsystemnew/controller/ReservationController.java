@@ -21,19 +21,19 @@ public class ReservationController {
 
     @GetMapping
     public String listReservations(Model model) {
-        model.addAttribute("reservations", reservationService.findAll());
+        model.addAttribute("reservations", reservationService.getAllReservation());
         return "reservation/index";
     }
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
-        model.addAttribute("reservation", new Reservation(null, null, null, LocalDate.now()));
+        model.addAttribute("reservation", new Reservation());
         return "reservation/form";
     }
 
     @GetMapping("/{id}/edit")
-    public String showEditForm(@PathVariable String id, Model model) {
-        Reservation reservation = reservationService.findById(id)
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Reservation reservation = reservationService.getReservationById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid reservation Id:" + id));
         model.addAttribute("reservation", reservation);
         model.addAttribute("pageTitle", "Edit Reservation");
@@ -55,16 +55,16 @@ public class ReservationController {
             reservation.setDate(LocalDate.now());
 
 
-        if (reservation.getId() == null || reservation.getId().isEmpty()) {
-            reservationService.create(reservation);
+        if (reservation.getId() == null) {
+            reservationService.createReservation(reservation);
         } else
-            reservationService.update(reservation);
+            reservationService.updateReservation(reservation);
         return "redirect:/reservation";
     }
 
     @PostMapping("/{id}/delete")
-    public String deleteReservation(@PathVariable String id) {
-        reservationService.delete(id);
+    public String deleteReservation(@PathVariable Long id) {
+        reservationService.deleteReservation(id);
         return "redirect:/reservation";
     }
 }

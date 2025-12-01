@@ -18,7 +18,7 @@ public class MagazineDetailsController {
 
     @GetMapping
     public String listMagazineDetails(Model model) {
-        model.addAttribute("magazineDetailsList", magazineDetailsService.findAll());
+        model.addAttribute("magazineDetailsList", magazineDetailsService.getAllMagazines());
         return "magazinedetails/index";
     }
 
@@ -30,8 +30,8 @@ public class MagazineDetailsController {
     }
 
     @GetMapping("/{id}/edit")
-    public String showEditForm(@PathVariable String id, Model model) {
-        MagazineDetails md = magazineDetailsService.findById(id)
+    public String showEditForm(@PathVariable Long id, Model model) {
+        MagazineDetails md = magazineDetailsService.getMagazineById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid magazine Id:" + id));
         model.addAttribute("magazineDetails", md);
         model.addAttribute("pageTitle", "Edit Magazine");
@@ -40,16 +40,16 @@ public class MagazineDetailsController {
 
     @PostMapping
     public String saveMagazineDetails(@ModelAttribute MagazineDetails magazineDetails) {
-        if (magazineDetails.getId() == null || magazineDetails.getId().isEmpty()) {
-            magazineDetailsService.create(magazineDetails);
+        if (magazineDetails.getId() == null) {
+            magazineDetailsService.createMagazine(magazineDetails);
         } else {
-            magazineDetailsService.update(magazineDetails);
+            magazineDetailsService.updateMagazine(magazineDetails);
         }
         return "redirect:/magazinedetails";
     }
 
     @PostMapping("/{id}/delete")
-    public String deleteMagazineDetails(@PathVariable String id) {
+    public String deleteMagazineDetails(@PathVariable Long id) {
         magazineDetailsService.delete(id);
         return "redirect:/magazinedetails";
     }

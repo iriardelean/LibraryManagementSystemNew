@@ -18,7 +18,7 @@ public class MemberController {
 
     @GetMapping
     public String listMembers(Model model) {
-        model.addAttribute("members", memberService.findAll());
+        model.addAttribute("members", memberService.getAllMembers());
         return "member/index";
     }
 
@@ -30,8 +30,8 @@ public class MemberController {
     }
 
     @GetMapping("/{id}/edit")
-    public String showEditForm(@PathVariable String id, Model model) {
-        Member m = memberService.findById(id)
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Member m = memberService.getMemberById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid member Id:" + id));
         model.addAttribute("member", m);
         model.addAttribute("pageTitle", "Edit Member");
@@ -40,17 +40,17 @@ public class MemberController {
 
     @PostMapping
     public String saveMember(@ModelAttribute Member member) {
-        if (member.getId() == null || member.getId().isEmpty()) {
-            memberService.create(member);
+        if (member.getId() == null) {
+            memberService.createMember(member);
         } else {
-            memberService.update(member);
+            memberService.updateMember(member);
         }
         return "redirect:/member";
     }
 
     @PostMapping("/{id}/delete")
-    public String deleteMember(@PathVariable String id) {
-        memberService.delete(id);
+    public String deleteMember(@PathVariable Long id) {
+        memberService.deleteMember(id);
         return "redirect:/member";
     }
 }

@@ -16,29 +16,19 @@ public class LoanService {
         this.repository = repository;
     }
 
-    public Loan create(Loan entity) {
-        if (entity == null)
-            throw new IllegalArgumentException("Loan cannot be null");
-
-        if (entity.getId() == null || entity.getId().isEmpty()) {
-            String nextId = SequentialIdGenerator.getNextId(
-                    repository.findAll(),
-                    Loan::getId,
-                    "loan-");
-            entity.setId(nextId);
-        }
+    public Loan createLoan(Loan entity) {
         return repository.save(entity);
     }
 
-    public Optional<Loan> findById(String id) {
+    public Optional<Loan> getLoanById(Long id) {
         return repository.findById(id);
     }
 
-    public List<Loan> findAll() {
+    public List<Loan> getAllLoans() {
         return repository.findAll();
     }
 
-    public Loan update(Loan entity) {
+    public Loan updateLoan(Loan entity) {
         if (entity == null || entity.getId() == null)
             throw new IllegalArgumentException("Loan and Id cannot be null");
         repository.findById(entity.getId())
@@ -46,8 +36,8 @@ public class LoanService {
         return repository.save(entity);
     }
 
-    public void delete(String id) {
-        repository.delete(id);
+    public void deleteLoan(Long id) {
+        repository.deleteById(id);
     }
 }
 

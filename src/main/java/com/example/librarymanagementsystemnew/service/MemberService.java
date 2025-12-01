@@ -1,6 +1,5 @@
 package com.example.librarymanagementsystemnew.service;
 
-import com.example.librarymanagementsystemnew.model.Author;
 import com.example.librarymanagementsystemnew.model.Member;
 import com.example.librarymanagementsystemnew.repository.MemberRepository;
 import org.springframework.stereotype.Service;
@@ -17,29 +16,19 @@ public class MemberService {
         this.repository = repository;
     }
 
-    public Member create(Member entity) {
-        if (entity == null)
-            throw new IllegalArgumentException("Member cannot be null");
-
-        if (entity.getId() == null || entity.getId().isEmpty()) {
-            String nextId = SequentialIdGenerator.getNextId(
-                    repository.findAll(),
-                    Member::getId,
-                    "memb-");
-            entity.setId(nextId);
-        }
+    public Member createMember(Member entity) {
         return repository.save(entity);
     }
 
-    public Optional<Member> findById(String id) {
+    public Optional<Member> getMemberById(Long id) {
         return repository.findById(id);
     }
 
-    public List<Member> findAll() {
+    public List<Member> getAllMembers() {
         return repository.findAll();
     }
 
-    public Member update(Member entity) {
+    public Member updateMember(Member entity) {
         if (entity == null || entity.getId() == null)
             throw new IllegalArgumentException("Member and Id cannot be null");
         repository.findById(entity.getId())
@@ -47,8 +36,8 @@ public class MemberService {
         return repository.save(entity);
     }
 
-    public void delete(String id) {
-        repository.delete(id);
+    public void deleteMember(Long id) {
+        repository.deleteById(id);
     }
 }
 
