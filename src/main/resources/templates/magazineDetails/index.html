@@ -136,9 +136,7 @@
 <div class="container">
     <header>
         <h1>Magazine List</h1>
-        <nav>
-            <a class="button" th:href="@{/}">Home</a>
-        </nav>
+        <a class="button" th:href="@{/}">Home</a>
     </header>
 
     <a class="button add-new-btn" th:href="@{/magazinedetails/new}">Add New Magazine</a>
@@ -149,17 +147,17 @@
             <th>ID</th>
             <th>Title</th>
             <th>Publisher</th>
-            <th>Action</th> </tr>
+            <th>Action</th>
+        </tr>
         </thead>
         <tbody>
         <tr th:each="magazine : ${magazineDetailsList}">
             <td th:text="${magazine.id}"></td>
             <td th:text="${magazine.title}"></td>
             <td th:text="${magazine.publisher}"></td>
-
-            <td class="action-cell">
+            <td>
                 <a class="action-link" th:href="@{/magazinedetails/{id}/edit(id=${magazine.id})}">Edit</a>
-                <form th:action="@{/magazinedetails/{id}/delete(id=${magazine.id})}" method="post" class="inline">
+                <form th:action="@{/magazinedetails/{id}/delete(id=${magazine.id})}" method="post" style="display:inline;">
                     <button type="submit" class="delete">Delete</button>
                 </form>
             </td>

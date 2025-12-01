@@ -131,34 +131,38 @@
 </head>
 <body>
 <div class="container">
-    <header>
-        <h1 th:text="${pageTitle}">Create/Edit Loan</h1>
-        <nav>
-            <a class="button" th:href="@{/}">Home</a>
-            <a class="back-link" th:href="@{/loan}">Back to Loans</a>
-        </nav>
-    </header>
+    <h1 th:text="${pageTitle}">Loan</h1>
 
     <form th:action="@{/loan/save}" th:object="${loan}" method="post">
         <input type="hidden" th:field="*{id}" />
 
         <div class="form-row">
-            <label for="memberId">Member ID:</label>
-            <input id="memberId" type="text" th:field="*{memberId}" required />
-        </div>
-        <div class="form-row">
-            <label for="date">Date:</label>
-            <input id="date" type="date" name="dateString" th:value="${loan.date}" required />
-        </div>
-        <div class="form-row">
-            <label for="itemIds">Item IDs (comma-separated):</label>
-            <input id="itemIds" type="text" name="itemIds" />
+            <label>Member:</label>
+            <select th:field="*{member}">
+                <option value="">-- Select Member --</option>
+                <option th:each="m : ${members}" th:value="${m.id}" th:text="${m.name}"></option>
+            </select>
+            <span class="error" th:if="${#fields.hasErrors('member')}" th:errors="*{member}">Error</span>
         </div>
 
-        <div class="actions">
-            <button type="submit" class="button">Save</button>
-            <a class="back-link" th:href="@{/loan}">Cancel</a>
+        <div class="form-row">
+            <label>Date:</label>
+            <input type="date" th:field="*{date}" />
+            <span class="error" th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Error</span>
         </div>
+
+        <div class="form-row">
+            <label>Select Items (Hold Ctrl/Cmd to select multiple):</label>
+            <select th:field="*{items}" multiple="multiple" style="height: 150px;">
+                <option th:each="item : ${allItems}"
+                        th:value="${item.id}"
+                        th:text="${item.barcode}">
+                    Barcode
+                </option>
+            </select>
+        </div>
+
+        <button type="submit" class="button">Save</button>
     </form>
 </div>
 </body>

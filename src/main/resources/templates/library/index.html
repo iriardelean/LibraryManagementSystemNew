@@ -137,9 +137,7 @@
 <div class="container">
     <header>
         <h1>Library List</h1>
-        <nav>
-            <a class="button" th:href="@{/}">Home</a>
-        </nav>
+        <a class="button" th:href="@{/}">Home</a>
     </header>
 
     <a class="button add-new-btn" th:href="@{/library/new}">Add New Library</a>
@@ -149,20 +147,18 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>#Members</th>
-            <th>#Readable Items</th>
-            <th>Action</th> </tr>
+            <th># Members</th>
+            <th>Action</th>
+        </tr>
         </thead>
         <tbody>
         <tr th:each="library : ${libraries}">
             <td th:text="${library.id}">1</td>
             <td th:text="${library.name}">Central</td>
             <td th:text="${library.members != null ? library.members.size() : 0}">0</td>
-            <td th:text="${library.readableItems != null ? library.readableItems.size() : 0}">0</td>
-
-            <td class="action-cell">
+            <td>
                 <a class="action-link" th:href="@{/library/{id}/edit(id=${library.id})}">Edit</a>
-                <form th:action="@{/library/{id}/delete(id=${library.id})}" method="post" class="inline">
+                <form th:action="@{/library/{id}/delete(id=${library.id})}" method="post" style="display:inline;">
                     <button type="submit" class="delete">Delete</button>
                 </form>
             </td>

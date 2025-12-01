@@ -133,38 +133,39 @@
 </head>
 <body>
 <div class="container">
-    <header>
-        <h1 th:text="${pageTitle}">Create/Edit Member</h1>
-        <nav>
-            <a class="button" th:href="@{/}">Home</a>
-            <a class="back-link" th:href="@{/member}">Back to Members</a>
-        </nav>
-    </header>
-
+    <h1 th:text="${pageTitle}">Member</h1>
     <form th:action="@{/member}" th:object="${member}" method="post">
         <input type="hidden" th:field="*{id}" />
 
         <div class="form-row">
-            <label for="name">Name:</label>
-            <input id="name" type="text" th:field="*{name}" required />
-        </div>
-        <div class="form-row">
-            <label for="email">Email:</label>
-            <input id="email" type="email" th:field="*{email}" required />
-        </div>
-        <div class="form-row">
-            <label for="membershipDate">Membership Date:</label>
-            <input id="membershipDate" type="date" th:field="*{membershipDate}" required />
-        </div>
-        <div class="form-row">
-            <label for="libraryId">Library ID:</label>
-            <input id="libraryId" type="text" th:field="*{libraryId}" required/>
+            <label>Name:</label>
+            <input type="text" th:field="*{name}" />
+            <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</span>
         </div>
 
-        <div class="actions">
-            <button type="submit" class="button">Save</button>
-            <a class="back-link" th:href="@{/member}">Cancel</a>
+        <div class="form-row">
+            <label>Email:</label>
+            <input type="email" th:field="*{email}" />
+            <span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error</span>
         </div>
+
+        <div class="form-row">
+            <label>Library:</label>
+            <select th:field="*{library}">
+                <option value="">-- Select Library --</option>
+                <option th:each="lib : ${libraries}"
+                        th:value="${lib.id}"
+                        th:text="${lib.name}">Library Name</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <label>Membership Date:</label>
+            <input type="date" th:field="*{membershipDate}" />
+            <span class="error" th:if="${#fields.hasErrors('membershipDate')}" th:errors="*{membershipDate}">Error</span>
+        </div>
+
+        <button type="submit" class="button">Save</button>
     </form>
 </div>
 </body>

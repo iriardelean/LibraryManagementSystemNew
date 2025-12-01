@@ -134,46 +134,41 @@
 </head>
 <body>
 <div class="container">
-    <header>
-        <h1 th:text="${pageTitle}">Create/Edit Reservation</h1>
-        <nav>
-            <a class="button" th:href="@{/}">Home</a>
-            <a class="back-link" th:href="@{/reservation}">Back to Reservations</a>
-        </nav>
-    </header>
-
+    <h1 th:text="${pageTitle}">Reservation</h1>
     <form th:action="@{/reservation/save}" th:object="${reservation}" method="post">
-
         <input type="hidden" th:field="*{id}" />
 
         <div class="form-row">
-            <label for="memberId">Member ID:</label>
-            <input id="memberId" type="text" th:field="*{memberId}" required/>
-        </div>
-        <div class="form-row">
-            <label for="readableItemId">Readable Item ID:</label>
-            <input id="readableItemId" type="text" th:field="*{readableItemId}" required/>
-        </div>
-        <div class="form-row">
-            <label for="date">Date:</label>
-            <input id="date" type="date" name="dateString" th:value="${reservation.date}" required/>
-        </div>
-
-        <div class="form-row" th:if="${reservation.id != null}">
-            <label for="status">Status:</label>
-            <select id="status" th:field="*{status}">
-                <option th:each="stat : ${T(com.example.librarymanagementsystemnew.model.ReservationStatus).values()}"
-                        th:value="${stat}"
-                        th:text="${stat}">
-                </option>
+            <label>Member:</label>
+            <select th:field="*{member}">
+                <option value="">-- Select Member --</option>
+                <option th:each="m : ${members}" th:value="${m.id}" th:text="${m.name}"></option>
             </select>
         </div>
 
-
-        <div class="actions">
-            <button type="submit" class="button">Save</button>
-            <a class="back-link" th:href="@{/reservation}">Cancel</a>
+        <div class="form-row">
+            <label>Readable Item (Barcode):</label>
+            <select th:field="*{readableItem}">
+                <option value="">-- Select Item --</option>
+                <option th:each="item : ${readableItems}" th:value="${item.id}" th:text="${item.barcode}"></option>
+            </select>
         </div>
+
+        <div class="form-row">
+            <label>Date:</label>
+            <input type="date" th:field="*{date}" />
+            <span class="error" th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Error</span>
+        </div>
+
+        <div class="form-row">
+            <label>Status:</label>
+            <select th:field="*{status}">
+                <option th:each="state : ${T(com.example.librarymanagementsystemnew.model.ReservationStatus).values()}"
+                        th:value="${state}" th:text="${state}"></option>
+            </select>
+        </div>
+
+        <button type="submit" class="button">Save</button>
     </form>
 </div>
 </body>

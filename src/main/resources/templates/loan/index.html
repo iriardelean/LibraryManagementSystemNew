@@ -134,37 +134,27 @@
 </head>
 <body>
 <div class="container">
-    <header>
-        <h1>Loan List</h1>
-        <nav>
-            <a class="button" th:href="@{/}">Home</a>
-        </nav>
-    </header>
-
-    <a class="button add-new-btn" th:href="@{/loan/new}">Add New Loan</a>
-
+    <h1>Loan List</h1>
+    <a class="button" th:href="@{/loan/new}">Add New Loan</a>
     <table>
         <thead>
         <tr>
             <th>ID</th>
-            <th>Member ID</th>
+            <th>Member</th>
             <th>Date</th>
-            <th>#Reservations</th>
-            <th>#Items</th>
+            <th>Items Count</th>
             <th>Action</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="loan : ${loans}">
-            <td th:text="${loan.id}">1</td>
-            <td th:text="${loan.memberId}">member1</td>
-            <td th:text="${loan.date}">2025-01-01</td>
-            <td th:text="${loan.reservations != null ? loan.reservations.size() : 0}">0</td>
-            <td th:text="${loan.items != null ? loan.items.size() : 0}">0</td>
-
-            <td class="action-cell">
-                <a class="action-link" th:href="@{/loan/{id}/edit(id=${loan.id})}">Edit</a>
-                <form class="inline" th:action="@{/loan/{id}/delete(id=${loan.id})}" method="post">
+            <td th:text="${loan.id}"></td>
+            <td th:text="${loan.member != null ? loan.member.name : 'Unknown'}"></td>
+            <td th:text="${loan.date}"></td>
+            <td th:text="${loan.items != null ? loan.items.size() : 0}"></td>
+            <td>
+                <a th:href="@{/loan/{id}/edit(id=${loan.id})}">Edit</a>
+                <form th:action="@{/loan/{id}/delete(id=${loan.id})}" method="post" style="display:inline;">
                     <button type="submit" class="delete">Delete</button>
                 </form>
             </td>

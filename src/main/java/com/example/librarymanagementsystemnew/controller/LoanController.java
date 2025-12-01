@@ -1,17 +1,14 @@
 package com.example.librarymanagementsystemnew.controller;
 
 import com.example.librarymanagementsystemnew.model.Loan;
-import com.example.librarymanagementsystemnew.model.ReadableItem;
 import com.example.librarymanagementsystemnew.service.ReadableItemService;
 import com.example.librarymanagementsystemnew.service.LoanService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.time.LocalDate;
-import java.util.List;
-import java.time.format.DateTimeParseException;
 
 @Controller
 @RequestMapping("/loan")
@@ -48,44 +45,24 @@ public class LoanController {
     }
 
     @PostMapping("/save")
-    public String saveLoan(@ModelAttribute Loan loan,
-                           @RequestParam(value = "dateString", required = false) String dateString,
-                           @RequestParam(value = "itemIds", required = false) String itemIds) {
-
-        if (dateString != null && !dateString.isEmpty())
-            try {
-                loan.setDate(LocalDate.parse(dateString));
-            } catch (DateTimeParseException e) {
-                System.err.println("Ungültiges Datumsformat: " + dateString);
-                loan.setDate(LocalDate.now()); // Fallback
-            }
-        else
-            loan.setDate(LocalDate.now());
-
-        List<ReadableItem> items = new ArrayList<>();
-        if (itemIds != null && !itemIds.isEmpty()) {
-            String[] parts = itemIds.split(",");
-            for (String p : parts) {
-                String trimmedId = p.trim();
-                if (!trimmedId.isEmpty())
-                    readableItemService.(trimmedId).ifPresent(items::add);
-            }
+    public String saveLoan(@Valid @ModelAttribute Loan loan, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("allItems", readableItemService.getAllReadableItem()); // Reload list on error
+            model.addAttribute("pageTitle", loan.getId() == null ? "Create New Loan" : "Edit Loan");
+            return "loan/form";
         }
-        loan.setItems(items);
-        if(loan.getReservations() == null)
-            loan.setReservations(new ArrayList<>());
-
 
         if (loan.getId() == null) {
             loanService.createLoan(loan);
-        } else
+        } else {
             loanService.updateLoan(loan);
+        }
         return "redirect:/loan";
     }
 
     @PostMapping("/{id}/delete")
     public String deleteLoan(@PathVariable Long id) {
-        loanService.delete(id);
+        loanService.deleteLoan(id);
         return "redirect:/loan";
     }
 }

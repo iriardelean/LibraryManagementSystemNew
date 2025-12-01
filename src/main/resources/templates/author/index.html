@@ -137,13 +137,9 @@ td.action-cell {
 <div class="container">
     <header>
         <h1>Author List</h1>
-        <nav>
-            <a class="button" th:href="@{/}">Home</a>
-        </nav>
+        <a class="button" th:href="@{/}">Home</a>
     </header>
-
-    <a class="button add-new-btn" th:href="@{/author/new}">Add New Author</a>
-
+    <a class="button" th:href="@{/author/new}" style="margin-bottom: 20px; display:inline-block;">Add New Author</a>
     <table>
         <thead>
         <tr>
@@ -151,17 +147,18 @@ td.action-cell {
             <th>Name</th>
             <th>Genre</th>
             <th>Period</th>
-            <th>Action</th> </tr>
+            <th>Action</th>
+        </tr>
         </thead>
         <tbody>
         <tr th:each="author : ${authors}">
-            <td th:text="${author.id}">ID</td>
-            <td th:text="${author.name}">Author Name</td>
-            <td th:text="${author.genre}">Genre</td>
-            <td th:text="${author.period}">Period</td>
-            <td class="action-cell">
-                <a class="action-link" th:href="@{/author/{id}/edit(id=${author.id})}">Edit</a>
-                <form th:action="@{/author/{id}/delete(id=${author.id})}" method="post" class="inline">
+            <td th:text="${author.id}"></td>
+            <td th:text="${author.name}"></td>
+            <td th:text="${author.genre}"></td>
+            <td th:text="${author.period}"></td>
+            <td>
+                <a th:href="@{/author/{id}/edit(id=${author.id})}" style="color: #3182ce; margin-right: 10px;">Edit</a>
+                <form th:action="@{/author/{id}/delete(id=${author.id})}" method="post" style="display:inline;">
                     <button type="submit" class="delete">Delete</button>
                 </form>
             </td>
