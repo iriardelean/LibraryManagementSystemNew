@@ -1,23 +1,30 @@
 package com.example.librarymanagementsystemnew.model;
 
+import jakarta.persistence.*;
+
 import java.util.List;
 
+@Entity
 public class Author {
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
+
+    @OneToMany
     private List<BookAuthor> books;
 
     // new properties
     private String genre;
     private String period;
 
-    public Author(String id, String name, List<BookAuthor> books) {
+    public Author(Long id, String name, List<BookAuthor> books) {
         this.id = id;
         this.name = name;
         this.books = books;
     }
 
-    public Author(String id, String name, List<BookAuthor> books, String genre, String period) {
+    public Author(Long id, String name, List<BookAuthor> books, String genre, String period) {
         this.id = id;
         this.name = name;
         this.books = books;
@@ -29,11 +36,11 @@ public class Author {
         this.books = new java.util.ArrayList<>();
     }
 
-    public String getId() {
-        return this.id;
+    public Long getId() {
+        return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

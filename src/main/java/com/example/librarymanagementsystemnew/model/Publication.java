@@ -1,14 +1,21 @@
 package com.example.librarymanagementsystemnew.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.util.ArrayList;
 import java.util.List;
-
+@Entity
 public abstract class Publication {
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String title;
     private List<ReadableItem> copies;
 
-    public Publication(String id, String Title) {
+    public Publication(Long id, String Title) {
         this.title = Title;
         this.copies = new ArrayList<>();
         this.id = id;
@@ -18,11 +25,11 @@ public abstract class Publication {
         this.copies = new ArrayList<>();
     }
 
-    public String getId() {
-        return this.id;
+    public Long getId() {
+        return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
