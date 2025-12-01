@@ -1,7 +1,6 @@
 package com.example.librarymanagementsystemnew.service;
 
 import com.example.librarymanagementsystemnew.model.Author;
-import com.example.librarymanagementsystemnew.model.BookAuthor;
 import com.example.librarymanagementsystemnew.repository.AuthorRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,19 +17,10 @@ public class AuthorService {
     }
 
     public Author createAuthor(Author author) {
-        if (author == null)
-            throw new IllegalArgumentException("Author cannot be null");
-        if (author.getId() == null || author.getId().isEmpty()) {
-            String nextId = SequentialIdGenerator.getNextId(
-                    authorRepository.findAll(),
-                    Author::getId,
-                    "auth-");
-            author.setId(nextId);
-        }
         return authorRepository.save(author);
     }
 
-    public Optional<Author> getAuthorById(String id) {
+    public Optional<Author> getAuthorById(Long id) {
         return authorRepository.findById(id);
     }
 
@@ -41,26 +31,10 @@ public class AuthorService {
     public Author updateAuthor(Author author) {
         if (author == null || author.getId() == null)
             throw new IllegalArgumentException("Author and Id cannot be null");
-
-        authorRepository.findById(author.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Author not found with id: " + author.getId()));
-
         return authorRepository.save(author);
     }
 
-    public void deleteAuthor(String id) {
-        authorRepository.delete(id);
-    }
-
-    public void addBookToAuthor(String authorId, BookAuthor bookAuthor) {
-        var opt = authorRepository.findById(authorId);
-        if (opt.isEmpty())
-            throw new IllegalArgumentException("Author not found: " + authorId);
-        Author author = opt.get();
-        if (author.getBooks() == null) {
-            author.setBooks(new java.util.ArrayList<>());
-        }
-        author.getBooks().add(bookAuthor);
-        authorRepository.save(author);
+    public void deleteAuthor(Long id) {
+        authorRepository.deleteById(id);
     }
 }

@@ -16,37 +16,25 @@ public class BookDetailsService {
         this.repository = repository;
     }
 
-    public BookDetails create(BookDetails entity) {
-        if (entity == null)
-            throw new IllegalArgumentException("BookDetails cannot be null");
-
-        if (entity.getId() == null || entity.getId().isEmpty()) {
-            String nextId = SequentialIdGenerator.getNextId(
-                    repository.findAll(),
-                    BookDetails::getId,
-                    "book-");
-            entity.setId(nextId);
-        }
+    public BookDetails createBook(BookDetails entity) {
         return repository.save(entity);
     }
 
-    public Optional<BookDetails> findById(String id) {
+    public Optional<BookDetails> getBookById(Long id) {
         return repository.findById(id);
     }
 
-    public List<BookDetails> findAll() {
+    public List<BookDetails> getAllBooks() {
         return repository.findAll();
     }
 
-    public BookDetails update(BookDetails entity) {
+    public BookDetails updateBook(BookDetails entity) {
         if (entity == null || entity.getId() == null)
             throw new IllegalArgumentException("BookDetails and Id cannot be null");
-        repository.findById(entity.getId())
-                .orElseThrow(() -> new IllegalArgumentException("BookDetails with Id " + entity.getId() + " does not exist"));
         return repository.save(entity);
     }
 
-    public void delete(String id) {
-        repository.delete(id);
+    public void deleteBook(Long id) {
+        repository.deleteById(id);
     }
 }

@@ -1,7 +1,8 @@
 package com.example.librarymanagementsystemnew.controller;
 
 import com.example.librarymanagementsystemnew.model.ReadableItem;
-import com.example.librarymanagementsystemnew.model.ReadableItemStatus;
+import com.example.librarymanagementsystemnew.model.Publication;
+import com.example.librarymanagementsystemnew.repository.PublicationRepository;
 import com.example.librarymanagementsystemnew.service.ReadableItemService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.*;
 public class ReadableItemController {
 
     private final ReadableItemService readableItemService;
+    private final PublicationRepository publicationRepository;
 
-    public ReadableItemController(ReadableItemService readableItemService) {
+    public ReadableItemController(ReadableItemService readableItemService, PublicationRepository publicationRepository) {
         this.readableItemService = readableItemService;
+        this.publicationRepository = publicationRepository;
     }
 
     @GetMapping
@@ -25,15 +28,15 @@ public class ReadableItemController {
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
-        model.addAttribute("readableItem", new ReadableItem(null, "", ""));
+        model.addAttribute("readableItem", new ReadableItem());
         model.addAttribute("pageTitle", "Create New Readable Item");
         return "readableItem/form";
     }
 
     @GetMapping("/{id}/edit")
-    public String showEditForm(@PathVariable String id, Model model) {
+    public String showEditForm(@PathVariable Long id, Model model) {
         ReadableItem item = readableItemService.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid readable item Id:" + id));
+                .orElseThrow(() -> new IllegalArgumentException("Invalid Id:" + id));
         model.addAttribute("readableItem", item);
         model.addAttribute("pageTitle", "Edit Readable Item");
         return "readableItem/form";
@@ -41,18 +44,13 @@ public class ReadableItemController {
 
     @PostMapping("/save")
     public String saveReadableItem(@ModelAttribute ReadableItem readableItem,
-                                   @RequestParam(value = "status", required = false) String status) {
-        if (status != null && !status.isEmpty()) {
-            try {
-                readableItem.setStatus(ReadableItemStatus.valueOf(status));
-            } catch (IllegalArgumentException e) {
-                readableItem.setStatus(ReadableItemStatus.AVAILABLE);
-            }
-        } else if (readableItem.getStatus() == null) {
-            readableItem.setStatus(ReadableItemStatus.AVAILABLE);
-        }
+                                   @RequestParam("publicationId") Long publicationId) {
 
-        if (readableItem.getId() == null || readableItem.getId().isEmpty()) {
+        Publication pub = publicationRepository.findById(publicationId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid Publication ID"));
+        readableItem.setPublication(pub);
+
+        if (readableItem.getId() == null) {
             readableItemService.create(readableItem);
         } else {
             readableItemService.update(readableItem);
@@ -61,7 +59,7 @@ public class ReadableItemController {
     }
 
     @PostMapping("/{id}/delete")
-    public String deleteReadableItem(@PathVariable String id) {
+    public String deleteReadableItem(@PathVariable Long id) {
         readableItemService.delete(id);
         return "redirect:/readableitem";
     }

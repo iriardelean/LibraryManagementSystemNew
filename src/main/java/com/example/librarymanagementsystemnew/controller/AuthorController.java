@@ -2,13 +2,14 @@ package com.example.librarymanagementsystemnew.controller;
 
 import com.example.librarymanagementsystemnew.model.Author;
 import com.example.librarymanagementsystemnew.service.AuthorService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-
 @Controller
-@RequestMapping("/author") // Group all author-related routes
+@RequestMapping("/author")
 public class AuthorController {
 
     private final AuthorService authorService;
@@ -31,7 +32,7 @@ public class AuthorController {
     }
 
     @GetMapping("/{id}/edit")
-    public String showEditForm(@PathVariable String id, Model model) {
+    public String showEditForm(@PathVariable Long id, Model model) {
         Author author = authorService.getAuthorById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid author Id:" + id));
         model.addAttribute("author", author);
@@ -40,8 +41,13 @@ public class AuthorController {
     }
 
     @PostMapping
-    public String saveAuthor(@ModelAttribute Author author) {
-        if (author.getId() == null || author.getId().isEmpty()) {
+    public String saveAuthor(@Valid @ModelAttribute Author author, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("pageTitle", author.getId() == null ? "Create New Author" : "Edit Author");
+            return "author/form";
+        }
+
+        if (author.getId() == null) {
             authorService.createAuthor(author);
         } else {
             authorService.updateAuthor(author);
@@ -50,7 +56,7 @@ public class AuthorController {
     }
 
     @PostMapping("/{id}/delete")
-    public String deleteAuthor(@PathVariable String id) {
+    public String deleteAuthor(@PathVariable Long id) {
         authorService.deleteAuthor(id);
         return "redirect:/author";
     }

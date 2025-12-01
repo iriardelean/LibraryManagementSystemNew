@@ -1,15 +1,9 @@
 package com.example.librarymanagementsystemnew.repository;
 import com.example.librarymanagementsystemnew.model.ReadableItem;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import java.util.List;
 
 @Repository
-public class ReadableItemRepository extends InFileRepository<ReadableItem, String> {
+public interface ReadableItemRepository extends JpaRepository<ReadableItem,Long> {
 
-    public ReadableItemRepository() {
-        super("readableitem.json", ReadableItem::getId, new TypeReference<List<ReadableItem>>() {
-        });
-    }
 }

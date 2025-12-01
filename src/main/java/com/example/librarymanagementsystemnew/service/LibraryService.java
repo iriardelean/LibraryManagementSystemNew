@@ -16,39 +16,26 @@ public class LibraryService {
         this.repository = repository;
     }
 
-    public Library create(Library lib) {
-        if (lib == null)
-            throw new IllegalArgumentException("Library cannot be null");
-
-        if (lib.getId() == null || lib.getId().isEmpty()) {
-            String nextId = SequentialIdGenerator.getNextId(
-                    repository.findAll(),
-                    Library::getId,
-                    "lib-");
-            lib.setId(nextId);
-        }
+    public Library createLibrary(Library lib) {
         return repository.save(lib);
     }
 
-
-    public Optional<Library> findById(String id) {
+    public Optional<Library> getLibraryById(Long id) {
         return repository.findById(id);
     }
 
-    public List<Library> findAll() {
+    public List<Library> getAllLibraries() {
         return repository.findAll();
     }
 
-    public Library update(Library lib) {
+    public Library updateLibrary(Library lib) {
         if (lib == null || lib.getId() == null)
             throw new IllegalArgumentException("Library and Id cannot be null");
-        repository.findById(lib.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Library with Id " + lib.getId() + " does not exist"));
         return repository.save(lib);
     }
 
-    public void delete(String id) {
-        repository.delete(id);
+    public void deleteLibrary(Long id) {
+        repository.deleteById(id);
     }
 }
 

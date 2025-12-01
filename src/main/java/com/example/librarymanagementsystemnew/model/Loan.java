@@ -1,11 +1,9 @@
 package com.example.librarymanagementsystemnew.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,61 +11,32 @@ public class Loan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String memberId;
+
+    @NotNull(message = "Loan date is required")
     private LocalDate date;
-    private List<Reservation> reservations;
-    private List<ReadableItem> items;
 
-    public Loan(Long id, String memberId, LocalDate date, List<Reservation> reservations, List<ReadableItem> items) {
-        this.id = id;
-        this.memberId = memberId;
-        this.date = date;
-        this.reservations = reservations;
-        this.items = items;
-    }
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    @NotNull(message = "Member is required")
+    private Member member;
 
-    public Loan() {
-    }
+    @ManyToMany
+    @JoinTable(
+            name = "loan_items",
+            joinColumns = @JoinColumn(name = "loan_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id")
+    )
+    private List<ReadableItem> items = new ArrayList<>();
 
-    public Long getId() {
-        return id;
-    }
+    public Loan() {}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getMemberId() {
-        return memberId;
-    }
-
-    public void setMemberId(String memberId) {
-        this.memberId = memberId;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public List<Reservation> getReservations() {
-        return reservations;
-    }
-
-    public void setReservations(List<Reservation> reservations) {
-        this.reservations = reservations;
-    }
-
-    public List<ReadableItem> getItems() {
-        return items;
-    }
-
-    public void setItems(List<ReadableItem> items) {
-        this.items = items;
-    }
-
-
+    // Getters and Setters...
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public LocalDate getDate() { return date; }
+    public void setDate(LocalDate date) { this.date = date; }
+    public Member getMember() { return member; }
+    public void setMember(Member member) { this.member = member; }
+    public List<ReadableItem> getItems() { return items; }
+    public void setItems(List<ReadableItem> items) { this.items = items; }
 }
