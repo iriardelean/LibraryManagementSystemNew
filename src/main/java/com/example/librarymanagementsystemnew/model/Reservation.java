@@ -1,10 +1,7 @@
 package com.example.librarymanagementsystemnew.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
@@ -12,61 +9,34 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String memberId;
-    private String readableItemId;
+
+    @NotNull(message = "Reservation date is required")
     private LocalDate date;
+
+    @Enumerated(EnumType.STRING)
     private ReservationStatus status;
 
-    public Reservation(Long id, String memberId, String readableItemId, LocalDate date) {
-        this.id = id;
-        this.memberId = memberId;
-        this.readableItemId = readableItemId;
-        this.date = date;
-        this.status = ReservationStatus.ACTIVE;
-    }
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @ManyToOne
+    @JoinColumn(name = "item_id")
+    private ReadableItem readableItem;
 
     public Reservation() {
         this.status = ReservationStatus.ACTIVE;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getMemberId() {
-        return memberId;
-    }
-
-    public void setMemberId(String memberId) {
-        this.memberId = memberId;
-    }
-
-    public String getReadableItemId() {
-        return readableItemId;
-    }
-
-    public void setReadableItemId(String readableItemId) {
-        this.readableItemId = readableItemId;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public ReservationStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(ReservationStatus reservationStatus) {
-        this.status = reservationStatus;
-    }
-
+    // Getters/Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public LocalDate getDate() { return date; }
+    public void setDate(LocalDate date) { this.date = date; }
+    public ReservationStatus getStatus() { return status; }
+    public void setStatus(ReservationStatus status) { this.status = status; }
+    public Member getMember() { return member; }
+    public void setMember(Member member) { this.member = member; }
+    public ReadableItem getReadableItem() { return readableItem; }
+    public void setReadableItem(ReadableItem readableItem) { this.readableItem = readableItem; }
 }

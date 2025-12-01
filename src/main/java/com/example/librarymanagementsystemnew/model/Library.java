@@ -1,10 +1,7 @@
 package com.example.librarymanagementsystemnew.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,52 +10,20 @@ public class Library {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank(message = "Library name is required")
     private String name;
-    private List<Member> members;
-    private List<ReadableItem> readableItems;
 
-    public Library(Long id, String name, List<Member> members, List<ReadableItem> readableItems) {
-        this.id = id;
-        this.name = name;
-        this.members = members;
-        this.readableItems = readableItems;
-    }
+    @OneToMany(mappedBy = "library", cascade = CascadeType.ALL)
+    private List<Member> members = new ArrayList<>();
 
-    public Library() {
-        this.members = new ArrayList<>();
-        this.readableItems = new ArrayList<>();
-    }
+    public Library() {}
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Member> getMembers() {
-        return this.members;
-    }
-
-    public void setMembers(List<Member> members) {
-        this.members = members;
-    }
-
-    public List<ReadableItem> getReadableItems() {
-        return readableItems;
-    }
-
-    public void setReadableItems(List<ReadableItem> readableItems) {
-        this.readableItems = readableItems;
-    }
-
+    // Getters/Setters...
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public List<Member> getMembers() { return members; }
+    public void setMembers(List<Member> members) { this.members = members; }
 }
