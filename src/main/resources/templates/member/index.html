@@ -134,34 +134,28 @@
 </head>
 <body>
 <div class="container">
-    <header>
-        <h1>Member List</h1>
-        <nav>
-            <a class="button" th:href="@{/}">Home</a>
-        </nav>
-    </header>
-    <a class="button add-new-btn" th:href="@{/member/new}">Add New Member</a>
+    <h1>Member List</h1>
+    <a class="button" th:href="@{/member/new}">Add New Member</a>
     <table>
         <thead>
         <tr>
             <th>ID</th>
             <th>Name</th>
             <th>Email</th>
-            <th>Membership Date</th>
-            <th>Library ID</th>
+            <th>Library</th> <th>Joined</th>
             <th>Action</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="member : ${members}">
-            <td th:text="${member.id}">1</td>
-            <td th:text="${member.name}">Member Name</td>
-            <td th:text="${member.email}">email@example.com</td>
-            <td th:text="${member.membershipDate}">2023-01-01</td>
-            <td th:text="${member.libraryId}">L1</td>
-            <td class="action-cell">
-                <a class="action-link" th:href="@{/member/{id}/edit(id=${member.id})}">Edit</a>
-                <form th:action="@{/member/{id}/delete(id=${member.id})}" method="post" class="inline">
+            <td th:text="${member.id}"></td>
+            <td th:text="${member.name}"></td>
+            <td th:text="${member.email}"></td>
+            <td th:text="${member.library != null ? member.library.name : 'None'}"></td>
+            <td th:text="${member.membershipDate}"></td>
+            <td>
+                <a th:href="@{/member/{id}/edit(id=${member.id})}">Edit</a>
+                <form th:action="@{/member/{id}/delete(id=${member.id})}" method="post" style="display:inline;">
                     <button type="submit" class="delete">Delete</button>
                 </form>
             </td>

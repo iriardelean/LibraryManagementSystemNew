@@ -134,18 +134,13 @@
 </head>
 <body>
 <div class="container">
-    <header>
-        <h1>Readable Item List</h1>
-        <nav>
-            <a class="button" th:href="@{/}">Home</a>
-        </nav>
-    </header>
-    <a class="button add-new-btn" th:href="@{/readableitem/new}">Add New Readable Item</a>
+    <h1>Readable Item List</h1>
+    <a class="button" th:href="@{/readableitem/new}">Add New Item</a>
     <table>
         <thead>
         <tr>
             <th>ID</th>
-            <th>Publication ID</th>
+            <th>Publication</th>
             <th>Barcode</th>
             <th>Status</th>
             <th>Action</th>
@@ -153,13 +148,13 @@
         </thead>
         <tbody>
         <tr th:each="item : ${readableItems}">
-            <td th:text="${item.id}">1</td>
-            <td th:text="${item.publicationId}">pub1</td>
-            <td th:text="${item.barcode}">123456</td>
-            <td th:text="${item.status}">AVAILABLE</td>
-            <td class="action-cell">
-                <a class="action-link" th:href="@{/readableitem/{id}/edit(id=${item.id})}">Edit</a>
-                <form th:action="@{/readableitem/{id}/delete(id=${item.id})}" method="post" class="inline">
+            <td th:text="${item.id}"></td>
+            <td th:text="${item.publication != null ? item.publication.title : 'Unknown'}"></td>
+            <td th:text="${item.barcode}"></td>
+            <td th:text="${item.status}"></td>
+            <td>
+                <a th:href="@{/readableitem/{id}/edit(id=${item.id})}">Edit</a>
+                <form th:action="@{/readableitem/{id}/delete(id=${item.id})}" method="post" style="display:inline;">
                     <button type="submit" class="delete">Delete</button>
                 </form>
             </td>

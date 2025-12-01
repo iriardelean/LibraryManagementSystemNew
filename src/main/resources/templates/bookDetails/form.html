@@ -124,34 +124,39 @@
 </head>
 <body>
 <div class="container">
-    <header>
-        <h1 th:text="${pageTitle}">Create/Edit Book</h1>
-        <nav>
-            <a class="button" th:href="@{/}">Home</a>
-        </nav>
-    </header>
-
+    <h1 th:text="${pageTitle}">Book</h1>
     <form th:action="@{/bookdetails}" th:object="${bookDetails}" method="post">
         <input type="hidden" th:field="*{id}" />
 
         <div class="form-row">
-            <label for="title">Title:</label>
-            <input id="title" type="text" th:field="*{title}" required />
-        </div>
-        <div class="form-row">
-            <label for="isbn">ISBN:</label>
-            <input id="isbn" type="text" th:field="*{isbn}" required />
-        </div>
-        <div class="form-row">
-            <label for="pageCount">Page Count:</label>
-            <input id="pageCount" type="number" th:field="*{pageCount}" required />
+            <label>Title:</label>
+            <input type="text" th:field="*{title}" />
+            <span class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Error</span>
         </div>
 
-        <div class="actions">
-            <button type="submit" class="button">Save</button>
-
-            <a class="back-link" th:href="@{/bookdetails}">Cancel</a>
+        <div class="form-row">
+            <label>ISBN:</label>
+            <input type="text" th:field="*{isbn}" />
+            <span class="error" th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}">Error</span>
         </div>
+
+        <div class="form-row">
+            <label>Page Count:</label>
+            <input type="number" th:field="*{pageCount}" />
+            <span class="error" th:if="${#fields.hasErrors('pageCount')}" th:errors="*{pageCount}">Error</span>
+        </div>
+
+        <div class="form-row">
+            <label>Authors (Hold Ctrl/Cmd to select multiple):</label>
+            <select th:field="*{authors}" multiple="multiple" style="height: 100px;">
+                <option th:each="auth : ${allAuthors}"
+                        th:value="${auth.id}"
+                        th:text="${auth.name}">
+                </option>
+            </select>
+        </div>
+
+        <button type="submit" class="button">Save</button>
     </form>
 </div>
 </body>

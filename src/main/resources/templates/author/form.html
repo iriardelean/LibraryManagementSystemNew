@@ -117,34 +117,33 @@
 </head>
 <body>
 <div class="container">
-    <header>
-        <h1 th:text="${pageTitle}">Create/Edit Author</h1>
-        <nav>
-            <a class="button" th:href="@{/}">Home</a>
-        </nav>
+    <header style="display:flex; justify-content:space-between; margin-bottom:20px; border-bottom:1px solid #eee; padding-bottom:20px;">
+        <h1 th:text="${pageTitle}">Author</h1>
+        <a th:href="@{/author}" style="text-decoration:none; color:#666;">Back</a>
     </header>
 
     <form th:action="@{/author}" th:object="${author}" method="post">
         <input type="hidden" th:field="*{id}" />
 
         <div class="form-row">
-            <label for="name">Name:</label>
-            <input id="name" type="text" th:field="*{name}" required />
-        </div>
-        <div class="form-row">
-            <label for="genre">Genre:</label>
-            <input id="genre" type="text" th:field="*{genre}" required />
-        </div>
-        <div class="form-row">
-            <label for="period">Period:</label>
-            <input id="period" type="text" th:field="*{period}" required />
+            <label>Name:</label>
+            <input type="text" th:field="*{name}" />
+            <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</span>
         </div>
 
-        <div class="actions">
-            <button type="submit" class="button">Save</button>
-
-            <a class="back-link" th:href="@{/author}">Cancel</a>
+        <div class="form-row">
+            <label>Genre:</label>
+            <input type="text" th:field="*{genre}" />
+            <span class="error" th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}">Error</span>
         </div>
+
+        <div class="form-row">
+            <label>Period:</label>
+            <input type="text" th:field="*{period}" />
+            <span class="error" th:if="${#fields.hasErrors('period')}" th:errors="*{period}">Error</span>
+        </div>
+
+        <button type="submit" class="button">Save</button>
     </form>
 </div>
 </body>

@@ -128,24 +128,20 @@
 <body>
 <div class="container">
     <header>
-        <h1 th:text="${pageTitle}">Create/Edit Library</h1>
-        <nav>
-            <a class="button" th:href="@{/}">Home</a>
-            <a class="back-link" th:href="@{/library}">Back to Libraries</a>
-        </nav>
+        <h1 th:text="${pageTitle}">Library</h1>
     </header>
 
     <form th:action="@{/library}" th:object="${library}" method="post">
         <input type="hidden" th:field="*{id}" />
 
         <div class="form-row">
-            <label for="name">Name:</label>
-            <input id="name" name="name" type="text" th:field="*{name}" required />
+            <label>Name:</label>
+            <input type="text" th:field="*{name}" />
+            <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>
         </div>
 
         <div class="actions">
             <button type="submit" class="button">Save</button>
-
             <a class="back-link" th:href="@{/library}">Cancel</a>
         </div>
     </form>

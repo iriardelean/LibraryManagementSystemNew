@@ -134,34 +134,29 @@
 </head>
 <body>
 <div class="container">
-    <header>
-        <h1>Reservation List</h1>
-        <nav>
-            <a class="button" th:href="@{/}">Home</a>
-        </nav>
-    </header>
-    <a class="button add-new-btn" th:href="@{/reservation/new}">Add New Reservation</a>
+    <h1>Reservation List</h1>
+    <a class="button" th:href="@{/reservation/new}">Add New Reservation</a>
     <table>
         <thead>
         <tr>
             <th>ID</th>
-            <th>Member ID</th>
-            <th>Readable Item ID</th>
+            <th>Member</th>
+            <th>Item (Barcode)</th>
             <th>Date</th>
             <th>Status</th>
             <th>Action</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="reservation : ${reservations}">
-            <td th:text="${reservation.id}">1</td>
-            <td th:text="${reservation.memberId}">member1</td>
-            <td th:text="${reservation.readableItemId}">item1</td>
-            <td th:text="${reservation.date}">2025-01-01</td>
-            <td th:text="${reservation.status}">ACTIVE</td>
-            <td class="action-cell">
-                <a class="action-link" th:href="@{/reservation/{id}/edit(id=${reservation.id})}">Edit</a>
-                <form th:action="@{/reservation/{id}/delete(id=${reservation.id})}" method="post" class="inline">
+        <tr th:each="res : ${reservations}">
+            <td th:text="${res.id}"></td>
+            <td th:text="${res.member != null ? res.member.name : 'Unknown'}"></td>
+            <td th:text="${res.readableItem != null ? res.readableItem.barcode : 'Unknown'}"></td>
+            <td th:text="${res.date}"></td>
+            <td th:text="${res.status}"></td>
+            <td>
+                <a th:href="@{/reservation/{id}/edit(id=${res.id})}">Edit</a>
+                <form th:action="@{/reservation/{id}/delete(id=${res.id})}" method="post" style="display:inline;">
                     <button type="submit" class="delete">Delete</button>
                 </form>
             </td>
