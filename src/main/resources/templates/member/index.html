@@ -2,20 +2,22 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Member List</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
     <style>
         html {
             box-sizing: border-box;
         }
-        *, *:before, *:after {
+
+        *,
+        *:before,
+        *:after {
             box-sizing: inherit;
         }
+
         body {
-            font-family: 'Inter', Arial, Helvetica, sans-serif;
+            font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 40px;
             background-color: #f4f5f7;
@@ -40,6 +42,7 @@
             margin-bottom: 20px;
             border-bottom: 1px solid #e2e8f0;
         }
+
         h1 {
             margin: 0;
             color: #1a202c;
@@ -47,38 +50,36 @@
         }
 
         .button {
-            background: #805ad5;
+            background: #8855df;
             color: #ffffff;
             padding: 10px 16px;
             text-decoration: none;
             border-radius: 6px;
             font-weight: 500;
-            transition: all 0.2s ease-in-out;
-            display: inline-block;
             border: none;
             cursor: pointer;
         }
+
         .button:hover {
             background: #783fdd;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(45, 55, 71, 0.1);
         }
 
         .add-new-btn {
             margin-bottom: 20px;
+            display: inline-block;
         }
 
         button.delete {
             background: #e53e3e;
             color: #fff;
-            border: none;
             padding: 8px 12px;
             border-radius: 6px;
+            border: none;
             cursor: pointer;
             font-weight: 500;
-            font-family: 'Inter', sans-serif;
-            transition: background-color 0.2s ease;
         }
+
         button.delete:hover {
             background: #c53030;
         }
@@ -87,14 +88,11 @@
             color: #3182ce;
             text-decoration: none;
             font-weight: 500;
-        }
-        .action-link:hover {
-            text-decoration: underline;
+            margin-right: 10px;
         }
 
-        form.inline {
-            display: inline-block;
-            margin-left: 12px;
+        .action-link:hover {
+            text-decoration: underline;
         }
 
         table {
@@ -102,7 +100,8 @@
             border-collapse: collapse;
         }
 
-        th, td {
+        th,
+        td {
             padding: 12px 15px;
             text-align: left;
             border-bottom: 1px solid #e2e8f0;
@@ -114,35 +113,25 @@
             font-weight: 600;
             font-size: 0.85em;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
         }
 
         tbody tr:hover {
             background: #f7fafc;
         }
-
-        td.action-cell {
-            white-space: nowrap;
-            width: 150px;
-        }
-
-        .muted {
-            color: #666;
-            font-size: 0.95em;
-        }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>Member List</h1>
-    <a class="button" th:href="@{/member/new}">Add New Member</a>
+    <header>
+        <h1>Member List</h1>
+        <a class="button" th:href="@{/}">Home</a>
+    </header>
+    <a class="button add-new-btn" th:href="@{/member/new}">Add New Member</a>
     <table>
         <thead>
         <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Email</th>
-            <th>Library</th> <th>Joined</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -150,11 +139,9 @@
         <tr th:each="member : ${members}">
             <td th:text="${member.id}"></td>
             <td th:text="${member.name}"></td>
-            <td th:text="${member.email}"></td>
-            <td th:text="${member.library != null ? member.library.name : 'None'}"></td>
-            <td th:text="${member.membershipDate}"></td>
             <td>
-                <a th:href="@{/member/{id}/edit(id=${member.id})}">Edit</a>
+                <a class="action-link" th:href="@{/member/{id}/details(id=${member.id})}">Details</a>
+                <a class="action-link" th:href="@{/member/{id}/edit(id=${member.id})}">Edit</a>
                 <form th:action="@{/member/{id}/delete(id=${member.id})}" method="post" style="display:inline;">
                     <button type="submit" class="delete">Delete</button>
                 </form>

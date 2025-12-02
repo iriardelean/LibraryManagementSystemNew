@@ -1,137 +1,124 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Authors</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Authors</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        html {
+            box-sizing: border-box;
+        }
 
-<style>
- html {
-     box-sizing: border-box;
- }
-*, *:before, *:after {
-    box-sizing: inherit;
-}
-body {
-    font-family: 'Inter', Arial, Helvetica, sans-serif;
-    margin: 0;
-    padding: 40px;
-    background-color: #f4f5f7;
-    color: #333;
-    line-height: 1.5;
-}
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
 
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 40px;
+            background-color: #f4f5f7;
+            color: #333;
+            line-height: 1.5;
+        }
 
-.container {
-    max-width: 1100px;
-    margin: 0 auto;
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    padding: 30px;
-}
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+        }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #e2e8f0;
-}
-h1 {
-    margin: 0;
-    color: #1a202c;
-    font-weight: 600;
-}
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
 
-.button {
-    background: #8855df;
-    color: #ffffff;
-    padding: 10px 16px;
-    text-decoration: none;
-    border-radius: 6px;
-    font-weight: 500;
-    transition: all 0.2s ease-in-out;
-    display: inline-block;
-    border: none;
-    cursor: pointer;
-}
-.button:hover {
-    background: #783fdd;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(45, 55, 71, 0.1);
-}
+        h1 {
+            margin: 0;
+            color: #1a202c;
+            font-weight: 600;
+        }
 
-.add-new-btn {
-    margin-bottom: 20px;
-}
+        .button {
+            background: #8855df;
+            color: #ffffff;
+            padding: 10px 16px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+        }
 
-button.delete {
-    background: #ee522f;
-    color: #fff;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 500;
-    font-family: 'Inter', sans-serif;
-    transition: background-color 0.2s ease;
-}
-button.delete:hover {
-    background: #ee522f;
-}
+        .button:hover {
+            background: #783fdd;
+            transform: translateY(-2px);
+        }
 
-.action-link {
-    color: #3182ce;
-    text-decoration: none;
-    font-weight: 500;
-}
-.action-link:hover {
-    text-decoration: underline;
-}
+        .add-new-btn {
+            margin-bottom: 20px;
+            display: inline-block;
+        }
 
-form.inline {
-    display: inline-block;
-    margin-left: 12px;
-}
+        button.delete {
+            background: #ee522f;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+        }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
+        button.delete:hover {
+            background: #c53030;
+        }
 
-th, td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #e2e8f0;
-}
+        .action-link {
+            color: #3182ce;
+            text-decoration: none;
+            font-weight: 500;
+            margin-right: 10px;
+        }
 
-th {
-    background: #f7fafc;
-    color: #4a5568;
-    font-weight: 600;
-    font-size: 0.85em;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
+        .action-link:hover {
+            text-decoration: underline;
+        }
 
-/* Table body */
-tbody tr:hover {
-    background: #f7fafc;
-}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-td.action-cell {
-    white-space: nowrap;
-    width: 150px;
-}
+        th,
+        td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
 
-.muted {
-    color: #666;
-    font-size: 0.95em;
-}
-</style>
+        th {
+            background: #f7fafc;
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 0.85em;
+            text-transform: uppercase;
+        }
+
+        tbody tr:hover {
+            background: #f7fafc;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -139,14 +126,12 @@ td.action-cell {
         <h1>Author List</h1>
         <a class="button" th:href="@{/}">Home</a>
     </header>
-    <a class="button" th:href="@{/author/new}" style="margin-bottom: 20px; display:inline-block;">Add New Author</a>
+    <a class="button add-new-btn" th:href="@{/author/new}">Add New Author</a>
     <table>
         <thead>
         <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Genre</th>
-            <th>Period</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -154,10 +139,9 @@ td.action-cell {
         <tr th:each="author : ${authors}">
             <td th:text="${author.id}"></td>
             <td th:text="${author.name}"></td>
-            <td th:text="${author.genre}"></td>
-            <td th:text="${author.period}"></td>
             <td>
-                <a th:href="@{/author/{id}/edit(id=${author.id})}" style="color: #3182ce; margin-right: 10px;">Edit</a>
+                <a class="action-link" th:href="@{/author/{id}/details(id=${author.id})}">Details</a>
+                <a class="action-link" th:href="@{/author/{id}/edit(id=${author.id})}">Edit</a>
                 <form th:action="@{/author/{id}/delete(id=${author.id})}" method="post" style="display:inline;">
                     <button type="submit" class="delete">Delete</button>
                 </form>

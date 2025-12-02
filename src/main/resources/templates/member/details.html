@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Member Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            padding: 40px;
+            background: #f4f5f7;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #1a202c;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 15px;
+        }
+
+        .detail-row {
+            margin-bottom: 15px;
+        }
+
+        .label {
+            font-weight: 600;
+            color: #4a5568;
+            width: 120px;
+            display: inline-block;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #3182ce;
+            text-decoration: none;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Member Details</h1>
+    <div class="detail-row">
+        <span class="label">ID:</span>
+        <span th:text="${member.id}"></span>
+    </div>
+    <div class="detail-row">
+        <span class="label">Name:</span>
+        <span th:text="${member.name}"></span>
+    </div>
+    <div class="detail-row">
+        <span class="label">Email:</span>
+        <span th:text="${member.email}"></span>
+    </div>
+    <div class="detail-row">
+        <span class="label">Joined:</span>
+        <span th:text="${member.membershipDate}"></span>
+    </div>
+    <div class="detail-row">
+        <span class="label">Library:</span>
+        <span th:text="${member.library != null ? member.library.name : 'None'}"></span>
+    </div>
+    <a th:href="@{/member}" class="back-link">← Back to List</a>
+</div>
+</body>
+</html>

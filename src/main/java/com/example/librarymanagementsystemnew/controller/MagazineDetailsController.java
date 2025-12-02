@@ -2,8 +2,10 @@ package com.example.librarymanagementsystemnew.controller;
 
 import com.example.librarymanagementsystemnew.model.MagazineDetails;
 import com.example.librarymanagementsystemnew.service.MagazineDetailsService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -39,7 +41,12 @@ public class MagazineDetailsController {
     }
 
     @PostMapping
-    public String saveMagazineDetails(@ModelAttribute MagazineDetails magazineDetails) {
+    public String saveMagazineDetails(@Valid @ModelAttribute MagazineDetails magazineDetails, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("pageTitle", magazineDetails.getId() == null ? "Create New Magazine" : "Edit Magazine");
+            return "magazinedetails/form";
+        }
+
         if (magazineDetails.getId() == null) {
             magazineDetailsService.createMagazine(magazineDetails);
         } else {

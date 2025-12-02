@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Loan List</title>
 
@@ -66,6 +66,7 @@
 
         .add-new-btn {
             margin-bottom: 20px;
+            display: inline-block;
         }
 
         button.delete {
@@ -87,14 +88,10 @@
             color: #3182ce;
             text-decoration: none;
             font-weight: 500;
+            margin-right: 10px;
         }
         .action-link:hover {
             text-decoration: underline;
-        }
-
-        form.inline {
-            display: inline-block;
-            margin-left: 12px;
         }
 
         table {
@@ -120,22 +117,17 @@
         tbody tr:hover {
             background: #f7fafc;
         }
-
-        td.action-cell {
-            white-space: nowrap;
-            width: 150px;
-        }
-
-        .muted {
-            color: #666;
-            font-size: 0.95em;
-        }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>Loan List</h1>
-    <a class="button" th:href="@{/loan/new}">Add New Loan</a>
+    <header>
+        <h1>Loan List</h1>
+        <a class="button" th:href="@{/}">Home</a>
+    </header>
+
+    <a class="button add-new-btn" th:href="@{/loan/new}">Add New Loan</a>
+
     <table>
         <thead>
         <tr>
@@ -153,7 +145,7 @@
             <td th:text="${loan.date}"></td>
             <td th:text="${loan.items != null ? loan.items.size() : 0}"></td>
             <td>
-                <a th:href="@{/loan/{id}/edit(id=${loan.id})}">Edit</a>
+                <a class="action-link" th:href="@{/loan/{id}/edit(id=${loan.id})}">Edit</a>
                 <form th:action="@{/loan/{id}/delete(id=${loan.id})}" method="post" style="display:inline;">
                     <button type="submit" class="delete">Delete</button>
                 </form>

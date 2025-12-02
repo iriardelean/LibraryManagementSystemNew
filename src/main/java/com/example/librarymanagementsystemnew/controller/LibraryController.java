@@ -2,12 +2,11 @@ package com.example.librarymanagementsystemnew.controller;
 
 import com.example.librarymanagementsystemnew.model.Library;
 import com.example.librarymanagementsystemnew.service.LibraryService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 
 @Controller
 @RequestMapping("/library")
@@ -42,7 +41,7 @@ public class LibraryController {
     }
 
     @PostMapping
-    public String saveLibrary(@ModelAttribute Library library, BindingResult result, Model model) {
+    public String saveLibrary(@Valid @ModelAttribute Library library, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("pageTitle", library.getId() == null ? "Create New Library" : "Edit Library");
             return "library/form";
