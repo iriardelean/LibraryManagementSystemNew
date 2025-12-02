@@ -60,4 +60,12 @@ public class AuthorController {
         authorService.deleteAuthor(id);
         return "redirect:/author";
     }
+
+    @GetMapping("/{id}/details")
+    public String showDetails(@PathVariable Long id, Model model) {
+        Author author = authorService.getAuthorById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid author Id:" + id));
+        model.addAttribute("author", author);
+        return "author/details";
+    }
 }

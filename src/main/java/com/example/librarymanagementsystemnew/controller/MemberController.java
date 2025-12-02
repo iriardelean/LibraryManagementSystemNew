@@ -67,4 +67,12 @@ public class MemberController {
         memberService.deleteMember(id);
         return "redirect:/member";
     }
+
+    @GetMapping("/{id}/details")
+    public String showDetails(@PathVariable Long id, Model model) {
+        Member member = memberService.getMemberById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid member Id:" + id));
+        model.addAttribute("member", member);
+        return "member/details";
+    }
 }

@@ -66,4 +66,12 @@ public class ReadableItemController {
         readableItemService.deleteReadableItem(id);
         return "redirect:/readableitem";
     }
+
+    @GetMapping("/{id}/details")
+    public String showDetails(@PathVariable Long id, Model model) {
+        ReadableItem readableItem = readableItemService.getReadableItemById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid item Id:" + id));
+        model.addAttribute("readableItem", readableItem);
+        return "readableItem/details";
+    }
 }

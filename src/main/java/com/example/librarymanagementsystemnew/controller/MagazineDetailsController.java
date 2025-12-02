@@ -60,4 +60,12 @@ public class MagazineDetailsController {
         magazineDetailsService.delete(id);
         return "redirect:/magazinedetails";
     }
+
+    @GetMapping("/{id}/details")
+    public String showDetails(@PathVariable Long id, Model model) {
+        MagazineDetails magazineDetails = magazineDetailsService.getMagazineById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid magazine Id:" + id));
+        model.addAttribute("magazineDetails", magazineDetails);
+        return "magazineDetails/details";
+    }
 }
