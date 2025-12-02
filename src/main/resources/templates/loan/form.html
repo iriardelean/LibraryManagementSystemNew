@@ -154,11 +154,7 @@
         <div class="form-row">
             <label>Select Items (Hold Ctrl/Cmd to select multiple):</label>
             <select th:field="*{items}" multiple="multiple" style="height: 150px;">
-                <option th:each="item : ${allItems}"
-                        th:value="${item.id}"
-                        th:text="${item.barcode}">
-                    Barcode
-                </option>
+                <option th:each="item : ${allItems}" th:value="${item.id}" th:text="${item.publication != null ? item.publication.title : 'Unknown'} + ' (' + ${item.barcode} + ')'"> Title (Barcode) </option>
             </select>
         </div>
 
