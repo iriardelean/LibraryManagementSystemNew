@@ -73,4 +73,12 @@ public class ReservationController {
         reservationService.deleteReservation(id);
         return "redirect:/reservation";
     }
+
+    @GetMapping("/{id}/details")
+    public String showDetails(@PathVariable Long id, Model model) {
+        Reservation reservation = reservationService.getReservationById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid reservation Id:" + id));
+        model.addAttribute("reservation", reservation);
+        return "reservation/details";
+    }
 }

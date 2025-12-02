@@ -73,4 +73,12 @@ public class LoanController {
         loanService.deleteLoan(id);
         return "redirect:/loan";
     }
+
+    @GetMapping("/{id}/details")
+    public String showDetails(@PathVariable Long id, Model model) {
+        Loan loan = loanService.getLoanById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid loan Id:" + id));
+        model.addAttribute("loan", loan);
+        return "loan/details";
+    }
 }

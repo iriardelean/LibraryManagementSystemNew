@@ -139,7 +139,7 @@
         <tr th:each="item : ${readableItems}">
             <td th:text="${item.id}"></td>
             <!-- Displaying Title and Barcode for clarity -->
-            <td th:text="${item.publication != null ? item.publication.title + ' (' + item.barcode + ')' : item.barcode}"></td>
+            <td th:text="${item.publication != null ? item.publication.title : item.barcode}"></td>
             <td>
                 <a class="action-link" th:href="@{/readableitem/{id}/details(id=${item.id})}">Details</a>
                 <a class="action-link" th:href="@{/readableitem/{id}/edit(id=${item.id})}">Edit</a>

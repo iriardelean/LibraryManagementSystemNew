@@ -145,6 +145,8 @@
             <td th:text="${loan.date}"></td>
             <td th:text="${loan.items != null ? loan.items.size() : 0}"></td>
             <td>
+            <td>
+                <a class="action-link" th:href="@{/loan/{id}/details(id=${loan.id})}">Details</a>
                 <a class="action-link" th:href="@{/loan/{id}/edit(id=${loan.id})}">Edit</a>
                 <form th:action="@{/loan/{id}/delete(id=${loan.id})}" method="post" style="display:inline;">
                     <button type="submit" class="delete">Delete</button>

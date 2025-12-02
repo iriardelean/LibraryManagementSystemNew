@@ -60,4 +60,12 @@ public class LibraryController {
         libraryService.deleteLibrary(id);
         return "redirect:/library";
     }
+
+    @GetMapping("/{id}/details")
+    public String showDetails(@PathVariable Long id, Model model) {
+        Library library = libraryService.getLibraryById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid library Id:" + id));
+        model.addAttribute("library", library);
+        return "library/details";
+    }
 }

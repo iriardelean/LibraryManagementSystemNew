@@ -67,4 +67,12 @@ public class BookDetailsController {
         bookDetailsService.deleteBook(id);
         return "redirect:/bookdetails";
     }
+
+    @GetMapping("/{id}/details")
+    public String showDetails(@PathVariable Long id, Model model) {
+        BookDetails bookDetails = bookDetailsService.getBookById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid book Id:" + id));
+        model.addAttribute("book", bookDetails);
+        return "bookDetails/details";
+    }
 }
