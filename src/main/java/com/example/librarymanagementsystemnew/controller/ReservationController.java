@@ -1,22 +1,27 @@
 package com.example.librarymanagementsystemnew.controller;
 
 import com.example.librarymanagementsystemnew.model.Reservation;
+import com.example.librarymanagementsystemnew.service.MemberService;
+import com.example.librarymanagementsystemnew.service.ReadableItemService;
 import com.example.librarymanagementsystemnew.service.ReservationService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 @Controller
 @RequestMapping("/reservation")
 public class ReservationController {
 
     private final ReservationService reservationService;
+    private final MemberService memberService;
+    private final ReadableItemService readableItemService;
 
-    public ReservationController(ReservationService reservationService) {
+    public ReservationController(ReservationService reservationService, MemberService memberService, ReadableItemService readableItemService) {
         this.reservationService = reservationService;
+        this.memberService = memberService;
+        this.readableItemService = readableItemService;
     }
 
     @GetMapping
@@ -28,6 +33,9 @@ public class ReservationController {
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("reservation", new Reservation());
+        model.addAttribute("members", memberService.getAllMembers()); // Populate Member Dropdown
+        model.addAttribute("readableItems", readableItemService.getAllReadableItem()); // Populate Item Dropdown
+        model.addAttribute("pageTitle", "Create New Reservation");
         return "reservation/form";
     }
 
@@ -36,29 +44,27 @@ public class ReservationController {
         Reservation reservation = reservationService.getReservationById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid reservation Id:" + id));
         model.addAttribute("reservation", reservation);
+        model.addAttribute("members", memberService.getAllMembers()); // Populate Member Dropdown
+        model.addAttribute("readableItems", readableItemService.getAllReadableItem()); // Populate Item Dropdown
         model.addAttribute("pageTitle", "Edit Reservation");
         return "reservation/form";
     }
 
     @PostMapping("/save")
-    public String saveReservation(@ModelAttribute Reservation reservation,
-                                  @RequestParam(value = "dateString", required = false) String dateString) { // Nimmt Datum als String
-
-        if (dateString != null && !dateString.isEmpty())
-            try {
-                reservation.setDate(LocalDate.parse(dateString));
-            } catch (DateTimeParseException e) {
-                System.err.println("Ungültiges Datumsformat: " + dateString);
-                reservation.setDate(LocalDate.now());
-            }
-        else
-            reservation.setDate(LocalDate.now());
-
+    public String saveReservation(@Valid @ModelAttribute Reservation reservation, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            // Reload list on error
+            model.addAttribute("members", memberService.getAllMembers());
+            model.addAttribute("readableItems", readableItemService.getAllReadableItem());
+            model.addAttribute("pageTitle", reservation.getId() == null ? "Create New Reservation" : "Edit Reservation");
+            return "reservation/form";
+        }
 
         if (reservation.getId() == null) {
             reservationService.createReservation(reservation);
-        } else
+        } else {
             reservationService.updateReservation(reservation);
+        }
         return "redirect:/reservation";
     }
 

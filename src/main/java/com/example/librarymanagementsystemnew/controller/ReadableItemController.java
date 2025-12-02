@@ -1,11 +1,12 @@
 package com.example.librarymanagementsystemnew.controller;
 
 import com.example.librarymanagementsystemnew.model.ReadableItem;
-import com.example.librarymanagementsystemnew.model.Publication;
 import com.example.librarymanagementsystemnew.repository.PublicationRepository;
 import com.example.librarymanagementsystemnew.service.ReadableItemService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -29,6 +30,7 @@ public class ReadableItemController {
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("readableItem", new ReadableItem());
+        model.addAttribute("publications", publicationRepository.findAll()); // Populate Publication Dropdown
         model.addAttribute("pageTitle", "Create New Readable Item");
         return "readableItem/form";
     }
@@ -38,17 +40,18 @@ public class ReadableItemController {
         ReadableItem item = readableItemService.getReadableItemById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Id:" + id));
         model.addAttribute("readableItem", item);
+        model.addAttribute("publications", publicationRepository.findAll()); // Populate Publication Dropdown
         model.addAttribute("pageTitle", "Edit Readable Item");
         return "readableItem/form";
     }
 
     @PostMapping("/save")
-    public String saveReadableItem(@ModelAttribute ReadableItem readableItem,
-                                   @RequestParam("publicationId") Long publicationId) {
-
-        Publication pub = publicationRepository.findById(publicationId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid Publication ID"));
-        readableItem.setPublication(pub);
+    public String saveReadableItem(@Valid @ModelAttribute ReadableItem readableItem, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("publications", publicationRepository.findAll());
+            model.addAttribute("pageTitle", readableItem.getId() == null ? "Create New Readable Item" : "Edit Readable Item");
+            return "readableItem/form";
+        }
 
         if (readableItem.getId() == null) {
             readableItemService.createReadableItem(readableItem);

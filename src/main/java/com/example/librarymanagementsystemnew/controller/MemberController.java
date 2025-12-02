@@ -1,9 +1,12 @@
 package com.example.librarymanagementsystemnew.controller;
 
 import com.example.librarymanagementsystemnew.model.Member;
+import com.example.librarymanagementsystemnew.service.LibraryService;
 import com.example.librarymanagementsystemnew.service.MemberService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -11,9 +14,11 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberService memberService;
+    private final LibraryService libraryService;
 
-    public MemberController(MemberService memberService) {
+    public MemberController(MemberService memberService, LibraryService libraryService) {
         this.memberService = memberService;
+        this.libraryService = libraryService;
     }
 
     @GetMapping
@@ -25,6 +30,7 @@ public class MemberController {
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("member", new Member());
+        model.addAttribute("libraries", libraryService.getAllLibraries()); // Populate Library Dropdown
         model.addAttribute("pageTitle", "Create New Member");
         return "member/form";
     }
@@ -34,12 +40,20 @@ public class MemberController {
         Member m = memberService.getMemberById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid member Id:" + id));
         model.addAttribute("member", m);
+        model.addAttribute("libraries", libraryService.getAllLibraries()); // Populate Library Dropdown
         model.addAttribute("pageTitle", "Edit Member");
         return "member/form";
     }
 
     @PostMapping
-    public String saveMember(@ModelAttribute Member member) {
+    public String saveMember(@Valid @ModelAttribute Member member, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            // Reload list on error
+            model.addAttribute("libraries", libraryService.getAllLibraries());
+            model.addAttribute("pageTitle", member.getId() == null ? "Create New Member" : "Edit Member");
+            return "member/form";
+        }
+
         if (member.getId() == null) {
             memberService.createMember(member);
         } else {
