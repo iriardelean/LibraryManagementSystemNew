@@ -66,6 +66,7 @@ public class MagazineDetailsController {
         MagazineDetails magazineDetails = magazineDetailsService.getMagazineById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid magazine Id:" + id));
         model.addAttribute("magazineDetails", magazineDetails);
-        return "magazineDetails/details";
+        // FIXED: Changed "magazineDetails/details" to "magazinedetails/details" to match the folder/other methods
+        return "magazinedetails/details";
     }
 }
