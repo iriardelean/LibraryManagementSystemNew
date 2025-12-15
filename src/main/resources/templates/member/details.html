@@ -36,6 +36,7 @@
             color: #4a5568;
             width: 120px;
             display: inline-block;
+            vertical-align: top;
         }
 
         .back-link {
@@ -44,6 +45,20 @@
             color: #3182ce;
             text-decoration: none;
             font-weight: 500;
+        }
+
+        .loan-list {
+            margin: 0;
+            padding-left: 20px;
+            display: inline-block;
+            width: calc(100% - 130px);
+        }
+
+        .loan-item-list {
+            margin-top: 4px;
+            padding-left: 20px;
+            color: #555;
+            font-size: 0.95em;
         }
     </style>
 </head>
@@ -70,6 +85,24 @@
         <span class="label">Library:</span>
         <span th:text="${member.library != null ? member.library.name : 'None'}"></span>
     </div>
+
+    <div class="detail-row">
+        <span class="label">Loan History:</span>
+        <div style="display: inline-block; width: calc(100% - 130px);">
+            <ul class="loan-list" th:if="${!member.loans.isEmpty()}">
+                <li th:each="loan : ${member.loans}" style="margin-bottom: 10px;">
+                    <strong th:text="'Loan Date: ' + ${loan.date}"></strong>
+                    <ul class="loan-item-list">
+                        <li th:each="item : ${loan.items}"
+                            th:text="${item.publication != null ? item.publication.title : 'Unknown'} + ' (Barcode: ' + ${item.barcode} + ')'">
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <span th:if="${member.loans.isEmpty()}" style="color: #888;">No loans recorded.</span>
+        </div>
+    </div>
+
     <a th:href="@{/member}" class="back-link">← Back to List</a>
 </div>
 </body>
