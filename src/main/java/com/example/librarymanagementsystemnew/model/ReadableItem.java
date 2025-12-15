@@ -2,6 +2,7 @@ package com.example.librarymanagementsystemnew.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class ReadableItem {
@@ -17,6 +18,7 @@ public class ReadableItem {
 
     @ManyToOne
     @JoinColumn(name = "publication_id")
+    @NotNull(message = "Publication (Book or Magazine) is required")
     private Publication publication;
 
     public ReadableItem() {}

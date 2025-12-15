@@ -1,6 +1,7 @@
 package com.example.librarymanagementsystemnew.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class Loan {
             joinColumns = @JoinColumn(name = "loan_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id")
     )
+    @NotEmpty(message = "At least one item must be loaned")
     private List<ReadableItem> items = new ArrayList<>();
 
     public Loan() {}

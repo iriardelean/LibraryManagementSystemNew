@@ -30,10 +30,10 @@ public class Member {
     @JoinColumn(name = "library_id")
     private Library library;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade =  CascadeType.ALL, orphanRemoval = true)
     private List<Loan> loans = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade =  CascadeType.ALL, orphanRemoval = true)
     private List<Reservation> reservations = new ArrayList<>();
 
     public Member() {}

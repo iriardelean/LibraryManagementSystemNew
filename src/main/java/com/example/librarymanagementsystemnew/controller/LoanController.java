@@ -34,7 +34,7 @@ public class LoanController {
     public String showCreateForm(Model model) {
         model.addAttribute("loan", new Loan());
         model.addAttribute("members", memberService.getAllMembers()); // Populate Member Dropdown
-        model.addAttribute("allItems", readableItemService.getAllReadableItem()); // Populate Item List
+        model.addAttribute("allItems", readableItemService.getAvailableReadableItems()); // Populate Item List
         model.addAttribute("pageTitle", "Create New Loan");
         return "loan/form";
     }
@@ -55,7 +55,13 @@ public class LoanController {
         if (result.hasErrors()) {
             // Reload lists on error
             model.addAttribute("members", memberService.getAllMembers());
-            model.addAttribute("allItems", readableItemService.getAllReadableItem());
+
+            if (loan.getId() == null) {
+                model.addAttribute("allItems", readableItemService.getAvailableReadableItems());
+            } else {
+                model.addAttribute("allItems", readableItemService.getAllReadableItem());
+            }
+
             model.addAttribute("pageTitle", loan.getId() == null ? "Create New Loan" : "Edit Loan");
             return "loan/form";
         }

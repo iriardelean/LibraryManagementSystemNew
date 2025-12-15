@@ -18,10 +18,12 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name = "member_id")
+    @NotNull(message = "Member is required")
     private Member member;
 
     @ManyToOne
     @JoinColumn(name = "item_id")
+    @NotNull(message = "Item to reserve is required")
     private ReadableItem readableItem;
 
     public Reservation() {
