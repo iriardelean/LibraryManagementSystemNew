@@ -3,6 +3,7 @@ package com.example.librarymanagementsystemnew.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class BookDetails extends Publication {
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id")
     )
+    @NotEmpty(message = "At least one author is required")
     private List<Author> authors = new ArrayList<>();
 
     public BookDetails() {}

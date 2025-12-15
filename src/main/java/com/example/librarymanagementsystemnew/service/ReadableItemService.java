@@ -1,6 +1,7 @@
 package com.example.librarymanagementsystemnew.service;
 
 import com.example.librarymanagementsystemnew.model.ReadableItem;
+import com.example.librarymanagementsystemnew.model.ReadableItemStatus;
 import com.example.librarymanagementsystemnew.repository.ReadableItemRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -21,6 +22,10 @@ public class ReadableItemService {
 
     public Optional<ReadableItem> getReadableItemById(Long id) {
         return repository.findById(id);
+    }
+
+    public List<ReadableItem> getAvailableReadableItems() {
+        return repository.findByStatus(ReadableItemStatus.AVAILABLE);
     }
 
     public List<ReadableItem> getAllReadableItem() {
