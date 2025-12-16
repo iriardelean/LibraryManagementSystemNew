@@ -1,8 +1,12 @@
 package com.example.librarymanagementsystemnew.service;
 
-import com.example.librarymanagementsystemnew.model.Author;
+import com.example.librarymanagementsystemnew.model.*;
 import com.example.librarymanagementsystemnew.repository.AuthorRepository;
+import com.example.librarymanagementsystemnew.repository.BookDetailsRepository;
+import com.example.librarymanagementsystemnew.repository.LoanRepository;
+import com.example.librarymanagementsystemnew.repository.ReservationRepository;
 import jakarta.persistence.criteria.Predicate;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -15,9 +19,15 @@ import java.util.Optional;
 public class AuthorService {
 
     private final AuthorRepository authorRepository;
+    private final BookDetailsRepository bookDetailsRepository;
+    private final ReservationRepository reservationRepository;
+    private final LoanRepository loanRepository;
 
-    public AuthorService(AuthorRepository authorRepository) {
+    public AuthorService(AuthorRepository authorRepository, BookDetailsRepository bookDetailsRepository, ReservationRepository reservationRepository, LoanRepository loanRepository) {
         this.authorRepository = authorRepository;
+        this.bookDetailsRepository = bookDetailsRepository;
+        this.reservationRepository = reservationRepository;
+        this.loanRepository = loanRepository;
     }
 
     public Author createAuthor(Author author) {
@@ -38,8 +48,44 @@ public class AuthorService {
         return authorRepository.save(author);
     }
 
+    @Transactional
     public void deleteAuthor(Long id) {
-        authorRepository.deleteById(id);
+        Author author = authorRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid author Id:" + id));
+
+        List<BookDetails> books = new ArrayList<>(author.getBooks());
+
+        for (BookDetails book : books) {
+            book.getAuthors().remove(author);
+
+            if (book.getAuthors().isEmpty()) {
+
+                for (ReadableItem item : book.getCopies()) {
+
+                    List<Reservation> reservations = reservationRepository.findAll((root, query, cb) ->
+                            cb.equal(root.get("readableItem"), item));
+                    reservationRepository.deleteAll(reservations);
+
+                    List<Loan> loans = loanRepository.findAll((root, query, cb) ->
+                            cb.isMember(item, root.get("items")));
+
+                    for (Loan loan : loans) {
+                        loan.getItems().remove(item);
+                        if (loan.getItems().isEmpty()) {
+                            loanRepository.delete(loan);
+                        } else {
+                            loanRepository.save(loan);
+                        }
+                    }
+                }
+
+                bookDetailsRepository.delete(book);
+            } else {
+                bookDetailsRepository.save(book);
+            }
+        }
+
+        authorRepository.delete(author);
     }
 
     public List<Author> searchAuthors(String name, String genre, String period, String sortField, String sortDir) {
