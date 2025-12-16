@@ -6,16 +6,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        html {
-            box-sizing: border-box;
-        }
-
-        *,
-        *:before,
-        *:after {
-            box-sizing: inherit;
-        }
-
+        /* --- Base Styles --- */
+        html { box-sizing: border-box; }
+        *, *:before, *:after { box-sizing: inherit; }
         body {
             font-family: 'Inter', sans-serif;
             margin: 0;
@@ -25,9 +18,11 @@
             line-height: 1.5;
         }
 
+        /* --- Container (White Box) --- */
         .container {
-            max-width: 1100px;
-            margin: 0 auto;
+            width: 95%;           /* Occupy 95% of the screen width */
+            max-width: 1600px;    /* Stop growing after 1600px */
+            margin: 0 auto;       /* Center the box */
             background: #ffffff;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -42,73 +37,39 @@
             margin-bottom: 20px;
             border-bottom: 1px solid #e2e8f0;
         }
+        h1 { margin: 0; color: #1a202c; font-weight: 600; }
 
-        h1 {
-            margin: 0;
-            color: #1a202c;
-            font-weight: 600;
-        }
-
+        /* --- Buttons --- */
         .button {
-            background: #8855df;
-            color: #ffffff;
-            padding: 10px 16px;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: 500;
-            border: none;
-            cursor: pointer;
+            background: #8855df; color: #ffffff; padding: 10px 16px;
+            text-decoration: none; border-radius: 6px; font-weight: 500;
+            border: none; cursor: pointer;
         }
+        .button:hover { background: #783fdd; transform: translateY(-2px); }
 
-        .button:hover {
-            background: #783fdd;
-            transform: translateY(-2px);
-        }
-
-        .add-new-btn {
-            margin-bottom: 20px;
-            display: inline-block;
-        }
+        .add-new-btn { margin-bottom: 20px; display: inline-block; }
 
         button.delete {
-            background: #e53e3e;
-            color: #fff;
-            padding: 8px 12px;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-            font-weight: 500;
+            background: #e53e3e; color: #fff; padding: 8px 12px;
+            border-radius: 6px; border: none; cursor: pointer; font-weight: 500;
         }
+        button.delete:hover { background: #c53030; }
 
-        button.delete:hover {
-            background: #c53030;
-        }
+        .action-link { color: #3182ce; text-decoration: none; font-weight: 500; margin-right: 10px; }
+        .action-link:hover { text-decoration: underline; }
 
-        .action-link {
-            color: #3182ce;
-            text-decoration: none;
-            font-weight: 500;
-            margin-right: 10px;
-        }
-
-        .action-link:hover {
-            text-decoration: underline;
-        }
-
+        /* --- Table Styles --- */
         table {
-            width: auto;
-            min-width: 60%;
-            margin: 0 auto;
+            width: 100%;
             border-collapse: collapse;
+            table-layout: fixed; /* Important for column sizing */
         }
-
-        th,
-        td {
+        th, td {
             padding: 12px 15px;
             text-align: left;
             border-bottom: 1px solid #e2e8f0;
+            vertical-align: middle;
         }
-
         th {
             background: #f7fafc;
             color: #4a5568;
@@ -116,10 +77,40 @@
             font-size: 0.85em;
             text-transform: uppercase;
         }
+        tbody tr:hover { background: #f7fafc; }
 
-        tbody tr:hover {
-            background: #f7fafc;
+        /* --- Column Sizing (Make it fit!) --- */
+
+        /* 1. ID Column: Narrow and Centered */
+        th:nth-child(1), td:nth-child(1) {
+            width: 80px;       /* Fixed narrow width */
+            text-align: center;
         }
+
+        /* 2. Name Column: Takes all remaining space */
+        th:nth-child(2), td:nth-child(2) {
+            width: auto;       /* Expands to fill space */
+        }
+
+        /* 3. Action Column: Just wide enough for buttons */
+        th:nth-child(3), td:nth-child(3) {
+            width: 280px;      /* Fixed width for buttons */
+            text-align: right; /* Align buttons to the right (optional) */
+        }
+
+        /* --- Filter Form --- */
+        .filter-form {
+            background: #edf2f7; padding: 15px; border-radius: 6px;
+            margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end;
+        }
+        .filter-group { display: flex; flex-direction: column; }
+        .filter-group label { font-size: 0.85em; font-weight: 600; color: #4a5568; margin-bottom: 4px; }
+        .filter-group input { padding: 8px; border: 1px solid #cbd5e0; border-radius: 4px; }
+
+        .sort-link { color: #4a5568; text-decoration: none; display: flex; align-items: center; justify-content: center; } /* Center sort icon for ID */
+        .sort-link.left-align { justify-content: flex-start; } /* Left align sort icon for Name */
+        .sort-link:hover { color: #3182ce; }
+        .sort-arrow { margin-left: 5px; font-size: 0.8em; }
     </style>
 </head>
 <body>
@@ -128,13 +119,40 @@
         <h1>Library List</h1>
         <a class="button" th:href="@{/}">Home</a>
     </header>
+
+    <form class="filter-form" th:action="@{/library}" method="get">
+        <input type="hidden" name="sortField" th:value="${sortField}">
+        <input type="hidden" name="sortDir" th:value="${sortDir}">
+
+        <div class="filter-group">
+            <label>Name</label>
+            <input type="text" name="name" th:value="${name}" placeholder="Search name...">
+        </div>
+
+        <div class="filter-group">
+            <button type="submit" class="button">Filter</button>
+        </div>
+        <div class="filter-group">
+            <a th:href="@{/library}" style="padding: 8px; color: #718096; text-decoration: none; font-size: 0.9em;">Reset</a>
+        </div>
+    </form>
+
     <a class="button add-new-btn" th:href="@{/library/new}">Add New Library</a>
+
     <table>
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Action</th>
+            <th>
+                <a class="sort-link" th:href="@{/library(sortField='id', sortDir=${reverseSortDir}, name=${name})}">
+                    ID <span class="sort-arrow" th:if="${sortField == 'id'}" th:text="${sortDir == 'asc' ? '▲' : '▼'}"></span>
+                </a>
+            </th>
+            <th>
+                <a class="sort-link left-align" th:href="@{/library(sortField='name', sortDir=${reverseSortDir}, name=${name})}">
+                    Name <span class="sort-arrow" th:if="${sortField == 'name'}" th:text="${sortDir == 'asc' ? '▲' : '▼'}"></span>
+                </a>
+            </th>
+            <th style="text-align: right;">Action</th>
         </tr>
         </thead>
         <tbody>

@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @Controller
 @RequestMapping("/loan")
 public class LoanController {
@@ -25,16 +27,30 @@ public class LoanController {
     }
 
     @GetMapping
-    public String listLoans(Model model) {
-        model.addAttribute("loans", loanService.getAllLoans());
+    public String listLoans(Model model,
+                            @RequestParam(required = false) String memberName,
+                            @RequestParam(required = false) LocalDate minDate,
+                            @RequestParam(required = false) LocalDate maxDate,
+                            @RequestParam(defaultValue = "id") String sortField,
+                            @RequestParam(defaultValue = "asc") String sortDir) {
+
+        model.addAttribute("loans", loanService.searchLoans(memberName, minDate, maxDate, sortField, sortDir));
+
+        model.addAttribute("memberName", memberName);
+        model.addAttribute("minDate", minDate);
+        model.addAttribute("maxDate", maxDate);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
         return "loan/index";
     }
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("loan", new Loan());
-        model.addAttribute("members", memberService.getAllMembers()); // Populate Member Dropdown
-        model.addAttribute("allItems", readableItemService.getAvailableReadableItems()); // Populate Item List
+        model.addAttribute("members", memberService.getAllMembers());
+        model.addAttribute("allItems", readableItemService.getAvailableReadableItems());
         model.addAttribute("pageTitle", "Create New Loan");
         return "loan/form";
     }
@@ -44,8 +60,8 @@ public class LoanController {
         Loan loan = loanService.getLoanById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid loan Id:" + id));
         model.addAttribute("loan", loan);
-        model.addAttribute("members", memberService.getAllMembers()); // Populate Member Dropdown
-        model.addAttribute("allItems", readableItemService.getAllReadableItem()); // Populate Item List
+        model.addAttribute("members", memberService.getAllMembers());
+        model.addAttribute("allItems", readableItemService.getAllReadableItem());
         model.addAttribute("pageTitle", "Edit Loan");
         return "loan/form";
     }
@@ -53,7 +69,6 @@ public class LoanController {
     @PostMapping("/save")
     public String saveLoan(@Valid @ModelAttribute Loan loan, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            // Reload lists on error
             model.addAttribute("members", memberService.getAllMembers());
 
             if (loan.getId() == null) {

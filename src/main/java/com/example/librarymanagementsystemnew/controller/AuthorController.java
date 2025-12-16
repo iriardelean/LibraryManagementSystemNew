@@ -19,8 +19,22 @@ public class AuthorController {
     }
 
     @GetMapping
-    public String listAuthors(Model model) {
-        model.addAttribute("authors", authorService.getAllAuthors());
+    public String listAuthors(Model model,
+                              @RequestParam(required = false) String name,
+                              @RequestParam(required = false) String genre,
+                              @RequestParam(required = false) String period,
+                              @RequestParam(defaultValue = "id") String sortField,
+                              @RequestParam(defaultValue = "asc") String sortDir) {
+
+        model.addAttribute("authors", authorService.searchAuthors(name, genre, period, sortField, sortDir));
+
+        model.addAttribute("name", name);
+        model.addAttribute("genre", genre);
+        model.addAttribute("period", period);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
         return "author/index";
     }
 

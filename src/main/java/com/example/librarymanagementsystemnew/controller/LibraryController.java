@@ -19,8 +19,18 @@ public class LibraryController {
     }
 
     @GetMapping
-    public String listLibraries(Model model) {
-        model.addAttribute("libraries", libraryService.getAllLibraries());
+    public String listLibraries(Model model,
+                                @RequestParam(required = false) String name,
+                                @RequestParam(defaultValue = "id") String sortField,
+                                @RequestParam(defaultValue = "asc") String sortDir) {
+
+        model.addAttribute("libraries", libraryService.searchLibraries(name, sortField, sortDir));
+
+        model.addAttribute("name", name);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
         return "library/index";
     }
 

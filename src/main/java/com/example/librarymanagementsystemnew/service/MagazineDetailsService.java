@@ -2,8 +2,12 @@ package com.example.librarymanagementsystemnew.service;
 
 import com.example.librarymanagementsystemnew.model.MagazineDetails;
 import com.example.librarymanagementsystemnew.repository.MagazineDetailsRepository;
+import jakarta.persistence.criteria.Predicate;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,5 +43,22 @@ public class MagazineDetailsService {
     public void delete(Long id) {
         repository.deleteById(id);
     }
-}
 
+    public List<MagazineDetails> searchMagazines(String title, String publisher, String sortField, String sortDir) {
+        Specification<MagazineDetails> spec = (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            if (title != null && !title.isEmpty()) {
+                predicates.add(cb.like(cb.lower(root.get("title")), "%" + title.toLowerCase() + "%"));
+            }
+            if (publisher != null && !publisher.isEmpty()) {
+                predicates.add(cb.like(cb.lower(root.get("publisher")), "%" + publisher.toLowerCase() + "%"));
+            }
+
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
+
+        Sort sort = sortDir.equalsIgnoreCase("desc") ? Sort.by(sortField).descending() : Sort.by(sortField).ascending();
+        return repository.findAll(spec, sort);
+    }
+}

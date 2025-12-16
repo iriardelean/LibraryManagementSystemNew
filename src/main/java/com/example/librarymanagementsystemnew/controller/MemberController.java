@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @Controller
 @RequestMapping("/member")
 public class MemberController {
@@ -22,15 +24,32 @@ public class MemberController {
     }
 
     @GetMapping
-    public String listMembers(Model model) {
-        model.addAttribute("members", memberService.getAllMembers());
+    public String listMembers(Model model,
+                              @RequestParam(required = false) String name,
+                              @RequestParam(required = false) String email,
+                              @RequestParam(required = false) LocalDate minDate,
+                              @RequestParam(required = false) LocalDate maxDate,
+                              @RequestParam(defaultValue = "id") String sortField,
+                              @RequestParam(defaultValue = "asc") String sortDir) {
+
+        model.addAttribute("members", memberService.searchMembers(name, email, minDate, maxDate, sortField, sortDir));
+
+        // Add attributes back to model to preserve form state
+        model.addAttribute("name", name);
+        model.addAttribute("email", email);
+        model.addAttribute("minDate", minDate);
+        model.addAttribute("maxDate", maxDate);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
         return "member/index";
     }
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("member", new Member());
-        model.addAttribute("libraries", libraryService.getAllLibraries()); // Populate Library Dropdown
+        model.addAttribute("libraries", libraryService.getAllLibraries());
         model.addAttribute("pageTitle", "Create New Member");
         return "member/form";
     }
@@ -40,7 +59,7 @@ public class MemberController {
         Member m = memberService.getMemberById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid member Id:" + id));
         model.addAttribute("member", m);
-        model.addAttribute("libraries", libraryService.getAllLibraries()); // Populate Library Dropdown
+        model.addAttribute("libraries", libraryService.getAllLibraries());
         model.addAttribute("pageTitle", "Edit Member");
         return "member/form";
     }
@@ -48,7 +67,6 @@ public class MemberController {
     @PostMapping
     public String saveMember(@Valid @ModelAttribute Member member, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            // Reload list on error
             model.addAttribute("libraries", libraryService.getAllLibraries());
             model.addAttribute("pageTitle", member.getId() == null ? "Create New Member" : "Edit Member");
             return "member/form";
