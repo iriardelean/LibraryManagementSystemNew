@@ -5,9 +5,14 @@ import com.example.librarymanagementsystemnew.model.ReadableItemStatus;
 import com.example.librarymanagementsystemnew.model.Reservation;
 import com.example.librarymanagementsystemnew.model.ReservationStatus;
 import com.example.librarymanagementsystemnew.repository.ReservationRepository;
+import jakarta.persistence.criteria.Predicate;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +32,8 @@ public class ReservationService {
         if (item == null) {
             throw new IllegalArgumentException("Reservation must have a valid item.");
         }
+        // Logic: Can only reserve if it is available (or strictly speaking, you might reserve borrowed items,
+        // but based on your previous logic, we enforce availability check here).
         if (item.getStatus() != ReadableItemStatus.AVAILABLE) {
             throw new IllegalStateException("Item " + item.getBarcode() + " is not available (Status: " + item.getStatus() + ")");
         }
@@ -60,11 +67,39 @@ public class ReservationService {
 
         ReadableItem item = reservation.getReadableItem();
 
+        // If reservation is deleted/cancelled, free up the item
         if (item != null && item.getStatus() == ReadableItemStatus.RESERVED) {
             item.setStatus(ReadableItemStatus.AVAILABLE);
         }
 
         repository.deleteById(id);
     }
-}
 
+    public List<Reservation> searchReservations(String memberName, String itemTitle, LocalDate minDate, LocalDate maxDate, ReservationStatus status, String sortField, String sortDir) {
+        Specification<Reservation> spec = (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            if (memberName != null && !memberName.isEmpty()) {
+                predicates.add(cb.like(cb.lower(root.get("member").get("name")), "%" + memberName.toLowerCase() + "%"));
+            }
+            if (itemTitle != null && !itemTitle.isEmpty()) {
+                // Join Reservation -> ReadableItem -> Publication -> Title
+                predicates.add(cb.like(cb.lower(root.get("readableItem").get("publication").get("title")), "%" + itemTitle.toLowerCase() + "%"));
+            }
+            if (minDate != null) {
+                predicates.add(cb.greaterThanOrEqualTo(root.get("date"), minDate));
+            }
+            if (maxDate != null) {
+                predicates.add(cb.lessThanOrEqualTo(root.get("date"), maxDate));
+            }
+            if (status != null) {
+                predicates.add(cb.equal(root.get("status"), status));
+            }
+
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
+
+        Sort sort = sortDir.equalsIgnoreCase("desc") ? Sort.by(sortField).descending() : Sort.by(sortField).ascending();
+        return repository.findAll(spec, sort);
+    }
+}

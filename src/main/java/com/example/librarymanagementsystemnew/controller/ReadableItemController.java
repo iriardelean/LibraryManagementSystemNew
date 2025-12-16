@@ -1,6 +1,7 @@
 package com.example.librarymanagementsystemnew.controller;
 
 import com.example.librarymanagementsystemnew.model.ReadableItem;
+import com.example.librarymanagementsystemnew.model.ReadableItemStatus;
 import com.example.librarymanagementsystemnew.repository.PublicationRepository;
 import com.example.librarymanagementsystemnew.service.ReadableItemService;
 import jakarta.validation.Valid;
@@ -22,15 +23,41 @@ public class ReadableItemController {
     }
 
     @GetMapping
-    public String listReadableItems(Model model) {
-        model.addAttribute("readableItems", readableItemService.getAllReadableItem());
+    public String listReadableItems(Model model,
+                                    @RequestParam(required = false) String barcode,
+                                    @RequestParam(required = false) String status, // Changed to String to handle "" (empty) safely
+                                    @RequestParam(required = false) String publicationTitle,
+                                    @RequestParam(defaultValue = "id") String sortField,
+                                    @RequestParam(defaultValue = "asc") String sortDir) {
+
+        // Convert String status to Enum safely
+        ReadableItemStatus statusEnum = null;
+        if (status != null && !status.isEmpty()) {
+            try {
+                statusEnum = ReadableItemStatus.valueOf(status);
+            } catch (IllegalArgumentException e) {
+                // Ignore invalid status values, treat as null (All)
+            }
+        }
+
+        // Pass the Enum to the service
+        model.addAttribute("readableItems", readableItemService.searchReadableItems(barcode, statusEnum, publicationTitle, sortField, sortDir));
+
+        // Pass values back to the view
+        model.addAttribute("barcode", barcode);
+        model.addAttribute("status", statusEnum); // Pass the Enum back so the dropdown selects correctly
+        model.addAttribute("publicationTitle", publicationTitle);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
         return "readableItem/index";
     }
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("readableItem", new ReadableItem());
-        model.addAttribute("publications", publicationRepository.findAll()); // Populate Publication Dropdown
+        model.addAttribute("publications", publicationRepository.findAll());
         model.addAttribute("pageTitle", "Create New Readable Item");
         return "readableItem/form";
     }
@@ -40,7 +67,7 @@ public class ReadableItemController {
         ReadableItem item = readableItemService.getReadableItemById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Id:" + id));
         model.addAttribute("readableItem", item);
-        model.addAttribute("publications", publicationRepository.findAll()); // Populate Publication Dropdown
+        model.addAttribute("publications", publicationRepository.findAll());
         model.addAttribute("pageTitle", "Edit Readable Item");
         return "readableItem/form";
     }

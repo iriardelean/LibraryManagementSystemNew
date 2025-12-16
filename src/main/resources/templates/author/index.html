@@ -6,120 +6,32 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        html {
-            box-sizing: border-box;
-        }
+        html { box-sizing: border-box; }
+        *, *:before, *:after { box-sizing: inherit; }
+        body { font-family: 'Inter', sans-serif; margin: 0; padding: 40px; background-color: #f4f5f7; color: #333; line-height: 1.5; }
+        .container { max-width: 1100px; margin: 0 auto; background: #ffffff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); padding: 30px; }
+        header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 20px; margin-bottom: 20px; border-bottom: 1px solid #e2e8f0; }
+        h1 { margin: 0; color: #1a202c; font-weight: 600; }
+        .button { background: #8855df; color: #ffffff; padding: 10px 16px; text-decoration: none; border-radius: 6px; font-weight: 500; border: none; cursor: pointer; }
+        .button:hover { background: #783fdd; transform: translateY(-2px); }
+        .add-new-btn { margin-bottom: 20px; display: inline-block; }
+        button.delete { background: #ee522f; color: #fff; padding: 8px 12px; border-radius: 6px; border: none; cursor: pointer; font-weight: 500; }
+        button.delete:hover { background: #c53030; }
+        .action-link { color: #3182ce; text-decoration: none; font-weight: 500; margin-right: 10px; }
+        .action-link:hover { text-decoration: underline; }
+        table { width: 100%; margin: 0 auto; border-collapse: collapse; }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        th { background: #f7fafc; color: #4a5568; font-weight: 600; font-size: 0.85em; text-transform: uppercase; }
+        tbody tr:hover { background: #f7fafc; }
 
-        *,
-        *:before,
-        *:after {
-            box-sizing: inherit;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 40px;
-            background-color: #f4f5f7;
-            color: #333;
-            line-height: 1.5;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            padding: 30px;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 20px;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        h1 {
-            margin: 0;
-            color: #1a202c;
-            font-weight: 600;
-        }
-
-        .button {
-            background: #8855df;
-            color: #ffffff;
-            padding: 10px 16px;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: 500;
-            border: none;
-            cursor: pointer;
-        }
-
-        .button:hover {
-            background: #783fdd;
-            transform: translateY(-2px);
-        }
-
-        .add-new-btn {
-            margin-bottom: 20px;
-            display: inline-block;
-        }
-
-        button.delete {
-            background: #ee522f;
-            color: #fff;
-            padding: 8px 12px;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-            font-weight: 500;
-        }
-
-        button.delete:hover {
-            background: #c53030;
-        }
-
-        .action-link {
-            color: #3182ce;
-            text-decoration: none;
-            font-weight: 500;
-            margin-right: 10px;
-        }
-
-        .action-link:hover {
-            text-decoration: underline;
-        }
-
-        table {
-            width: auto;
-            min-width: 60%;
-            margin: 0 auto;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        th {
-            background: #f7fafc;
-            color: #4a5568;
-            font-weight: 600;
-            font-size: 0.85em;
-            text-transform: uppercase;
-        }
-
-        tbody tr:hover {
-            background: #f7fafc;
-        }
+        /* Filter Styles */
+        .filter-form { background: #edf2f7; padding: 15px; border-radius: 6px; margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; }
+        .filter-group { display: flex; flex-direction: column; }
+        .filter-group label { font-size: 0.85em; font-weight: 600; color: #4a5568; margin-bottom: 4px; }
+        .filter-group input { padding: 8px; border: 1px solid #cbd5e0; border-radius: 4px; }
+        .sort-link { color: #4a5568; text-decoration: none; display: flex; align-items: center; }
+        .sort-link:hover { color: #3182ce; }
+        .sort-arrow { margin-left: 5px; font-size: 0.8em; }
     </style>
 </head>
 <body>
@@ -128,12 +40,56 @@
         <h1>Author List</h1>
         <a class="button" th:href="@{/}">Home</a>
     </header>
+
+    <form class="filter-form" th:action="@{/author}" method="get">
+        <input type="hidden" name="sortField" th:value="${sortField}">
+        <input type="hidden" name="sortDir" th:value="${sortDir}">
+
+        <div class="filter-group">
+            <label>Name</label>
+            <input type="text" name="name" th:value="${name}" placeholder="Search name...">
+        </div>
+        <div class="filter-group">
+            <label>Genre</label>
+            <input type="text" name="genre" th:value="${genre}" placeholder="Search genre...">
+        </div>
+        <div class="filter-group">
+            <label>Period</label>
+            <input type="text" name="period" th:value="${period}" placeholder="Search period...">
+        </div>
+        <div class="filter-group">
+            <button type="submit" class="button">Filter</button>
+        </div>
+        <div class="filter-group">
+            <a th:href="@{/author}" style="padding: 8px; color: #718096; text-decoration: none; font-size: 0.9em;">Reset</a>
+        </div>
+    </form>
+
     <a class="button add-new-btn" th:href="@{/author/new}">Add New Author</a>
+
     <table>
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Name</th>
+            <th>
+                <a class="sort-link" th:href="@{/author(sortField='id', sortDir=${reverseSortDir}, name=${name}, genre=${genre}, period=${period})}">
+                    ID <span class="sort-arrow" th:if="${sortField == 'id'}" th:text="${sortDir == 'asc' ? '▲' : '▼'}"></span>
+                </a>
+            </th>
+            <th>
+                <a class="sort-link" th:href="@{/author(sortField='name', sortDir=${reverseSortDir}, name=${name}, genre=${genre}, period=${period})}">
+                    Name <span class="sort-arrow" th:if="${sortField == 'name'}" th:text="${sortDir == 'asc' ? '▲' : '▼'}"></span>
+                </a>
+            </th>
+            <th>
+                <a class="sort-link" th:href="@{/author(sortField='genre', sortDir=${reverseSortDir}, name=${name}, genre=${genre}, period=${period})}">
+                    Genre <span class="sort-arrow" th:if="${sortField == 'genre'}" th:text="${sortDir == 'asc' ? '▲' : '▼'}"></span>
+                </a>
+            </th>
+            <th>
+                <a class="sort-link" th:href="@{/author(sortField='period', sortDir=${reverseSortDir}, name=${name}, genre=${genre}, period=${period})}">
+                    Period <span class="sort-arrow" th:if="${sortField == 'period'}" th:text="${sortDir == 'asc' ? '▲' : '▼'}"></span>
+                </a>
+            </th>
             <th>Action</th>
         </tr>
         </thead>
@@ -141,6 +97,8 @@
         <tr th:each="author : ${authors}">
             <td th:text="${author.id}"></td>
             <td th:text="${author.name}"></td>
+            <td th:text="${author.genre}"></td>
+            <td th:text="${author.period}"></td>
             <td>
                 <a class="action-link" th:href="@{/author/{id}/details(id=${author.id})}">Details</a>
                 <a class="action-link" th:href="@{/author/{id}/edit(id=${author.id})}">Edit</a>

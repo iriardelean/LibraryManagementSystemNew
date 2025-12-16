@@ -2,8 +2,12 @@ package com.example.librarymanagementsystemnew.service;
 
 import com.example.librarymanagementsystemnew.model.Library;
 import com.example.librarymanagementsystemnew.repository.LibraryRepository;
+import jakarta.persistence.criteria.Predicate;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,5 +41,19 @@ public class LibraryService {
     public void deleteLibrary(Long id) {
         repository.deleteById(id);
     }
-}
 
+    public List<Library> searchLibraries(String name, String sortField, String sortDir) {
+        Specification<Library> spec = (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            if (name != null && !name.isEmpty()) {
+                predicates.add(cb.like(cb.lower(root.get("name")), "%" + name.toLowerCase() + "%"));
+            }
+
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
+
+        Sort sort = sortDir.equalsIgnoreCase("desc") ? Sort.by(sortField).descending() : Sort.by(sortField).ascending();
+        return repository.findAll(spec, sort);
+    }
+}

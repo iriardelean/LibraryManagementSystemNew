@@ -19,8 +19,20 @@ public class MagazineDetailsController {
     }
 
     @GetMapping
-    public String listMagazineDetails(Model model) {
-        model.addAttribute("magazineDetailsList", magazineDetailsService.getAllMagazines());
+    public String listMagazineDetails(Model model,
+                                      @RequestParam(required = false) String title,
+                                      @RequestParam(required = false) String publisher,
+                                      @RequestParam(defaultValue = "id") String sortField,
+                                      @RequestParam(defaultValue = "asc") String sortDir) {
+
+        model.addAttribute("magazineDetailsList", magazineDetailsService.searchMagazines(title, publisher, sortField, sortDir));
+
+        model.addAttribute("title", title);
+        model.addAttribute("publisher", publisher);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
         return "magazinedetails/index";
     }
 
@@ -66,7 +78,6 @@ public class MagazineDetailsController {
         MagazineDetails magazineDetails = magazineDetailsService.getMagazineById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid magazine Id:" + id));
         model.addAttribute("magazineDetails", magazineDetails);
-        // FIXED: Changed "magazineDetails/details" to "magazinedetails/details" to match the folder/other methods
         return "magazinedetails/details";
     }
 }
